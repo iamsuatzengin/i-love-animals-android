@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">I Love Animals</string>
+    <string name="app_name">Hayvanları Seviyorum</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Şifre</string>
+    <string name="title_login">Hesabına giriş yap</string>
+    <string name="content_description_jumpingchild">Zıplayan çocuk ve köpek resmi.</string>
+    <string name="text_forgot_password">Şifremi unuttum!</string>
+    <string name="button_text_login">Giriş yap</string>
+    <string name="text_or">veya</string>
+    <string name="button_text_sign_up">Kayıt Ol</string>
 </resources>
