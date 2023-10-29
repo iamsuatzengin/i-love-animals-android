@@ -81,7 +81,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:maxWidth="488dp" />
 
     </com.google.android.material.textfield.TextInputLayout>

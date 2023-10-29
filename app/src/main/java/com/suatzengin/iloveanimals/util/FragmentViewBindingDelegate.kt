@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals.ui.auth.util
+package com.suatzengin.iloveanimals.util
 
 import android.view.View
 import androidx.fragment.app.Fragment

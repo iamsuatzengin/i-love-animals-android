@@ -1,11 +1,11 @@
-package com.suatzengin.iloveanimals.ui.auth.login
+package com.suatzengin.iloveanimals.ui.auth.register
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.databinding.FragmentRegisterBinding
-import com.suatzengin.iloveanimals.ui.auth.util.viewBinding
+import com.suatzengin.iloveanimals.util.viewBinding
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
     private val binding by viewBinding(FragmentRegisterBinding::bind)
