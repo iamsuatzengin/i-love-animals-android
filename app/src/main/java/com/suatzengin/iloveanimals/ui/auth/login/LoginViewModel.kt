@@ -3,6 +3,7 @@ package com.suatzengin.iloveanimals.ui.auth.login
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.suatzengin.iloveanimals.data.network.NetworkResult
 import com.suatzengin.iloveanimals.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -24,24 +25,23 @@ class LoginViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<LoginUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    fun login(email: String, password: String) {
+    fun login() {
         viewModelScope.launch {
-            Log.w("AUTH", "$email - $password")
-
-            if(_uiState.value.isValid.not()) {
-                _uiEvent.emit(LoginUiEvent.Error(message = "Geçersiz email-şifre"))
+            if(_uiState.value.isEmailValid.not()) {
+                _uiEvent.emit(LoginUiEvent.Error(message = "Geçersiz email"))
                 return@launch
             }
 
-            val response = repository.login(email = email, password = password)
-
-            when {
-                (response.status && response.token.isNullOrEmpty().not()) -> {
+            when (val response = repository.login(email = uiState.value.email, password = uiState.value.password)) {
+                is NetworkResult.Success -> {
                     _uiEvent.emit(LoginUiEvent.NavigateToHome)
-                    Log.w("AUTH", "token: ${response.token}")
+                    Log.w("AUTH", "token: ${response.data.token}")
+                }
+                is NetworkResult.Error -> {
+                    _uiEvent.emit(LoginUiEvent.Error(message = response.error.message))
                 }
 
-                else -> {
+                is NetworkResult.Exception -> {
                     _uiEvent.emit(LoginUiEvent.Error(message = response.message))
                 }
             }
@@ -72,7 +72,6 @@ data class LoginUiState(
     val email: String = "",
     val password: String = "",
 ) {
-    val isValid: Boolean = email.isNotBlank()
-            && email.contains("@")
-            && password.isNotBlank()
+    val isEmailValid: Boolean = email.isNotBlank() && email.contains("@")
+
 }

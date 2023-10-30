@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_wave" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_email"
+        android:id="@+id/til_email"
         style="@style/App.EditText.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +59,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title_login">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -67,7 +68,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_password"
+        android:id="@+id/til_password"
         style="@style/App.EditText.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,15 +77,16 @@
         android:hint="@string/hint_password"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/color_1"
-        app:layout_constraintTop_toBottomOf="@id/et_email">
+        app:layout_constraintTop_toBottomOf="@id/til_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
+            android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:maxWidth="488dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <TextView
         android:id="@+id/tv_forgot_password"
@@ -95,7 +97,7 @@
         android:text="@string/text_forgot_password"
         android:textColor="@color/color_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_password" />
+        app:layout_constraintTop_toBottomOf="@id/til_password" />
 
     <Button
         android:id="@+id/button_login"

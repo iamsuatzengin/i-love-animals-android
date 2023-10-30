@@ -53,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@id/view_wave" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_fullName"
+            android:id="@+id/til_fullName"
             style="@style/App.EditText.Outlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -65,13 +65,14 @@
             app:layout_constraintTop_toBottomOf="@id/tv_label_register">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_phone_number"
+            android:id="@+id/til_phone_number"
             style="@style/App.EditText.Outlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -80,16 +81,17 @@
             android:hint="@string/hint_phone_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_fullName">
+            app:layout_constraintTop_toBottomOf="@id/til_fullName">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone|number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_email"
+            android:id="@+id/til_email"
             style="@style/App.EditText.Outlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -98,16 +100,17 @@
             android:hint="@string/hint_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_phone_number">
+            app:layout_constraintTop_toBottomOf="@id/til_phone_number">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone|number" />
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_password"
+            android:id="@+id/til_password"
             style="@style/App.EditText.Outlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -118,9 +121,10 @@
             app:endIconTint="@color/color_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_email">
+            app:layout_constraintTop_toBottomOf="@id/til_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -128,7 +132,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_confirm_password"
+            android:id="@+id/til_confirm_password"
             style="@style/App.EditText.Outlined"
 
             android:layout_width="0dp"
@@ -140,9 +144,10 @@
             app:endIconTint="@color/color_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_password">
+            app:layout_constraintTop_toBottomOf="@id/til_password">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -159,7 +164,7 @@
             android:text="@string/button_text_sign_up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_confirm_password" />
+            app:layout_constraintTop_toBottomOf="@id/til_confirm_password" />
 
         <TextView
             android:id="@+id/tv_already_have_an_account"

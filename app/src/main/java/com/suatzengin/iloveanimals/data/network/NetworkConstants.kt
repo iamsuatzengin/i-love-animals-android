@@ -5,4 +5,5 @@ object NetworkConstants {
 
     // Authentication Endpoints
     const val LOGIN = "/login"
+    const val REGISTER = "/register"
 }
