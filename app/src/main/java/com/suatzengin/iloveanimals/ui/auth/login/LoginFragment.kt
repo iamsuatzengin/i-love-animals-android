@@ -49,23 +49,19 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-
                 viewModel.uiEvent.collectLatest { event ->
                     when (event) {
                         is LoginUiEvent.Error -> {
                             Toast.makeText(requireContext(), event.message, Toast.LENGTH_LONG)
                                 .show()
-                            println("error message: ${event.message}")
                         }
 
                         LoginUiEvent.NavigateToHome -> {
-                            println("Başarılı !! $event")
+                            findNavController().navigate(R.id.to_advertisementGraph)
                         }
                     }
                 }
-
             }
-
         }
     }
 }

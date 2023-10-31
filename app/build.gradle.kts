@@ -60,7 +60,10 @@ dependencies {
 
     // Ktor
     implementation(libs.bundles.ktor)
-    
+
+    // Jetpack DataStore
+    implementation(libs.dataStore)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

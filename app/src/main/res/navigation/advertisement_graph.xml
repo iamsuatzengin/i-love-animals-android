@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/advertisement_graph"
+    app:startDestination="@id/advertisementListFragment">
+
+    <fragment
+        android:id="@+id/advertisementListFragment"
+        android:name="com.suatzengin.iloveanimals.ui.advertisement.AdvertisementListFragment"
+        android:label="fragment_advertisement_list"
+        tools:layout="@layout/fragment_advertisement_list" />
+</navigation>

@@ -1,8 +1,10 @@
 package com.suatzengin.iloveanimals.ui.auth.login
 
 import android.util.Log
+import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
 import com.suatzengin.iloveanimals.data.network.NetworkResult
 import com.suatzengin.iloveanimals.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val authHandler: IlaAuthHandler
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -27,16 +30,19 @@ class LoginViewModel @Inject constructor(
 
     fun login() {
         viewModelScope.launch {
-            if(_uiState.value.isEmailValid.not()) {
+            if (uiState.value.isEmailValid.not()) {
                 _uiEvent.emit(LoginUiEvent.Error(message = "Geçersiz email"))
                 return@launch
             }
 
-            when (val response = repository.login(email = uiState.value.email, password = uiState.value.password)) {
+            when (val response =
+                repository.login(email = uiState.value.email, password = uiState.value.password)) {
                 is NetworkResult.Success -> {
+                    authHandler.saveJWT(token = response.data.token.orEmpty())
                     _uiEvent.emit(LoginUiEvent.NavigateToHome)
                     Log.w("AUTH", "token: ${response.data.token}")
                 }
+
                 is NetworkResult.Error -> {
                     _uiEvent.emit(LoginUiEvent.Error(message = response.error.message))
                 }
@@ -72,6 +78,7 @@ data class LoginUiState(
     val email: String = "",
     val password: String = "",
 ) {
-    val isEmailValid: Boolean = email.isNotBlank() && email.contains("@")
+    val isEmailValid: Boolean =
+        email.isNotBlank() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
 }
