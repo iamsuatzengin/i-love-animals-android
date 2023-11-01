@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             if (uiState.value.isEmailValid.not()) {
-                _uiEvent.emit(LoginUiEvent.Error(message = "Geçersiz email"))
+                _uiEvent.emit(LoginUiEvent.Error(message = "Geçersiz email girişi!"))
                 return@launch
             }
 

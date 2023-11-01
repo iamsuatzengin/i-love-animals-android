@@ -2,7 +2,6 @@ package com.suatzengin.iloveanimals.ui.auth.login
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,8 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.suatzengin.iloveanimals.R
+import com.suatzengin.iloveanimals.core.ui.snackbar.SnackbomType
+import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentLoginBinding
-import com.suatzengin.iloveanimals.util.viewbinding.viewBinding
+import com.suatzengin.iloveanimals.util.extension.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -46,14 +47,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
+
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
                 viewModel.uiEvent.collectLatest { event ->
                     when (event) {
                         is LoginUiEvent.Error -> {
-                            Toast.makeText(requireContext(), event.message, Toast.LENGTH_LONG)
-                                .show()
+                            showSnackbar(type = SnackbomType.ERROR, text = event.message)
                         }
 
                         LoginUiEvent.NavigateToHome -> {

@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals.util.viewbinding
+package com.suatzengin.iloveanimals.core.viewbinding
 
 import android.view.View
 import androidx.fragment.app.Fragment
