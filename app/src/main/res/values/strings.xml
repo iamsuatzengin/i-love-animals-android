@@ -14,5 +14,8 @@
     <string name="hint_fullName">Ad - Soyad</string>
     <string name="text_register_now">Hemen kayıt ol</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_advertisement">Advertisement</string>
+    <string name="text_charity_score">Charity Score</string>
+    <string name="text_profile">Profile</string>
 
 </resources>
