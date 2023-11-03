@@ -28,6 +28,12 @@ class IlaAuthHandler @Inject constructor(
         }
     }
 
+    fun logout() = runBlocking {
+        context.dataStore.edit {
+            it.remove(jwtKey)
+        }
+    }
+
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
             name = "auth_handler"
