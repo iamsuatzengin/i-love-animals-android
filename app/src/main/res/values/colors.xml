@@ -7,4 +7,8 @@
     <color name="color_1">#3d3f4c</color>
     <color name="color_light_gray">#F6F6F6</color>
     <color name="color_title_text">#20233c</color>
+
+    <color name="color_success">#83BF49</color>
+    <color name="color_error">#F5475A</color>
+    <color name="color_info">#292330</color>
 </resources>

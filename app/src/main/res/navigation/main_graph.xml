@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.suatzengin.iloveanimals.ui.auth.login.LoginFragment"
+        android:label="Login Screen"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.suatzengin.iloveanimals.ui.auth.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+
+    <include app:graph="@navigation/advertisement_graph" />
+
+    <action
+        android:id="@+id/to_advertisementGraph"
+        app:destination="@+id/advertisement_graph"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+</navigation>

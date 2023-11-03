@@ -9,14 +9,14 @@
     <View
         android:id="@+id/view_wave"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="224dp"
         android:background="@drawable/wave"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="200dp"
-        android:layout_height="250dp"
+        android:layout_height="224dp"
         android:layout_marginStart="@dimen/margin_16dp"
         android:contentDescription="@string/content_description_jumpingchild"
         android:src="@drawable/boy_and_dog"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.263" />
 
     <TextView
-        android:id="@+id/tv_label_email"
+        android:id="@+id/tv_title_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16dp"
@@ -49,16 +49,17 @@
         app:layout_constraintTop_toBottomOf="@id/view_wave" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_email"
+        android:id="@+id/til_email"
         style="@style/App.EditText.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_16dp"
         android:hint="@string/hint_email"
-        app:layout_constraintTop_toBottomOf="@id/tv_label_email">
+        app:layout_constraintTop_toBottomOf="@id/tv_title_login">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -67,7 +68,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_password"
+        android:id="@+id/til_password"
         style="@style/App.EditText.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,16 +77,16 @@
         android:hint="@string/hint_password"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/color_1"
-        app:layout_constraintTop_toBottomOf="@id/et_email">
+        app:layout_constraintTop_toBottomOf="@id/til_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:layout_height="wrap_content"
             android:maxWidth="488dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <TextView
         android:id="@+id/tv_forgot_password"
@@ -96,7 +97,7 @@
         android:text="@string/text_forgot_password"
         android:textColor="@color/color_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_password" />
+        app:layout_constraintTop_toBottomOf="@id/til_password" />
 
     <Button
         android:id="@+id/button_login"
@@ -111,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
 
     <TextView
-        android:id="@+id/tv_or"
+        android:id="@+id/tv_already_have_an_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16dp"
@@ -130,5 +131,5 @@
         android:text="@string/button_text_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_or" />
+        app:layout_constraintTop_toBottomOf="@id/tv_already_have_an_account" />
 </androidx.constraintlayout.widget.ConstraintLayout>
