@@ -19,5 +19,10 @@
     <string name="text_profile">Profile</string>
     <string name="text_map">Map</string>
     <string name="content_description_back_button">Geri Dönmek</string>
+    <string name="text_search_ad">İlan Ara</string>
+    <string name="text_category">Kategori</string>
+    <string name="content_description_end_icon">Sağ Buton</string>
+    <string name="content_description_start_icon">Sol Buton</string>
+    <string name="content_description_notification">Bildirimler</string>
 
 </resources>

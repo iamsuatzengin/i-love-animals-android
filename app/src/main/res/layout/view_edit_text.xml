@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@null"
+            android:background="@drawable/bg_edit_text"
+            android:inputType="text"
+            android:labelFor="@id/edit_text"
+            android:paddingVertical="@dimen/padding_12dp"
+            android:paddingStart="36dp"
+            android:paddingEnd="@dimen/padding_24dp"
+            tools:hint="İlan" />
+
+        <ImageView
+            android:id="@+id/iv_start_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/content_description_start_icon"
+            android:paddingStart="@dimen/margin_8dp"
+            android:paddingEnd="@dimen/margin_4dp"
+            android:src="@drawable/ic_search" />
+
+        <ImageView
+            android:id="@+id/iv_end_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:contentDescription="@string/content_description_end_icon"
+            android:src="@drawable/ic_filter" />
+
+    </FrameLayout>
+</merge>

@@ -8,4 +8,13 @@
         <attr name="actionLeftIcon" format="reference" />
         <attr name="actionRightIcon" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="IlaEditText">
+        <attr name="lines" format="integer"/>
+        <attr name="maxLines" format="integer"/>
+        <attr name="minLines" format="integer"/>
+        <attr name="hint" format="string" />
+        <attr name="startIcon" format="reference" />
+        <attr name="endIcon" format="reference" />
+    </declare-styleable>
 </resources>
