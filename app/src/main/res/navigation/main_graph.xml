@@ -21,6 +21,9 @@
         tools:layout="@layout/fragment_register" />
 
     <include app:graph="@navigation/advertisement_graph" />
+    <include app:graph="@navigation/charity_score_graph" />
+    <include app:graph="@navigation/profile_graph" />
+    <include app:graph="@navigation/map_graph" />
 
     <action
         android:id="@+id/to_advertisementGraph"

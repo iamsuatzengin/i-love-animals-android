@@ -11,4 +11,6 @@
     <color name="color_success">#83BF49</color>
     <color name="color_error">#F5475A</color>
     <color name="color_info">#292330</color>
+
+    <color name="color_search_focused">#EAEAEA</color>
 </resources>

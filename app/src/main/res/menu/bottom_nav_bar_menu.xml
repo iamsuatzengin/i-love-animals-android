@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/advertisement_graph"
+        android:icon="@drawable/ic_paw"
+        android:title="@string/text_advertisement" />
+
+    <item
+        android:id="@+id/charity_score_graph"
+        android:icon="@drawable/ic_award_trophy"
+        android:title="@string/text_charity_score" />
+
+    <item
+        android:id="@+id/map_graph"
+        android:icon="@drawable/ic_location"
+        android:title="@string/text_map" />
+
+    <item
+        android:id="@+id/profile_graph"
+        android:icon="@drawable/ic_profile_circle_fill"
+        android:title="@string/text_profile" />
+</menu>
