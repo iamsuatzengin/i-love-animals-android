@@ -7,5 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.nav.safe.args) apply false
     alias(libs.plugins.hilt.android) apply false
+    alias(libs.plugins.google.services) apply false
 }
 true // Needed to make the Suppress annotation work for the plugins block
