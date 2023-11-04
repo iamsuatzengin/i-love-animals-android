@@ -17,5 +17,7 @@
     <string name="text_advertisement">Advertisement</string>
     <string name="text_charity_score">Charity Score</string>
     <string name="text_profile">Profile</string>
+    <string name="text_map">Map</string>
+    <string name="content_description_back_button">Geri Dönmek</string>
 
 </resources>

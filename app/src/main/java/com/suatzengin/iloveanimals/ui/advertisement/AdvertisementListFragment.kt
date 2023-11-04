@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.suatzengin.iloveanimals.R
-import com.suatzengin.iloveanimals.databinding.FragmentAdvertisementListBinding
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
+import com.suatzengin.iloveanimals.databinding.FragmentAdvertisementListBinding
 
 class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list) {
     private val binding by viewBinding(FragmentAdvertisementListBinding::bind)
