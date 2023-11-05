@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.suatzengin.iloveanimals.util.extension.EMPTY_STRING
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -25,6 +26,14 @@ class IlaAuthHandler @Inject constructor(
     suspend fun saveJWT(token: String) {
         context.dataStore.edit { auth ->
             auth[jwtKey] = token
+        }
+    }
+
+    val accessToken: String? = runBlocking {
+        runCatching {
+            context.dataStore.data.first()[jwtKey]
+        }.getOrElse {
+            EMPTY_STRING
         }
     }
 

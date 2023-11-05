@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals
+package com.suatzengin.iloveanimals.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
 import com.suatzengin.iloveanimals.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint

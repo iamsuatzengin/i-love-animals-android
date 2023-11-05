@@ -24,5 +24,6 @@
     <string name="content_description_end_icon">Sağ Buton</string>
     <string name="content_description_start_icon">Sol Buton</string>
     <string name="content_description_notification">Bildirimler</string>
+    <string name="text_address">Adres</string>
 
 </resources>

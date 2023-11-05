@@ -6,4 +6,8 @@ object NetworkConstants {
     // Authentication Endpoints
     const val LOGIN = "/login"
     const val REGISTER = "/register"
+
+    // Advertisement
+    const val ADVERTISEMENT_LIST = "/advertisement-list"
+    const val ADVERTISEMENT_DETAIL = "/advertisement/{id}"
 }
