@@ -6,9 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.FrameLayout
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.databinding.ViewEditTextBinding
+import com.suatzengin.iloveanimals.util.extension.EMPTY_STRING
 import com.suatzengin.iloveanimals.util.extension.hideKeyboard
 
 class IlaEditText constructor(
@@ -24,6 +27,12 @@ class IlaEditText constructor(
     init {
         initView(context)
     }
+
+    var text: String = EMPTY_STRING
+        set(value) {
+            field = value
+            binding.editText.setText(value)
+        }
 
     var lines: Int = 1
         set(value) {
@@ -49,9 +58,15 @@ class IlaEditText constructor(
             binding.editText.hint = value
         }
 
+    var editText: EditText? = null
+        set(value) {
+            field = value
+        }
+
     private fun initView(context: Context) {
         val attrs = context.obtainStyledAttributes(attrs, R.styleable.IlaEditText)
 
+        editText = binding.editText
         lines = attrs.getInt(R.styleable.IlaEditText_lines, 1)
         maxLines = attrs.getInt(R.styleable.IlaEditText_maxLines, 1)
         minLines = attrs.getInt(R.styleable.IlaEditText_minLines, 1)
@@ -75,6 +90,16 @@ class IlaEditText constructor(
 
     fun setOnEndIconClick(onClick: () -> Unit) {
         binding.ivEndIcon.setOnClickListener { onClick() }
+    }
+
+    fun setOnActionDoneListener(action: () -> Unit) {
+        binding.editText.setOnEditorActionListener { v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_SEARCH) {
+                action()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {

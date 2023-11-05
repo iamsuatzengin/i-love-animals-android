@@ -9,5 +9,14 @@
         android:id="@+id/advertisementListFragment"
         android:name="com.suatzengin.iloveanimals.ui.advertisement.AdvertisementListFragment"
         android:label="fragment_advertisement_list"
-        tools:layout="@layout/fragment_advertisement_list" />
+        tools:layout="@layout/fragment_advertisement_list" >
+        <action
+            android:id="@+id/to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.suatzengin.iloveanimals.ui.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

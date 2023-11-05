@@ -7,7 +7,9 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.isSuccess
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AdvertisementService @Inject constructor(
@@ -32,4 +34,4 @@ inline fun<reified T> apiCall(
     }.onFailure {
         emit(NetworkResult.Exception(message = it.localizedMessage ?: ""))
     }
-}
+}.flowOn(Dispatchers.IO)

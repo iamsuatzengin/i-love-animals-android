@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_8dp"
-    android:elevation="4dp"
     android:background="@drawable/bg_item_advertisement"
+    android:elevation="2dp"
     android:padding="@dimen/padding_16dp">
 
     <TextView
@@ -23,9 +22,9 @@
         android:id="@+id/tv_ad_created_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="01/11/2023"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="01/11/2023" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_ad_description"
@@ -76,8 +75,8 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="@dimen/margin_8dp"
-        android:scaleType="centerCrop"
         android:layout_marginTop="@dimen/margin_16dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toEndOf="@id/iv_ad_image_1"
         app:layout_constraintTop_toBottomOf="@id/tv_ad_address"
         app:shapeAppearanceOverlay="@style/App.RoundedImageView"

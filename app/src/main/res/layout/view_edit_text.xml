@@ -15,6 +15,7 @@
             android:background="@drawable/bg_edit_text"
             android:inputType="text"
             android:labelFor="@id/edit_text"
+            android:imeOptions="actionDone"
             android:paddingVertical="@dimen/padding_12dp"
             android:paddingStart="36dp"
             android:paddingEnd="@dimen/padding_24dp"
