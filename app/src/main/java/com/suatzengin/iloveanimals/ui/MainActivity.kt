@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
 import com.suatzengin.iloveanimals.databinding.ActivityMainBinding
+import com.suatzengin.iloveanimals.util.extension.topLevelNavigateListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         initView()
     }
 
+    /**
+     * topLevelNavigateListener is custom BottomNavigationView extension
+     * @see[topLevelNavigateListener]
+     */
     private fun initView() = with(binding) {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
