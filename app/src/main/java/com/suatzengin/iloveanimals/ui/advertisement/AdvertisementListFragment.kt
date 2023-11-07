@@ -15,36 +15,42 @@ import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.ui.MarginItemDecoration
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentAdvertisementListBinding
+import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.ui.advertisement.adapter.AdvertisementAdapter
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.AdvertisementAdapterListener
+import com.suatzengin.iloveanimals.ui.advertisement.callback.AdvertisementCallback
+import com.suatzengin.iloveanimals.ui.advertisement.callback.CategoryCallback
+import com.suatzengin.iloveanimals.ui.advertisement.callback.TopViewCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AdvertisementListFragment :
-    Fragment(R.layout.fragment_advertisement_list), AdvertisementAdapterListener {
+class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list) {
     private val binding by viewBinding(FragmentAdvertisementListBinding::bind)
     private val viewModel by viewModels<AdvertisementViewModel>()
 
-    private val adapter by lazy { AdvertisementAdapter(this) }
+    private var adapter: AdvertisementAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
         collectData()
-
     }
 
     private fun setupRecyclerView() {
         val recyclerView = binding.rvAdvertisement
         val layoutManager = LinearLayoutManager(requireContext())
 
+        adapter = AdvertisementAdapter(
+            topViewCallback = topViewCallback,
+            advertisementCallback = advertisementCallback,
+            categoryCallback = categoryCallback
+        )
+
         recyclerView.layoutManager = layoutManager
         recyclerView.itemAnimator = null
         recyclerView.addItemDecoration(MarginItemDecoration())
         recyclerView.adapter = adapter
-
     }
 
     private fun collectData() {
@@ -55,23 +61,41 @@ class AdvertisementListFragment :
                         Log.i("network - fragment", "Liste boş")
                     }
 
-                    adapter.submitList(list)
+                    adapter?.submitList(list)
                     Log.i("network - fragment", "Liste geldi: $list")
                 }
             }
         }
     }
 
-    override fun setOnActionDone(text: String) {
-        Toast.makeText(context, "text: $text", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.to_searchFragment)
+    private val topViewCallback = object : TopViewCallback {
+        override fun onActionDoneClick(text: String) {
+            Toast.makeText(context, "text: $text", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.to_searchFragment)
+        }
+
+        override fun onFilterButtonClick() {
+            Toast.makeText(requireContext(), "Filter button tıklandı", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onNotificationButtonClick() {
+            Toast.makeText(requireContext(), "Bildirim button tıklandı", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    override fun onFilterButtonClick() {
-        Toast.makeText(requireContext(), "Filter button tıklandı", Toast.LENGTH_SHORT).show()
+    private val advertisementCallback = object : AdvertisementCallback {
+        override fun onAdvertisementClick(id: String) {
+            Toast.makeText(context, "ID: $id", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    override fun onNotificationButtonClick() {
-        Toast.makeText(requireContext(), "Bildirim button tıklandı", Toast.LENGTH_SHORT).show()
+    private val categoryCallback = object : CategoryCallback {
+        override fun onCategoryClick(category: AdvertisementCategory) {
+            Toast.makeText(
+                context,
+                "category: $category - ${AdvertisementCategory.getWithTitle(category)}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

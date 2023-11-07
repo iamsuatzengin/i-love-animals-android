@@ -2,34 +2,25 @@ package com.suatzengin.iloveanimals.ui.advertisement.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.suatzengin.iloveanimals.databinding.ItemTopBinding
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.TopRecyclerItem
+import com.suatzengin.iloveanimals.ui.advertisement.callback.TopViewCallback
 
 class TopViewHolder(
-    private val binding: ItemTopBinding
+    private val binding: ItemTopBinding,
+    private val callback: TopViewCallback
 ) : ViewHolder(binding.root) {
-    fun bind(
-        item: TopRecyclerItem,
-        setOnActionDone: ((String) -> Unit)? = null,
-        filterButtonClickListener: (() -> Unit)? = null,
-        notificationButtonClickListener: (() -> Unit)? = null,
-    ) {
+    fun bind() {
         binding.apply {
-
             etSearch.setOnActionDoneListener {
-                println("tıklandı action done")
-                println("ettext: ${etSearch.editText?.text}")
-                setOnActionDone?.invoke(etSearch.editText?.text.toString())
+                callback.onActionDoneClick(etSearch.editText?.text.toString())
             }
 
             etSearch.setOnEndIconClick {
-                filterButtonClickListener?.invoke()
+                callback.onFilterButtonClick()
             }
 
             btnNotification.setOnClickListener {
-                notificationButtonClickListener?.invoke()
+                callback.onNotificationButtonClick()
             }
         }
-
-
     }
 }

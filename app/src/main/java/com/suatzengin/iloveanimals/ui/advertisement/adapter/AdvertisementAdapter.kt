@@ -17,16 +17,22 @@ import com.suatzengin.iloveanimals.ui.advertisement.adapter.viewholder.Advertise
 import com.suatzengin.iloveanimals.ui.advertisement.adapter.viewholder.CategoriesViewHolder
 import com.suatzengin.iloveanimals.ui.advertisement.adapter.viewholder.TitleViewHolder
 import com.suatzengin.iloveanimals.ui.advertisement.adapter.viewholder.TopViewHolder
+import com.suatzengin.iloveanimals.ui.advertisement.callback.AdvertisementCallback
+import com.suatzengin.iloveanimals.ui.advertisement.callback.CategoryCallback
+import com.suatzengin.iloveanimals.ui.advertisement.callback.TopViewCallback
 
 class AdvertisementAdapter(
-    private val listener: AdvertisementAdapterListener
+    private val topViewCallback: TopViewCallback,
+    private val advertisementCallback: AdvertisementCallback,
+    private val categoryCallback: CategoryCallback
 ) : ListAdapter<RecyclerItem, ViewHolder>(AdvertisementDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
             0 -> TopViewHolder(
-                ItemTopBinding.inflate(inflater, parent, false)
+                binding = ItemTopBinding.inflate(inflater, parent, false),
+                callback = topViewCallback
             )
 
             1 -> TitleViewHolder(
@@ -34,11 +40,13 @@ class AdvertisementAdapter(
             )
 
             2 -> CategoriesViewHolder(
-                ItemAdCategoryBinding.inflate(inflater, parent, false)
+                binding = ItemAdCategoryBinding.inflate(inflater, parent, false),
+                callback = categoryCallback
             )
 
             else -> AdvertisementViewHolder(
-                ItemAdvertisementBinding.inflate(inflater, parent, false)
+                binding = ItemAdvertisementBinding.inflate(inflater, parent, false),
+                callback = advertisementCallback
             )
         }
     }
@@ -46,14 +54,7 @@ class AdvertisementAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (val item = getItem(position)) {
             is TopRecyclerItem -> {
-                (holder as TopViewHolder).bind(
-                    item = item,
-                    setOnActionDone = {
-                        listener.setOnActionDone(it)
-                    },
-                    filterButtonClickListener = { listener.onFilterButtonClick() },
-                    notificationButtonClickListener = { listener.onNotificationButtonClick() }
-                )
+                (holder as TopViewHolder).bind()
             }
 
             is TitleRecyclerItem -> (holder as TitleViewHolder).bind(item)
@@ -65,10 +66,4 @@ class AdvertisementAdapter(
     override fun getItemViewType(position: Int): Int {
         return getItem(position).type
     }
-}
-
-interface AdvertisementAdapterListener {
-    fun setOnActionDone(text: String)
-    fun onFilterButtonClick()
-    fun onNotificationButtonClick()
 }
