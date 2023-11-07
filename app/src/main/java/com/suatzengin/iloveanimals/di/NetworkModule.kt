@@ -39,9 +39,11 @@ object NetworkModule {
         install(Auth) {
             bearer {
                 loadTokens {
-                    val accessToken = authHandler.accessToken.orEmpty()
+                    BearerTokens(authHandler.accessToken, "")
+                }
 
-                    BearerTokens(accessToken, "")
+                refreshTokens {
+                    BearerTokens(authHandler.accessToken, "")
                 }
             }
         }

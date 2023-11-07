@@ -40,17 +40,19 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        if (authHandler.isLogin) {
-            navController.navigate(R.id.to_advertisementGraph)
+        if (authHandler.isLogin.not()) {
+            navController.navigate(R.id.to_loginFragment)
         }
 
         bottomNavigationBar.setupWithNavController(navController = navController)
 
         navController.addOnDestinationChangedListener { _, dest, _ ->
             val bottomNavigationIsVisible =
-                dest.id != R.id.loginFragment || dest.id != R.id.registerFragment
+                dest.id != R.id.loginFragment && dest.id != R.id.registerFragment
 
             bottomNavigationBar.isVisible = bottomNavigationIsVisible
         }
+
+        bottomNavigationBar.topLevelNavigateListener(navController = navController)
     }
 }
