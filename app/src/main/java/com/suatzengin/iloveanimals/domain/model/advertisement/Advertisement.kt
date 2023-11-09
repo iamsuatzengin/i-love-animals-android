@@ -10,4 +10,7 @@ data class Advertisement(
     val location: Location,
     val isCompleted: Boolean,
     val createdAt: String
-)
+) {
+    val isImageSizeBiggerThan1: Boolean = images.size > 1
+    val isImageSizeBiggerThan2: Boolean = images.size > 2
+}

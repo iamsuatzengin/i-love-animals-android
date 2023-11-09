@@ -65,7 +65,9 @@ class AdvertisementViewModel @Inject constructor(
                 description = advertisement.description,
                 images = advertisement.images,
                 address = advertisement.location.address,
-                createdAt = advertisement.createdAt
+                createdAt = advertisement.createdAt,
+                isImageSizeBiggerThan1 = advertisement.isImageSizeBiggerThan1,
+                isImageSizeBiggerThan2 = advertisement.isImageSizeBiggerThan2
             )
         }
 

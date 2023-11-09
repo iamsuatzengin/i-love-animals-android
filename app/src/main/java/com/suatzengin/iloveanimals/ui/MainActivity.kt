@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
 import com.suatzengin.iloveanimals.databinding.ActivityMainBinding
+import com.suatzengin.iloveanimals.util.extension.isTopDestination
 import com.suatzengin.iloveanimals.util.extension.topLevelNavigateListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -47,10 +48,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationBar.setupWithNavController(navController = navController)
 
         navController.addOnDestinationChangedListener { _, dest, _ ->
-            val bottomNavigationIsVisible =
-                dest.id != R.id.loginFragment && dest.id != R.id.registerFragment
-
-            bottomNavigationBar.isVisible = bottomNavigationIsVisible
+            bottomNavigationBar.isVisible = isTopDestination(dest.id)
         }
 
         bottomNavigationBar.topLevelNavigateListener(navController = navController)

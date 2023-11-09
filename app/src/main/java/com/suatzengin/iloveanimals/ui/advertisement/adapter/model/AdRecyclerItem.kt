@@ -8,10 +8,9 @@ data class AdRecyclerItem(
     val description: String,
     val images: List<String>,
     val address: String,
-    val createdAt: String
-): RecyclerItem {
+    val createdAt: String,
+    val isImageSizeBiggerThan1: Boolean,
+    val isImageSizeBiggerThan2: Boolean
+) : RecyclerItem {
     override val type: Int = 3
-
-    val isImageSizeBiggerThan1: Boolean = images.size > 1
-    val isImageSizeBiggerThan2: Boolean = images.size > 2
 }

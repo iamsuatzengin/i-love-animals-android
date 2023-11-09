@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AdvertisementRepository {
     fun getAdvertisementList(): Flow<Resource<List<Advertisement>>>
+
+    fun searchAdvertisement(key: String): Flow<Resource<List<Advertisement>>>
 }

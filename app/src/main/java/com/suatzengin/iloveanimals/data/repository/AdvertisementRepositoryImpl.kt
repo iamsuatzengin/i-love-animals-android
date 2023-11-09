@@ -23,4 +23,10 @@ class AdvertisementRepositoryImpl @Inject constructor(
             mapper.map(it)
         }.flowOn(ioDispatcher)
     }
+
+    override fun searchAdvertisement(key: String): Flow<Resource<List<Advertisement>>> {
+        return service.searchAdvertisement(key).mapOnSuccess { searchedList ->
+            mapper.map(input = searchedList)
+        }.flowOn(ioDispatcher)
+    }
 }

@@ -70,8 +70,10 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
 
     private val topViewCallback = object : TopViewCallback {
         override fun onActionDoneClick(text: String) {
-            Toast.makeText(context, "text: $text", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.to_searchFragment)
+            if(text.isBlank()) return
+
+            val action = AdvertisementListFragmentDirections.toSearchFragment(text)
+            findNavController().navigate(action)
         }
 
         override fun onFilterButtonClick() {

@@ -10,4 +10,8 @@ object NetworkConstants {
     // Advertisement
     const val ADVERTISEMENT_LIST = "/advertisement-list"
     const val ADVERTISEMENT_DETAIL = "/advertisement/{id}"
+
+    // Search
+    const val SEARCH_ADVERTISEMENT = "/search"
+    const val QUERY_KEY = "key"
 }
