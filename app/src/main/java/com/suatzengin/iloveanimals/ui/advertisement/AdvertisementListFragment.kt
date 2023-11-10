@@ -56,13 +56,12 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { list ->
-                    if (list.isEmpty()) {
+                viewModel.uiState.collect { state ->
+                    if (state.recyclerItems.isNullOrEmpty()) {
                         Log.i("network - fragment", "Liste boş")
                     }
 
-                    adapter?.submitList(list)
-                    Log.i("network - fragment", "Liste geldi: $list")
+                    adapter?.submitList(state.recyclerItems)
                 }
             }
         }
@@ -93,11 +92,7 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
 
     private val categoryCallback = object : CategoryCallback {
         override fun onCategoryClick(category: AdvertisementCategory) {
-            Toast.makeText(
-                context,
-                "category: $category - ${AdvertisementCategory.getWithTitle(category)}",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(requireContext(), "$category", Toast.LENGTH_SHORT).show()
         }
     }
 }

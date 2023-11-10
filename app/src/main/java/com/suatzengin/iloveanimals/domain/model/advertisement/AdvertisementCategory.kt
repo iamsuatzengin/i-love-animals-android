@@ -7,11 +7,12 @@ enum class AdvertisementCategory {
     ADOPT;
 
     companion object {
-        fun getWithTitle(category: AdvertisementCategory): String = when (category) {
-            ALL -> "Tümü"
-            INJURED -> "Yaralı"
-            FEED_SUPPORT -> "Mama Desteği"
-            ADOPT -> "Sahiplendirme"
+        fun getWithTitle(category: String): AdvertisementCategory = when (category) {
+            "Tümü" -> ALL
+            "Yaralı" -> INJURED
+            "Mama Desteği" -> FEED_SUPPORT
+            "Sahiplendirme" -> ADOPT
+            else -> ALL
         }
     }
 }

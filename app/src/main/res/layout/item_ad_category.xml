@@ -1,11 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_categories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:scrollbars="none">
 
-</FrameLayout>
+    <RadioGroup
+        android:id="@+id/rg_ad_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/rb_all"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:background="@drawable/bg_item_category"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_12dp"
+            android:text="@string/text_all"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_injured"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:background="@drawable/bg_item_category"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_12dp"
+            android:text="@string/text_injured"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_feed_support"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:background="@drawable/bg_item_category"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_12dp"
+            android:text="@string/text_feed_support"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_adopt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:background="@drawable/bg_item_category"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_12dp"
+            android:text="@string/text_adopt"
+            android:textSize="12sp" />
+    </RadioGroup>
+</HorizontalScrollView>

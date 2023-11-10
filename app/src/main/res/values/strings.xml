@@ -25,5 +25,9 @@
     <string name="content_description_start_icon">Sol Buton</string>
     <string name="content_description_notification">Bildirimler</string>
     <string name="text_address">Adres</string>
+    <string name="text_adopt">Sahiplendirme</string>
+    <string name="text_feed_support">Mama Desteği</string>
+    <string name="text_injured">Yaralı</string>
+    <string name="text_all">Tümü</string>
 
 </resources>

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.domain.model.Resource
 import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
-import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
 import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.AdRecyclerItem
 import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.CategoryRecyclerItem
@@ -14,6 +13,7 @@ import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.TopRecyclerIte
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +21,9 @@ import javax.inject.Inject
 class AdvertisementViewModel @Inject constructor(
     private val repository: AdvertisementRepository
 ) : ViewModel() {
-    private val _state = MutableStateFlow<List<RecyclerItem>>(emptyList())
-    val state = _state.asStateFlow()
+
+    private val _uiState = MutableStateFlow(AdvertisementUiState())
+    val uiState = _uiState.asStateFlow()
 
     init {
         getAdvertisementList()
@@ -40,11 +41,10 @@ class AdvertisementViewModel @Inject constructor(
 
                     is Resource.Success -> {
                         val recyclerItemList = fillRecyclerItemList(
-                            categories = AdvertisementCategory.entries.toList(),
-                            advertisementList = result.data.orEmpty()
+                            advertisementList = result.data.orEmpty(),
                         )
 
-                        _state.emit(recyclerItemList)
+                        _uiState.update { it.copy(recyclerItems = recyclerItemList) }
                     }
                 }
             }
@@ -52,7 +52,6 @@ class AdvertisementViewModel @Inject constructor(
     }
 
     private fun fillRecyclerItemList(
-        categories: List<AdvertisementCategory>,
         advertisementList: List<Advertisement>
     ): List<RecyclerItem> {
         val list = arrayListOf<RecyclerItem>()
@@ -73,7 +72,7 @@ class AdvertisementViewModel @Inject constructor(
 
         list.add(TopRecyclerItem())
         list.add(TitleRecyclerItem(title = "Kategori"))
-        list.add(CategoryRecyclerItem(categories))
+        list.add(CategoryRecyclerItem())
         list.addAll(adRecyclerList)
 
         return list
