@@ -35,6 +35,7 @@ enum class TopLevelDestination(
     PROFILE(R.id.profileFragment);
 
     companion object {
+        // this function is not used, now.
         fun getTopLevelDestination(destinationId: Int) = when (destinationId) {
             R.id.advertisementListFragment -> ADVERTISEMENT
             R.id.charityScoreFragment -> CHARITY_SCORE
@@ -45,7 +46,6 @@ enum class TopLevelDestination(
     }
 }
 
-fun isTopDestination(destinationId: Int) =
-    TopLevelDestination.entries.any {
-        it.destinationId == destinationId
-    }
+fun isTopDestination(destinationId: Int) = TopLevelDestination.entries.any {
+    it.destinationId == destinationId
+}

@@ -1,9 +1,14 @@
 package com.suatzengin.iloveanimals.ui
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.suatzengin.iloveanimals.R
@@ -52,5 +57,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNavigationBar.topLevelNavigateListener(navController = navController)
+
+        windowInsetsListener(binding.root)
+    }
+
+    private fun windowInsetsListener(view: View) {
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInset ->
+            val inset = windowInset.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = inset.bottom
+            }
+
+            WindowInsetsCompat.CONSUMED
+        }
     }
 }

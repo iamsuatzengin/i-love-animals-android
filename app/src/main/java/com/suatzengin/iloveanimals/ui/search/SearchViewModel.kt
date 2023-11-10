@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.domain.model.Resource
-import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,11 +22,11 @@ class SearchViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        val key = savedStateHandle.get<String>("key")
+        val key = savedStateHandle.get<String>(SEARCH_KEY)
         searchAdvertisement(key)
     }
 
-    private fun searchAdvertisement(key: String?) {
+    fun searchAdvertisement(key: String?) {
         viewModelScope.launch {
             key?.let { searchKey ->
                 repository.searchAdvertisement(searchKey).collect { result ->
@@ -35,9 +34,11 @@ class SearchViewModel @Inject constructor(
                         is Resource.Error -> {
                             _uiState.update { it.copy(message = result.message) }
                         }
+
                         Resource.Loading -> {
                             _uiState.update { it.copy(isLoading = true) }
                         }
+
                         is Resource.Success -> {
                             _uiState.update { it.copy(list = result.data.orEmpty()) }
                         }
@@ -46,10 +47,8 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-}
 
-data class SearchUiState(
-    val list: List<Advertisement> = emptyList(),
-    val isLoading: Boolean = false,
-    val message: String = "",
-)
+    companion object {
+        private const val SEARCH_KEY = "key"
+    }
+}

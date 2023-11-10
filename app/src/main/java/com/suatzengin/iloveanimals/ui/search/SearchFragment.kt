@@ -40,6 +40,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun initView() = with(binding) {
         etSearch.editText?.setText(args.key)
+        etSearch.editText?.requestFocus()
+
+        etSearch.setOnActionDoneListener {
+            viewModel.searchAdvertisement(etSearch.editText?.text.toString())
+        }
     }
 
     private fun setupRecyclerView() {
@@ -53,16 +58,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    if (uiState.list.isNotEmpty()) {
-                        binding.emptyState.isVisible = false
-                        binding.rvSearchedAdvertisement.isVisible = true
-                        adapter.submitList(uiState.list)
-                    }
+                    binding.emptyState.isVisible = uiState.list?.isEmpty() == true
+                    binding.rvSearchedAdvertisement.isVisible = uiState.list?.isNotEmpty() == true
 
-                    if (uiState.list.isEmpty()) {
-                        binding.emptyState.isVisible = true
-                        binding.rvSearchedAdvertisement.isVisible = false
-                    }
+                    adapter.submitList(uiState.list)
                 }
             }
         }
