@@ -4,9 +4,11 @@ import com.suatzengin.iloveanimals.data.model.advertisement.AdvertisementApiMode
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_LIST
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.QUERY_KEY
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.SEARCH_ADVERTISEMENT
+import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.util.extension.apiCallWithFlow
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import io.ktor.http.appendPathSegments
 import javax.inject.Inject
 
 class AdvertisementService @Inject constructor(
@@ -24,5 +26,13 @@ class AdvertisementService @Inject constructor(
                 }
             }
         }
-}
 
+    fun getAdvertisementsByCategory(category: AdvertisementCategory) =
+        apiCallWithFlow<List<AdvertisementApiModel>> {
+            client.get(ADVERTISEMENT_LIST) {
+                url {
+                    appendPathSegments("${AdvertisementCategory.getCategoryWithId(category)}")
+                }
+            }
+        }
+}

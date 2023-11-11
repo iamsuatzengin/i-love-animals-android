@@ -1,18 +1,13 @@
 package com.suatzengin.iloveanimals.domain.model.advertisement
 
-enum class AdvertisementCategory {
-    ALL,
-    INJURED,
-    FEED_SUPPORT,
-    ADOPT;
+enum class AdvertisementCategory(private val id: Int) {
+    ALL(id = 3),
+    INJURED(id = 0),
+    FEED_SUPPORT(id = 1),
+    ADOPT(id = 2);
 
     companion object {
-        fun getWithTitle(category: String): AdvertisementCategory = when (category) {
-            "Tümü" -> ALL
-            "Yaralı" -> INJURED
-            "Mama Desteği" -> FEED_SUPPORT
-            "Sahiplendirme" -> ADOPT
-            else -> ALL
-        }
+
+        fun getCategoryWithId(category: AdvertisementCategory): Int = category.id
     }
 }

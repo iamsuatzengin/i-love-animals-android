@@ -1,7 +1,6 @@
 package com.suatzengin.iloveanimals.ui.advertisement.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.AdRecyclerItem
 import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.RecyclerItem
 
 class AdvertisementDiffUtil : DiffUtil.ItemCallback<RecyclerItem>() {
@@ -10,6 +9,6 @@ class AdvertisementDiffUtil : DiffUtil.ItemCallback<RecyclerItem>() {
     }
 
     override fun areContentsTheSame(oldItem: RecyclerItem, newItem: RecyclerItem): Boolean {
-        return (oldItem as AdRecyclerItem) == (newItem as AdRecyclerItem)
+        return oldItem.equals(newItem)
     }
 }

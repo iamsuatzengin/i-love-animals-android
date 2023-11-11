@@ -57,7 +57,7 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
-                    if (state.recyclerItems.isNullOrEmpty()) {
+                    if (state.advertisementList.isEmpty()) {
                         Log.i("network - fragment", "Liste boş")
                     }
 
@@ -92,7 +92,12 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
 
     private val categoryCallback = object : CategoryCallback {
         override fun onCategoryClick(category: AdvertisementCategory) {
-            Toast.makeText(requireContext(), "$category", Toast.LENGTH_SHORT).show()
+            viewModel.updateSelectedCategory(category)
+
+            when(category) {
+                AdvertisementCategory.ALL -> viewModel.getAdvertisementList()
+                else -> viewModel.getAdvertisementsByCategory(category)
+            }
         }
     }
 }

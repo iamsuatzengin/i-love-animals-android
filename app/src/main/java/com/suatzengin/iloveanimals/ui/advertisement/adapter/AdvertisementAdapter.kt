@@ -58,7 +58,7 @@ class AdvertisementAdapter(
             }
 
             is TitleRecyclerItem -> (holder as TitleViewHolder).bind(item)
-            is CategoryRecyclerItem -> (holder as CategoriesViewHolder).bind()
+            is CategoryRecyclerItem -> (holder as CategoriesViewHolder).bind(item)
             is AdRecyclerItem -> (holder as AdvertisementViewHolder).bind(item)
         }
     }

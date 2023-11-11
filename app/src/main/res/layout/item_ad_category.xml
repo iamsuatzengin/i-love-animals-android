@@ -3,66 +3,55 @@
     android:id="@+id/scroll_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-
     android:scrollbars="none">
 
-    <RadioGroup
-        android:id="@+id/rg_ad_category"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/rb_all"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rb_all"
+        <TextView
+            android:id="@+id/tv_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_8dp"
-            android:background="@drawable/bg_item_category"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/padding_12dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:background="@drawable/bg_item_category_not_selected"
+            android:paddingHorizontal="@dimen/padding_16dp"
+            android:paddingVertical="@dimen/padding_8dp"
             android:text="@string/text_all"
-            android:textSize="12sp" />
+            android:textColor="@color/black" />
 
-        <RadioButton
-            android:id="@+id/rb_injured"
+        <TextView
+            android:id="@+id/tv_injured"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_8dp"
-            android:background="@drawable/bg_item_category"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/padding_12dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:background="@drawable/bg_item_category_not_selected"
+            android:paddingHorizontal="@dimen/padding_16dp"
+            android:paddingVertical="@dimen/padding_8dp"
             android:text="@string/text_injured"
-            android:textSize="12sp" />
+            android:textColor="@color/black" />
 
-        <RadioButton
-            android:id="@+id/rb_feed_support"
+        <TextView
+            android:id="@+id/tv_feed_support"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_8dp"
-            android:background="@drawable/bg_item_category"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/padding_12dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:background="@drawable/bg_item_category_not_selected"
+            android:paddingHorizontal="@dimen/padding_16dp"
+            android:paddingVertical="@dimen/padding_8dp"
             android:text="@string/text_feed_support"
-            android:textSize="12sp" />
+            android:textColor="@color/black" />
 
-        <RadioButton
-            android:id="@+id/rb_adopt"
+        <TextView
+            android:id="@+id/tv_adopt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_8dp"
-            android:background="@drawable/bg_item_category"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/padding_12dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:background="@drawable/bg_item_category_not_selected"
+            android:paddingHorizontal="@dimen/padding_16dp"
+            android:paddingVertical="@dimen/padding_8dp"
             android:text="@string/text_adopt"
-            android:textSize="12sp" />
-    </RadioGroup>
+            android:textColor="@color/black" />
+    </LinearLayout>
 </HorizontalScrollView>

@@ -6,6 +6,7 @@ import com.suatzengin.iloveanimals.di.dispatcher.IlaDispatchers
 import com.suatzengin.iloveanimals.domain.mapper.AdvertisementMapper
 import com.suatzengin.iloveanimals.domain.model.Resource
 import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
+import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
 import com.suatzengin.iloveanimals.util.extension.mapOnSuccess
 import kotlinx.coroutines.CoroutineDispatcher
@@ -27,6 +28,12 @@ class AdvertisementRepositoryImpl @Inject constructor(
     override fun searchAdvertisement(key: String): Flow<Resource<List<Advertisement>>> {
         return service.searchAdvertisement(key).mapOnSuccess { searchedList ->
             mapper.map(input = searchedList)
+        }.flowOn(ioDispatcher)
+    }
+
+    override fun getAdvertisementsByCategory(category: AdvertisementCategory): Flow<Resource<List<Advertisement>>> {
+        return service.getAdvertisementsByCategory(category).mapOnSuccess { list ->
+            mapper.map(input = list)
         }.flowOn(ioDispatcher)
     }
 }

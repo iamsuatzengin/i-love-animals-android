@@ -3,13 +3,8 @@ package com.suatzengin.iloveanimals.ui.advertisement
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.domain.model.Resource
-import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
+import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.AdRecyclerItem
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.CategoryRecyclerItem
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.RecyclerItem
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.TitleRecyclerItem
-import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.TopRecyclerItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,52 +24,53 @@ class AdvertisementViewModel @Inject constructor(
         getAdvertisementList()
     }
 
-    private fun getAdvertisementList() {
+    fun updateSelectedCategory(category: AdvertisementCategory) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(selectedCategory = category) }
+        }
+    }
+
+    fun getAdvertisementList() {
         viewModelScope.launch {
             repository.getAdvertisementList().collect { result ->
                 when (result) {
-                    is Resource.Error -> {
-                    }
+                    is Resource.Error -> {}
 
-                    is Resource.Loading -> {
-                    }
+                    Resource.Loading -> {}
 
                     is Resource.Success -> {
-                        val recyclerItemList = fillRecyclerItemList(
-                            advertisementList = result.data.orEmpty(),
-                        )
-
-                        _uiState.update { it.copy(recyclerItems = recyclerItemList) }
+                        _uiState.update {
+                            it.copy(
+                                advertisementList = result.data.orEmpty(),
+                                selectedCategory = AdvertisementCategory.ALL
+                            )
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun fillRecyclerItemList(
-        advertisementList: List<Advertisement>
-    ): List<RecyclerItem> {
-        val list = arrayListOf<RecyclerItem>()
+    fun getAdvertisementsByCategory(category: AdvertisementCategory) {
+        viewModelScope.launch {
+            repository.getAdvertisementsByCategory(uiState.value.selectedCategory)
+                .collect { result ->
+                    when (result) {
+                        is Resource.Error -> {}
 
-        val adRecyclerList = advertisementList.map { advertisement ->
-            AdRecyclerItem(
-                id = advertisement.id,
-                creatorId = advertisement.creatorId,
-                title = advertisement.title,
-                description = advertisement.description,
-                images = advertisement.images,
-                address = advertisement.location.address,
-                createdAt = advertisement.createdAt,
-                isImageSizeBiggerThan1 = advertisement.isImageSizeBiggerThan1,
-                isImageSizeBiggerThan2 = advertisement.isImageSizeBiggerThan2
-            )
+                        Resource.Loading -> {}
+
+                        is Resource.Success -> {
+
+                            _uiState.update {
+                                it.copy(
+                                    advertisementList = result.data.orEmpty(),
+                                    selectedCategory = category
+                                )
+                            }
+                        }
+                    }
+                }
         }
-
-        list.add(TopRecyclerItem())
-        list.add(TitleRecyclerItem(title = "Kategori"))
-        list.add(CategoryRecyclerItem())
-        list.addAll(adRecyclerList)
-
-        return list
     }
 }
