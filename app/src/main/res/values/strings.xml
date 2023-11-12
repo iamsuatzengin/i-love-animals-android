@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Hayvanları Seviyorum</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Şifre</string>
@@ -24,10 +24,14 @@
     <string name="content_description_end_icon">Sağ Buton</string>
     <string name="content_description_start_icon">Sol Buton</string>
     <string name="content_description_notification">Bildirimler</string>
-    <string name="text_address">Adres</string>
+    <string name="text_address" tools:ignore="Typos">Adres</string>
     <string name="text_adopt">Sahiplendirme</string>
     <string name="text_feed_support">Mama Desteği</string>
     <string name="text_injured">Yaralı</string>
     <string name="text_all">Tümü</string>
+    <string name="content_desc_add_ad_button">Yeni ilan ekleme butonu</string>
+    <string name="content_desc_vet_button">Veteriner sayfası butonu</string>
+    <string name="content_desc_guide_button">Acil yardım rehberi butonu</string>
+    <string name="content_desc_op_button">İşlemler butonu</string>
 
 </resources>
