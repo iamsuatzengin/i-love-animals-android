@@ -14,5 +14,7 @@
 
     <color name="color_search_focused">#EAEAEA</color>
 
+    <color name="color_fab_icons">#EAEAEA</color>
+
     <color name="color_selected_category">#82D89A</color>
 </resources>

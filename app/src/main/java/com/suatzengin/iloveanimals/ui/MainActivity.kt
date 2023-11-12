@@ -1,10 +1,13 @@
 package com.suatzengin.iloveanimals.ui
 
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -14,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
 import com.suatzengin.iloveanimals.databinding.ActivityMainBinding
+import com.suatzengin.iloveanimals.util.extension.delayOnLifecycle
 import com.suatzengin.iloveanimals.util.extension.isTopDestination
 import com.suatzengin.iloveanimals.util.extension.topLevelNavigateListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,11 +58,44 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, dest, _ ->
             bottomNavigationBar.isVisible = isTopDestination(dest.id)
+            fab.isVisible = isTopDestination(dest.id)
         }
 
         bottomNavigationBar.topLevelNavigateListener(navController = navController)
 
         windowInsetsListener(binding.root)
+
+        initFab()
+    }
+
+    private fun showView(view: View, isVisible: Boolean) {
+        val fadeAnimation = Fade()
+
+        TransitionManager.beginDelayedTransition(view.parent as ConstraintLayout, fadeAnimation)
+
+        view.isVisible = isVisible
+    }
+
+    private fun initFab() = with(binding) {
+        var isVisible = false
+
+        fab.setOnClickListener {
+            isVisible = !isVisible
+
+            showView(fabAddAdvertisement, isVisible)
+
+            fabAddAdvertisement.delayOnLifecycle(100) {
+                showView(fabVet, isVisible)
+            }
+
+            fabVet.delayOnLifecycle(200) {
+                showView(fabGuide, isVisible)
+            }
+        }
+
+        fabAddAdvertisement.setOnClickListener {  }
+        fabVet.setOnClickListener {  }
+        fabGuide.setOnClickListener {  }
     }
 
     private fun windowInsetsListener(view: View) {
