@@ -1,6 +1,5 @@
 package com.suatzengin.iloveanimals.ui.auth.login
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -39,8 +38,8 @@ class LoginViewModel @Inject constructor(
                 repository.login(email = uiState.value.email, password = uiState.value.password)) {
                 is NetworkResult.Success -> {
                     authHandler.saveJWT(token = response.data.token.orEmpty())
-                    _uiEvent.emit(LoginUiEvent.NavigateToHome)
-                    Log.w("AUTH", "token: ${response.data.token}")
+
+                    _uiEvent.emit(LoginUiEvent.NavigateToHome(response.data.token.orEmpty()))
                 }
 
                 is NetworkResult.Error -> {
@@ -70,7 +69,7 @@ class LoginViewModel @Inject constructor(
 }
 
 sealed class LoginUiEvent {
-    data object NavigateToHome : LoginUiEvent()
+    data class NavigateToHome(val token: String) : LoginUiEvent()
     data class Error(val message: String) : LoginUiEvent()
 }
 

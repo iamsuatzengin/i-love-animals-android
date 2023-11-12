@@ -16,6 +16,7 @@ kotlin-parcelize = "1.9.0"
 data-store = "1.0.0"
 google-services = "4.4.0"
 firebase-bom = "32.5.0"
+coil = "2.5.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -39,6 +40,8 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
+ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 
 # Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
@@ -50,6 +53,9 @@ dataStore = { module = "androidx.datastore:datastore-preferences", version.ref =
 # Firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+
+# Coil
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -67,5 +73,7 @@ ktor = [
     "ktor-client-android",
     "ktor-client-logging",
     "ktor-client-content-negotiation",
-    "ktor-serialization"
+    "ktor-serialization",
+    "ktor-client-auth",
+    "ktor-okhttp"
 ]

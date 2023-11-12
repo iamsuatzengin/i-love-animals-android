@@ -14,15 +14,20 @@
     <string name="hint_fullName">Ad - Soyad</string>
     <string name="text_register_now">Hemen kayıt ol</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_advertisement">Advertisement</string>
-    <string name="text_charity_score">Charity Score</string>
-    <string name="text_profile">Profile</string>
-    <string name="text_map">Map</string>
+    <string name="text_advertisement">İlanlar</string>
+    <string name="text_charity_score">Sıralama</string>
+    <string name="text_profile">Profil</string>
+    <string name="text_map">Harita</string>
     <string name="content_description_back_button">Geri Dönmek</string>
     <string name="text_search_ad">İlan Ara</string>
     <string name="text_category">Kategori</string>
     <string name="content_description_end_icon">Sağ Buton</string>
     <string name="content_description_start_icon">Sol Buton</string>
     <string name="content_description_notification">Bildirimler</string>
+    <string name="text_address">Adres</string>
+    <string name="text_adopt">Sahiplendirme</string>
+    <string name="text_feed_support">Mama Desteği</string>
+    <string name="text_injured">Yaralı</string>
+    <string name="text_all">Tümü</string>
 
 </resources>

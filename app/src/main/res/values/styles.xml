@@ -26,4 +26,9 @@
         <item name="cursorColor">@color/color_1</item>
         <item name="hintTextColor">@color/color_1</item>
     </style>
+
+    <style name="App.RoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_10dp</item>
+    </style>
 </resources>
