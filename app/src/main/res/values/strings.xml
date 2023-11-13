@@ -33,5 +33,15 @@
     <string name="content_desc_vet_button">Veteriner sayfası butonu</string>
     <string name="content_desc_guide_button">Acil yardım rehberi butonu</string>
     <string name="content_desc_op_button">İşlemler butonu</string>
+    <string name="content_desc_add_image">Resim ekle</string>
+    <string name="text_add_image">Resim ekle</string>
+    <string name="text_enter_description">Açıklama Giriniz</string>
+    <string name="label_description">Açıklama</string>
+    <string name="text_enter_title">Başlık Giriniz</string>
+    <string name="label_title">Başlık</string>
+    <string name="text_enter_category">Kategori Giriniz</string>
+    <string name="label_category">Kategori</string>
+    <string name="label_address" tools:ignore="Typos">Adres</string>
+    <string name="text_enter_address" tools:ignore="Typos">Adres giriniz</string>
 
 </resources>

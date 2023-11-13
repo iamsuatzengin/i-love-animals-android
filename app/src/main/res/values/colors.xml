@@ -12,9 +12,12 @@
     <color name="color_error">#F5475A</color>
     <color name="color_info">#292330</color>
 
-    <color name="color_search_focused">#EAEAEA</color>
+    <color name="color_bg_edit_text">#EDEDED</color>
+    <color name="color_bg_edit_text_focused">#D8D8D8</color>
 
     <color name="color_fab_icons">#EAEAEA</color>
 
     <color name="color_selected_category">#82D89A</color>
+    <color name="color_edit_text_stroke">#515151</color>
+    <color name="color_edit_text_stroke_focused">#919191</color>
 </resources>
