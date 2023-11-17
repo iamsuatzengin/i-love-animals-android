@@ -4,11 +4,14 @@ import com.suatzengin.iloveanimals.data.model.advertisement.AdvertisementApiMode
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_LIST
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.QUERY_KEY
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.SEARCH_ADVERTISEMENT
+import com.suatzengin.iloveanimals.data.network.NetworkConstants.USER_ADVERTISEMENT
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.util.extension.apiCallWithFlow
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.appendPathSegments
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AdvertisementService @Inject constructor(
@@ -35,4 +38,14 @@ class AdvertisementService @Inject constructor(
                 }
             }
         }
+
+    fun getUserAdvertisement(userId: String) = flow<List<AdvertisementApiModel>> {
+        val response = client.get(USER_ADVERTISEMENT) {
+            url {
+                appendPathSegments(userId)
+            }
+        }
+
+        emit(response.body())
+    }
 }

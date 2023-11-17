@@ -49,6 +49,6 @@ class IlaAuthHandler @Inject constructor(
             name = "auth_handler"
         )
 
-        private val jwtKey = stringPreferencesKey("jwt_key3")
+        private val jwtKey = stringPreferencesKey("jwt_key")
     }
 }
