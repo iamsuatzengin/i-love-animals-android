@@ -9,5 +9,19 @@
         android:id="@+id/profileFragment"
         android:name="com.suatzengin.iloveanimals.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/to_allPostedAdFragment"
+            app:destination="@id/allPostedAdFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allPostedAdFragment"
+        android:name="com.suatzengin.iloveanimals.ui.profile.allpostedadvertisement.AllPostedAdFragment"
+        android:label="fragment_all_posted_ad"
+        tools:layout="@layout/fragment_all_posted_ad">
+        <argument
+            android:name="advertisementList"
+            app:argType="com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement[]" />
+    </fragment>
 </navigation>

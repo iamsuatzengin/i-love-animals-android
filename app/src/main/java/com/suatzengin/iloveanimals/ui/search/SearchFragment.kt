@@ -16,7 +16,7 @@ import com.suatzengin.iloveanimals.core.ui.MarginItemDecoration
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentSearchBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
-import com.suatzengin.iloveanimals.ui.search.adapter.SearchAdapter
+import com.suatzengin.iloveanimals.ui.adapter.AdvertisementListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,7 +28,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val args by navArgs<SearchFragmentArgs>()
 
-    private val adapter by lazy { SearchAdapter(::onSearchItemClick) }
+    private val adapter by lazy { AdvertisementListAdapter(::onSearchItemClick) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

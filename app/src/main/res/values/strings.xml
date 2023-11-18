@@ -33,5 +33,10 @@
     <string name="content_desc_vet_button">Veteriner sayfası butonu</string>
     <string name="content_desc_guide_button">Acil yardım rehberi butonu</string>
     <string name="content_desc_op_button">İşlemler butonu</string>
+    <string name="text_posted_advertisement">Paylaşılan</string>
+    <string name="text_edit_profile">Profili Düzenle</string>
+    <string name="text_see_all"><![CDATA[Hepsini Gör >]]></string>
+    <string name="text_advertisements">İlanlar</string>
+    <string name="text_posted_completed">Tamamlanan</string>
 
 </resources>

@@ -12,4 +12,14 @@ data class UserProfile(
     val twitterLink: String,
     val instagramLink: String,
     val userAdvertisementList: List<Advertisement>
-)
+) {
+    val advertisementPostedCount: Int
+        get() {
+            return userAdvertisementList.size
+        }
+
+    val advertisementPostedCompleted: Int
+        get() {
+            return userAdvertisementList.filter { it.isCompleted }.size
+        }
+}

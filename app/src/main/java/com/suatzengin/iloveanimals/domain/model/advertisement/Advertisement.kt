@@ -1,5 +1,10 @@
 package com.suatzengin.iloveanimals.domain.model.advertisement
 
+import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Advertisement(
     val id: String,
     val creatorId: String,
@@ -10,7 +15,11 @@ data class Advertisement(
     val location: Location,
     val isCompleted: Boolean,
     val createdAt: String
-) {
+) : Parcelable {
+
+    @IgnoredOnParcel
     val isImageSizeBiggerThan1: Boolean = images.size > 1
+
+    @IgnoredOnParcel
     val isImageSizeBiggerThan2: Boolean = images.size > 2
 }
