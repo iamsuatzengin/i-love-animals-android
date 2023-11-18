@@ -43,5 +43,10 @@
     <string name="label_category">Kategori</string>
     <string name="label_address" tools:ignore="Typos">Adres</string>
     <string name="text_enter_address" tools:ignore="Typos">Adres giriniz</string>
+    <string name="text_posted_advertisement">Paylaşılan</string>
+    <string name="text_edit_profile">Profili Düzenle</string>
+    <string name="text_see_all"><![CDATA[Hepsini Gör >]]></string>
+    <string name="text_advertisements">İlanlar</string>
+    <string name="text_posted_completed">Tamamlanan</string>
 
 </resources>

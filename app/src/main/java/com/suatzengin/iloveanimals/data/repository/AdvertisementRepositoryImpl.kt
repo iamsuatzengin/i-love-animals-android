@@ -1,5 +1,6 @@
 package com.suatzengin.iloveanimals.data.repository
 
+import com.suatzengin.iloveanimals.data.model.advertisement.AdvertisementApiModel
 import com.suatzengin.iloveanimals.data.network.AdvertisementService
 import com.suatzengin.iloveanimals.di.dispatcher.Dispatcher
 import com.suatzengin.iloveanimals.di.dispatcher.IlaDispatchers
@@ -35,5 +36,9 @@ class AdvertisementRepositoryImpl @Inject constructor(
         return service.getAdvertisementsByCategory(category).mapOnSuccess { list ->
             mapper.map(input = list)
         }.flowOn(ioDispatcher)
+    }
+
+    override fun getUserAdvertisement(userId: String): Flow<List<AdvertisementApiModel>> {
+        return service.getUserAdvertisement(userId = userId)
     }
 }

@@ -31,4 +31,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/radius_10dp</item>
     </style>
+
+    <style name="App.CircleImageView" parent="">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
 </resources>
