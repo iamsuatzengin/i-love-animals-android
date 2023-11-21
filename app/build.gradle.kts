@@ -72,6 +72,9 @@ dependencies {
     // Coil - image loading library
     implementation(libs.coil)
 
+    // CameraX
+    implementation(libs.bundles.cameraX)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -113,6 +113,7 @@
             android:textSize="17sp" />
 
         <LinearLayout
+            android:id="@+id/layout_select_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_16dp"

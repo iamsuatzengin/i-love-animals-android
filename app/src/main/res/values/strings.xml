@@ -48,5 +48,8 @@
     <string name="text_see_all"><![CDATA[Hepsini Gör >]]></string>
     <string name="text_advertisements">İlanlar</string>
     <string name="text_posted_completed">Tamamlanan</string>
+    <string name="content_desc_drag_handle">Drag handle</string>
+    <string name="text_take_picture_with_camera">Fotoğraf Çek</string>
+    <string name="text_pick_image_from_gallery">Galeriden Seç</string>
 
 </resources>

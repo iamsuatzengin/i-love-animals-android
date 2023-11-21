@@ -1,7 +1,7 @@
 package com.suatzengin.iloveanimals.data.network
 
 object NetworkConstants {
-    const val BASE_URL = "http://192.168.1.42:8080/"
+    const val BASE_URL = "http://192.168.1.33:8080/"
 
     // Authentication Endpoints
     const val LOGIN = "/login"
