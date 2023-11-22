@@ -86,11 +86,11 @@ class MainActivity : AppCompatActivity() {
                     if(state.visibilityWithAnim) {
                         showView(fabAddAdvertisement, state.fabIsVisible)
 
-                        fabAddAdvertisement.delayOnLifecycle(100) {
+                        fabAddAdvertisement.delayOnLifecycle(50) {
                             showView(fabVet, state.fabIsVisible)
                         }
 
-                        fabVet.delayOnLifecycle(200) {
+                        fabVet.delayOnLifecycle(100) {
                             showView(fabGuide, state.fabIsVisible)
                         }
                     } else {

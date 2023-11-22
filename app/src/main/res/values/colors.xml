@@ -20,4 +20,6 @@
     <color name="color_selected_category">#82D89A</color>
     <color name="color_edit_text_stroke">#515151</color>
     <color name="color_edit_text_stroke_focused">#919191</color>
+
+    <color name="color_end_icon">#919191</color>
 </resources>

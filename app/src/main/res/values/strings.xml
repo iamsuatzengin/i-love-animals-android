@@ -13,7 +13,6 @@
     <string name="hint_phone_number">Telefon Numarası</string>
     <string name="hint_fullName">Ad - Soyad</string>
     <string name="text_register_now">Hemen kayıt ol</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_advertisement">İlanlar</string>
     <string name="text_charity_score">Sıralama</string>
     <string name="text_profile">Profil</string>
@@ -39,7 +38,7 @@
     <string name="label_description">Açıklama</string>
     <string name="text_enter_title">Başlık Giriniz</string>
     <string name="label_title">Başlık</string>
-    <string name="text_enter_category">Kategori Giriniz</string>
+    <string name="text_enter_category">Kategori Seçiniz</string>
     <string name="label_category">Kategori</string>
     <string name="label_address" tools:ignore="Typos">Adres</string>
     <string name="text_enter_address" tools:ignore="Typos">Adres giriniz</string>
@@ -51,5 +50,6 @@
     <string name="content_desc_drag_handle">Drag handle</string>
     <string name="text_take_picture_with_camera">Fotoğraf Çek</string>
     <string name="text_pick_image_from_gallery">Galeriden Seç</string>
+    <string name="text_button_create">Oluştur</string>
 
 </resources>

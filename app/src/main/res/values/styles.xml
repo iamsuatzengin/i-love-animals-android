@@ -27,6 +27,12 @@
         <item name="hintTextColor">@color/color_1</item>
     </style>
 
+    <style name="App.Dropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="android:background">@drawable/bg_edit_text</item>
+        <item name="hintEnabled">false</item>
+        <item name="endIconTint">@color/color_end_icon</item>
+    </style>
+
     <style name="App.RoundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/radius_10dp</item>

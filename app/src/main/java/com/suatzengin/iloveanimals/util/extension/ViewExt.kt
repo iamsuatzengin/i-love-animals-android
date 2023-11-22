@@ -25,7 +25,7 @@ fun View.delayOnLifecycle(
     action: () -> Unit
 ) {
     findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
-        findViewTreeLifecycleOwner()?.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+        findViewTreeLifecycleOwner()?.repeatOnLifecycle(state = Lifecycle.State.CREATED) {
             delay(delayMillis)
             action()
         }

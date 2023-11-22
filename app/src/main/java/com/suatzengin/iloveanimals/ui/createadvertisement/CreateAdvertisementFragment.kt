@@ -5,15 +5,20 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.suatzengin.iloveanimals.R
+import com.suatzengin.iloveanimals.core.ui.MarginItemDecoration
 import com.suatzengin.iloveanimals.core.ui.snackbar.SnackbomType
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentCreateAdvertisementBinding
+import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
+import com.suatzengin.iloveanimals.ui.createadvertisement.adapter.ImageAdapter
 import com.suatzengin.iloveanimals.ui.imageselection.CameraBottomSheet
 import com.suatzengin.iloveanimals.ui.imageselection.ImageSelectionBottomSheet
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
@@ -21,15 +26,38 @@ import com.suatzengin.iloveanimals.util.extension.showSnackbar
 class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisement) {
     private val binding by viewBinding(FragmentCreateAdvertisementBinding::bind)
 
+    private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        setupRecyclerView()
     }
 
     private fun initView() = with(binding) {
         toolbar.setOnLeftIconClick {
             findNavController().navigateUp()
+        }
+
+        val arrayAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            AdvertisementCategory.entries.takeLast(3).map {
+                AdvertisementCategory.getTitle(it)
+            }
+        )
+
+        etCategory.setAdapter(arrayAdapter)
+
+        etCategory.setOnItemClickListener { _, _, position, _ ->
+            val item = arrayAdapter.getItem(position)
+            val category = AdvertisementCategory.getWithTitle(item.orEmpty())
+
+            showSnackbar(
+                type = SnackbomType.INFO,
+                "category: $category"
+            )
         }
 
         layoutSelectImage.setOnClickListener {
@@ -43,6 +71,16 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
 
             bottomSheet.show(childFragmentManager, BOTTOM_SHEET_TAG)
         }
+    }
+
+    private fun setupRecyclerView() {
+        val recyclerView = binding.rvImages
+
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        recyclerView.addItemDecoration(MarginItemDecoration(left = 8, right = 8))
+        recyclerView.adapter = imageAdapter
     }
 
     private fun onPickImageClick() {
@@ -111,6 +149,9 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
     ) { uris ->
         if (uris.isNotEmpty()) {
             Log.d("PhotoPicker", "Number of items selected: ${uris.size}")
+
+            imageAdapter.submitList(uris)
+
             uris.forEach {
                 println("uri: $it")
             }
