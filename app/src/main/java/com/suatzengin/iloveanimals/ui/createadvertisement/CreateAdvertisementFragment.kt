@@ -19,7 +19,6 @@ import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentCreateAdvertisementBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.ui.createadvertisement.adapter.ImageAdapter
-import com.suatzengin.iloveanimals.ui.imageselection.CameraBottomSheet
 import com.suatzengin.iloveanimals.ui.imageselection.ImageSelectionBottomSheet
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
 
@@ -64,7 +63,6 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             val bottomSheet = ImageSelectionBottomSheet(
                 onTakePictureClick = {
                     showCameraBottomSheet()
-
                 },
                 onPickImageFromGalleryClick = ::onPickImageClick
             )
@@ -101,9 +99,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
         }
 
         if (isGranted) {
-            val camera = CameraBottomSheet()
-
-            camera.show(childFragmentManager, "Camera")
+            navigateToCameraFragment()
         } else {
             requestCameraPermissions.launch(REQUIRED_CAMERA_PERMISSIONS)
         }
@@ -122,9 +118,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
         if (!permissionGranted) {
             showSnackbar(type = SnackbomType.ERROR, text = "İzin reddedildi!")
         } else {
-            val camera = CameraBottomSheet()
-
-            camera.show(childFragmentManager, "Camera")
+            navigateToCameraFragment()
         }
     }
 
@@ -159,6 +153,10 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             Log.d("PhotoPicker", "No media selected")
             showSnackbar(type = SnackbomType.INFO, text = "Herhangi bir resim seçilmedi!")
         }
+    }
+
+    private fun navigateToCameraFragment() {
+        findNavController().navigate(R.id.to_cameraFragment)
     }
 
     companion object {

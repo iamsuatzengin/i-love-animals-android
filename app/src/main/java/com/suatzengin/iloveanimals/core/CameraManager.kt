@@ -55,7 +55,7 @@ class CameraManager(
         }, ContextCompat.getMainExecutor(context))
     }
 
-    fun takePhoto(onSuccess: (Uri?) -> Unit) {
+    fun takePhoto(onPhotoCaptured: (Uri?) -> Unit) {
         val imageCapture = imageCapture ?: return
 
         val contentValues = ContentValues().apply {
@@ -78,7 +78,7 @@ class CameraManager(
             ContextCompat.getMainExecutor(context),
             object: ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    onSuccess(outputFileResults.savedUri)
+                    onPhotoCaptured(outputFileResults.savedUri)
                 }
 
                 override fun onError(exception: ImageCaptureException) {

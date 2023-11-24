@@ -46,4 +46,14 @@
     <action
         android:id="@+id/to_createAdvertisement"
         app:destination="@id/createAdvertisementFragment" />
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.suatzengin.iloveanimals.ui.imageselection.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+
+    <action
+        android:id="@+id/to_cameraFragment"
+        app:destination="@id/cameraFragment" />
 </navigation>
