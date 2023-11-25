@@ -10,6 +10,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.suatzengin.iloveanimals.R
@@ -21,9 +22,13 @@ import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCateg
 import com.suatzengin.iloveanimals.ui.createadvertisement.adapter.ImageAdapter
 import com.suatzengin.iloveanimals.ui.imageselection.ImageSelectionBottomSheet
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisement) {
     private val binding by viewBinding(FragmentCreateAdvertisementBinding::bind)
+
+    private val viewModel by viewModels<CreateAdViewModel>()
 
     private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
 
@@ -53,6 +58,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             val item = arrayAdapter.getItem(position)
             val category = AdvertisementCategory.getWithTitle(item.orEmpty())
 
+            viewModel.updateCategory(category)
             showSnackbar(
                 type = SnackbomType.INFO,
                 "category: $category"
@@ -68,6 +74,14 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             )
 
             bottomSheet.show(childFragmentManager, BOTTOM_SHEET_TAG)
+        }
+
+        btnCreate.setOnClickListener {
+            viewModel.createAdvertisement(
+                etTitle.text.toString(),
+                etDescription.text.toString(),
+                etAddress.text.toString()
+            )
         }
     }
 
@@ -145,7 +159,9 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             Log.d("PhotoPicker", "Number of items selected: ${uris.size}")
 
             imageAdapter.submitList(uris)
-
+            viewModel.updateImageList(imageList = uris.map {
+                it.toString()
+            })
             uris.forEach {
                 println("uri: $it")
             }

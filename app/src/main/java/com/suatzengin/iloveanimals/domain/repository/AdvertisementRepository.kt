@@ -1,6 +1,8 @@
 package com.suatzengin.iloveanimals.domain.repository
 
+import com.suatzengin.iloveanimals.data.model.MessageResponse
 import com.suatzengin.iloveanimals.data.model.advertisement.AdvertisementApiModel
+import com.suatzengin.iloveanimals.data.model.advertisement.CreateAdvertisementRequest
 import com.suatzengin.iloveanimals.domain.model.Resource
 import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
@@ -14,4 +16,6 @@ interface AdvertisementRepository {
     fun getAdvertisementsByCategory(category: AdvertisementCategory): Flow<Resource<List<Advertisement>>>
 
     fun getUserAdvertisement(userId: String): Flow<List<AdvertisementApiModel>>
+
+    suspend fun createAdvertisement(requestBody: CreateAdvertisementRequest): Resource<MessageResponse>
 }

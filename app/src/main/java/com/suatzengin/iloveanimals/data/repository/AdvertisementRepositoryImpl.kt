@@ -1,6 +1,8 @@
 package com.suatzengin.iloveanimals.data.repository
 
+import com.suatzengin.iloveanimals.data.model.MessageResponse
 import com.suatzengin.iloveanimals.data.model.advertisement.AdvertisementApiModel
+import com.suatzengin.iloveanimals.data.model.advertisement.CreateAdvertisementRequest
 import com.suatzengin.iloveanimals.data.network.AdvertisementService
 import com.suatzengin.iloveanimals.di.dispatcher.Dispatcher
 import com.suatzengin.iloveanimals.di.dispatcher.IlaDispatchers
@@ -40,5 +42,11 @@ class AdvertisementRepositoryImpl @Inject constructor(
 
     override fun getUserAdvertisement(userId: String): Flow<List<AdvertisementApiModel>> {
         return service.getUserAdvertisement(userId = userId)
+    }
+
+    override suspend fun createAdvertisement(
+        requestBody: CreateAdvertisementRequest
+    ): Resource<MessageResponse> {
+        return service.createAdvertisement(requestBody).mapOnSuccess()
     }
 }

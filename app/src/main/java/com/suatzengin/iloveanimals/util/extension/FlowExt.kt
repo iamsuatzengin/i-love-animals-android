@@ -17,3 +17,11 @@ fun <T, R> Flow<NetworkResult<T>>.mapOnSuccess(
         }
     }.onStart { emit(Resource.Loading) }
 }
+
+fun <T>NetworkResult<T>.mapOnSuccess() : Resource<T> {
+    return when (this) {
+        is NetworkResult.Error -> Resource.Error(this.error.toString())
+        is NetworkResult.Exception -> Resource.Error(this.message)
+        is NetworkResult.Success -> Resource.Success(this.data)
+    }
+}
