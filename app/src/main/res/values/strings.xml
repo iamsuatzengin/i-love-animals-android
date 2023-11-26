@@ -51,5 +51,6 @@
     <string name="text_take_picture_with_camera">Fotoğraf Çek</string>
     <string name="text_pick_image_from_gallery">Galeriden Seç</string>
     <string name="text_button_create">Oluştur</string>
+    <string name="content_desc_delete_captured_image">Çekilen resmi sil</string>
 
 </resources>

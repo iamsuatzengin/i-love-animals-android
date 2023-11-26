@@ -10,6 +10,7 @@
 
     <color name="color_success">#83BF49</color>
     <color name="color_error">#F5475A</color>
+
     <color name="color_info">#292330</color>
 
     <color name="color_bg_edit_text">#EDEDED</color>
@@ -22,4 +23,6 @@
     <color name="color_edit_text_stroke_focused">#919191</color>
 
     <color name="color_end_icon">#919191</color>
+
+    <color name="color_delete_button">#F5475A</color>
 </resources>

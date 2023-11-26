@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.suatzengin.iloveanimals.ui.imageselection.CameraFragment"
+        android:name="com.suatzengin.iloveanimals.ui.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
 

@@ -1,6 +1,7 @@
 package com.suatzengin.iloveanimals.ui.createadvertisement
 
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,8 @@ import com.suatzengin.iloveanimals.databinding.FragmentCreateAdvertisementBindin
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.ui.createadvertisement.adapter.ImageAdapter
 import com.suatzengin.iloveanimals.ui.imageselection.ImageSelectionBottomSheet
+import com.suatzengin.iloveanimals.util.Constants.IMAGES_KEY
+import com.suatzengin.iloveanimals.util.Constants.MAX_IMAGES
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -69,6 +72,19 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
                 etDescription.text.toString(),
                 etAddress.text.toString()
             )
+        }
+
+        getImagesFromCamera()
+    }
+
+    private fun getImagesFromCamera() {
+        val images =
+            findNavController().currentBackStackEntry?.savedStateHandle?.get<Array<String>>(
+                IMAGES_KEY
+            )
+
+        images?.let { list ->
+            viewModel.updateImageList(list.map { Uri.parse(it) })
         }
     }
 
@@ -134,10 +150,6 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             val category = AdvertisementCategory.getWithTitle(item.orEmpty())
 
             viewModel.updateCategory(category)
-            showSnackbar(
-                type = SnackbomType.INFO,
-                "category: $category"
-            )
         }
     }
 
@@ -199,20 +211,12 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
     }
 
     private val pickImageFromGallery = registerForActivityResult(
-        ActivityResultContracts.PickMultipleVisualMedia(maxItems = 5)
+        ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_IMAGES)
     ) { uris ->
         if (uris.isNotEmpty()) {
-            Log.d("PhotoPicker", "Number of items selected: ${uris.size}")
-
             viewModel.updateImageList(imageList = uris)
-
-        } else {
-            Log.d("PhotoPicker", "No media selected")
-
-            showSnackbar(type = SnackbomType.INFO, text = "Herhangi bir resim seçilmedi!")
         }
     }
-
 
     private fun navigateToCameraFragment() {
         findNavController().navigate(R.id.to_cameraFragment)
