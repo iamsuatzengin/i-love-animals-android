@@ -6,12 +6,17 @@ import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.suatzengin.iloveanimals.R
@@ -21,6 +26,7 @@ import com.suatzengin.iloveanimals.util.extension.delayOnLifecycle
 import com.suatzengin.iloveanimals.util.extension.isTopDestination
 import com.suatzengin.iloveanimals.util.extension.topLevelNavigateListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,7 +35,11 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var authHandler: IlaAuthHandler
 
+    private val viewModel by viewModels<MainViewModel>()
+
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -48,7 +58,8 @@ class MainActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+
+        navController = navHostFragment.navController
 
         if (authHandler.isLogin.not()) {
             navController.navigate(R.id.to_loginFragment)
@@ -59,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, dest, _ ->
             bottomNavigationBar.isVisible = isTopDestination(dest.id)
             fab.isVisible = isTopDestination(dest.id)
+            viewModel.updateVisibilityWithAnim(isTopDestination(dest.id))
         }
 
         bottomNavigationBar.topLevelNavigateListener(navController = navController)
@@ -66,6 +78,30 @@ class MainActivity : AppCompatActivity() {
         windowInsetsListener(binding.root)
 
         initFab()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+
+                    if(state.visibilityWithAnim) {
+                        showView(fabAddAdvertisement, state.fabIsVisible)
+
+                        fabAddAdvertisement.delayOnLifecycle(50) {
+                            showView(fabVet, state.fabIsVisible)
+                        }
+
+                        fabVet.delayOnLifecycle(100) {
+                            showView(fabGuide, state.fabIsVisible)
+                        }
+                    } else {
+                        fabAddAdvertisement.isVisible = state.fabIsVisible
+                        fabVet.isVisible = state.fabIsVisible
+                        fabGuide.isVisible = state.fabIsVisible
+                    }
+
+                }
+            }
+        }
     }
 
     private fun showView(view: View, isVisible: Boolean) {
@@ -77,25 +113,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFab() = with(binding) {
-        var isVisible = false
 
         fab.setOnClickListener {
-            isVisible = !isVisible
-
-            showView(fabAddAdvertisement, isVisible)
-
-            fabAddAdvertisement.delayOnLifecycle(100) {
-                showView(fabVet, isVisible)
-            }
-
-            fabVet.delayOnLifecycle(200) {
-                showView(fabGuide, isVisible)
-            }
+            viewModel.updateVisibility()
         }
 
-        fabAddAdvertisement.setOnClickListener {  }
-        fabVet.setOnClickListener {  }
-        fabGuide.setOnClickListener {  }
+        fabAddAdvertisement.setOnClickListener {
+            navController.navigate(R.id.to_createAdvertisement)
+            viewModel.updateVisibility()
+        }
+
+        fabVet.setOnClickListener { }
+        fabGuide.setOnClickListener { }
     }
 
     private fun windowInsetsListener(view: View) {

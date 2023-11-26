@@ -35,6 +35,13 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
 
         setupRecyclerView()
         collectData()
+        initView()
+    }
+
+    private fun initView() = with(binding) {
+        layoutSwipeToRefresh.setOnRefreshListener {
+            viewModel.getAdvertisementList(isRefreshing = true)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -62,6 +69,8 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
                     }
 
                     adapter?.submitList(state.recyclerItems)
+
+                    binding.layoutSwipeToRefresh.isRefreshing = state.isRefreshing
                 }
             }
         }
