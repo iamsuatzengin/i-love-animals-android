@@ -30,19 +30,22 @@ class AdvertisementViewModel @Inject constructor(
         }
     }
 
-    fun getAdvertisementList() {
+    fun getAdvertisementList(isRefreshing: Boolean = false) {
         viewModelScope.launch {
             repository.getAdvertisementList().collect { result ->
                 when (result) {
                     is Resource.Error -> {}
 
-                    Resource.Loading -> {}
+                    Resource.Loading -> {
+                        _uiState.update { it.copy(isRefreshing = isRefreshing) }
+                    }
 
                     is Resource.Success -> {
                         _uiState.update {
                             it.copy(
                                 advertisementList = result.data.orEmpty(),
-                                selectedCategory = AdvertisementCategory.ALL
+                                selectedCategory = AdvertisementCategory.ALL,
+                                isRefreshing = false
                             )
                         }
                     }

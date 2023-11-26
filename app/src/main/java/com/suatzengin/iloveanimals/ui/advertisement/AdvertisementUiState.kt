@@ -10,7 +10,9 @@ import com.suatzengin.iloveanimals.ui.advertisement.adapter.model.TopRecyclerIte
 
 data class AdvertisementUiState(
     val advertisementList: List<Advertisement> = emptyList(),
-    val selectedCategory: AdvertisementCategory = AdvertisementCategory.ALL
+    val selectedCategory: AdvertisementCategory = AdvertisementCategory.ALL,
+    val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
 ) {
     val recyclerItems: List<RecyclerItem>
         get() = fillRecyclerItemList()

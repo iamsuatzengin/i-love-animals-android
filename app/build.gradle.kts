@@ -68,6 +68,10 @@ dependencies {
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.storage)
+
+    // Swipe to refresh layout
+    implementation (libs.androidx.swiperefreshlayout)
 
     // Coil - image loading library
     implementation(libs.coil)
