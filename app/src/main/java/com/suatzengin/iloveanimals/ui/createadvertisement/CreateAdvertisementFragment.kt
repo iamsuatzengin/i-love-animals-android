@@ -4,14 +4,13 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -29,14 +28,13 @@ import com.suatzengin.iloveanimals.util.Constants.IMAGES_KEY
 import com.suatzengin.iloveanimals.util.Constants.MAX_IMAGES
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisement) {
     private val binding by viewBinding(FragmentCreateAdvertisementBinding::bind)
 
-    private val viewModel by viewModels<CreateAdViewModel>()
+    private val viewModel by activityViewModels<CreateAdViewModel>()
 
     private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
 
@@ -67,11 +65,10 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
         }
 
         btnCreate.setOnClickListener {
-            viewModel.createAdvertisement(
-                etTitle.text.toString(),
-                etDescription.text.toString(),
-                etAddress.text.toString()
-            )
+            viewModel.updateTitle(etTitle.text.toString())
+            viewModel.updateDescription(etDescription.text.toString())
+
+            findNavController().navigate(R.id.to_adMapFragment)
         }
 
         getImagesFromCamera()
@@ -91,35 +88,10 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.uiState.collect { state ->
+                viewModel.uiState.collect { state ->
 
-                        imageAdapter.submitList(state.imageList)
-
-                        Log.i("CreateAdvertisement", "yükleniyor: ${state.isLoading}")
-                    }
+                    imageAdapter.submitList(state.imageList)
                 }
-
-                launch {
-                    viewModel.uiEvent.collectLatest { event ->
-                        handleEvent(event)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handleEvent(event: CreateAdvertisementUiEvent) {
-        when (event) {
-            CreateAdvertisementUiEvent.CreatedAdvertisement -> {
-                findNavController().navigateUp()
-            }
-
-            is CreateAdvertisementUiEvent.Error -> {
-                showSnackbar(
-                    type = SnackbomType.ERROR,
-                    text = event.message
-                )
             }
         }
     }

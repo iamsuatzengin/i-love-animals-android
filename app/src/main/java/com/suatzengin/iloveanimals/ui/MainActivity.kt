@@ -1,5 +1,6 @@
 package com.suatzengin.iloveanimals.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.transition.Fade
 import android.transition.TransitionManager
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fabAddAdvertisement.setOnClickListener {
-            navController.navigate(R.id.to_createAdvertisement)
+            navController.navigate(Uri.parse("ila://host/createAd"))
             viewModel.updateVisibility()
         }
 

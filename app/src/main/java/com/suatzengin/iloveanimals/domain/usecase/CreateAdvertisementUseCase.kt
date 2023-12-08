@@ -24,6 +24,8 @@ class CreateAdvertisementUseCase @Inject constructor(
         title: String,
         description: String,
         category: Int,
+        longitude: String,
+        latitude: String,
         address: String,
         images: List<Uri>,
     ) = withContext(ioDispatcher) {
@@ -36,8 +38,8 @@ class CreateAdvertisementUseCase @Inject constructor(
                 description = description,
                 category = category,
                 images = uploadedImages.await(),
-                longitude = "Longitude",
-                latitude = "Latitude",
+                longitude = longitude,
+                latitude = latitude,
                 address = address
             )
 
@@ -46,10 +48,10 @@ class CreateAdvertisementUseCase @Inject constructor(
             Log.e("CreateAdvertisement", "Error", it)
 
             if (it is ImageUploadingException) {
-                Resource.Error(it.message ?: "Resim yüklenirken bir hata oluştu")
+                Resource.Error(it.message ?: "Resim yüklenirken bir hata oluştu!")
             }
         }.getOrElse {
-            Resource.Error(it.message ?: "Resim yüklenirken bir hata oluştu")
+            Resource.Error(it.message ?: "Resim yüklenirken bir hata oluştu!")
         }
     }
 }

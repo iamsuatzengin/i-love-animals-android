@@ -7,29 +7,40 @@ import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
-import com.google.maps.android.ktx.infoWindowClickEvents
-import com.google.maps.android.ktx.mapLongClickEvents
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentMapBinding
+import com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdViewModel
 import com.suatzengin.iloveanimals.util.extension.dpAsPixels
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
+@AndroidEntryPoint
 class MapFragment : Fragment(R.layout.fragment_map) {
     private val binding by viewBinding(FragmentMapBinding::bind)
 
-    private val currentLocation = LatLng(38.482763, 27.704220)
+    private val viewModel by viewModels<MapViewModel>()
 
-    private val myAddress by lazy { LocationToAddressConverter(requireContext()) }
+    private val sharedViewModel by activityViewModels<CreateAdViewModel>()
+
+    private val myAddress by lazy { LocationToAddressConverter(requireContext(), lifecycleScope) }
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,45 +50,85 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     private fun initGoogleMaps() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 val googleMap = mapFragment.awaitMap()
 
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 20F))
+                val lastLocation = if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    return@repeatOnLifecycle
+                } else fusedLocationClient.lastLocation.await()
 
-                googleMap.setPaddingAsDp(
-                    view = binding.root,
-                    left = 0,
-                    top = 24,
-                    right = 16,
-                    bottom = 0
-                )
+                val latLng = LatLng(lastLocation.latitude, lastLocation.longitude)
+
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20F))
+
+                googleMap.setPaddingAsDp(view = binding.root)
 
                 isMyLocationEnabled(googleMap)
 
-                launch {
-                    googleMap.mapLongClickEvents().collect { latLng ->
-                        googleMap.addMarker {
-                            position(latLng)
-                            title("Bu adresi seç.")
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f))
-                        }
+                myAddress.getFromLocation(latLng)
 
-                        Log.i("Location", "Longitude: ${latLng.longitude}")
-                        Log.i("Location", "latitude: ${latLng.latitude}")
+                googleMap.setOnMapLongClickListener {
+                    if (viewModel.markerExists) {
+                        googleMap.clear()
+                        googleMap.addMarker {
+                            position(it)
+                            title("Bu adresi seç.")
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 20f))
+                        }
+                    } else {
+                        googleMap.addMarker {
+                            position(it)
+                            title("Bu adresi seç.")
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 20f))
+                        }.also { viewModel.markerExists = true }
+                    }
+
+                    myAddress.getFromLocation(LatLng(it.latitude, it.longitude))
+                }
+
+                launch {
+                    myAddress.state.collect { location ->
+                        updateLocationInformation(location)
                     }
                 }
 
                 launch {
-                    googleMap.infoWindowClickEvents().collect {
-                        myAddress.getFromLocation(it.position.longitude, it.position.latitude)
+                    sharedViewModel.uiState.collect {
+                        Log.i("Shared", "State: $it")
                     }
                 }
             }
         }
     }
 
+    private fun updateLocationInformation(
+        location: LocationToAddressConverter.Location,
+    ) {
+        location.address?.let { address ->
+            binding.textField.editText?.setText(address)
+
+            binding.btnSave.setOnClickListener {
+                sharedViewModel.updateLocationInformation(
+                    location.latitude.toString(),
+                    location.longitude.toString(),
+                    address
+                )
+
+                findNavController().navigate(R.id.to_confirmAdvertisementFragment)
+            }
+
+        }
+    }
 
     private fun isMyLocationEnabled(googleMap: GoogleMap) {
         if (ActivityCompat.checkSelfPermission(
@@ -94,10 +145,10 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     private fun GoogleMap.setPaddingAsDp(
         view: View,
-        left: Int,
-        top: Int,
-        right: Int,
-        bottom: Int
+        left: Int = 0,
+        top: Int = 24,
+        right: Int = 16,
+        bottom: Int = 0
     ) {
         setPadding(
             view.dpAsPixels(left),

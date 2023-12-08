@@ -53,4 +53,9 @@
     <string name="text_button_create">Oluştur</string>
     <string name="content_desc_delete_captured_image">Çekilen resmi sil</string>
 
+    <string name="button_text_save">Kaydet</string>
+    <string name="button_text_continue">Devam</string>
+    <string name="title_selected_address" tools:ignore="Typos">Seçilen Adres</string>
+    <string name="title_confirm_advertisement">İlanı Onayla</string>
+
 </resources>

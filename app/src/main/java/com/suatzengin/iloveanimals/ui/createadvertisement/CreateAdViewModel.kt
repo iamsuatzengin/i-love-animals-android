@@ -29,21 +29,19 @@ class CreateAdViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<CreateAdvertisementUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    fun createAdvertisement(
-        title: String,
-        description: String,
-        address: String,
-    ) {
+    fun createAdvertisement() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
             val imageUris = uiState.value.imageList
 
             val result = createAdvertisementUseCase(
-                title = title,
-                description = description,
+                title = uiState.value.title,
+                description = uiState.value.description,
                 category = uiState.value.categoryId or ZERO,
-                address = address,
+                longitude = uiState.value.longitude,
+                latitude = uiState.value.latitude,
+                address = uiState.value.address,
                 images = imageUris
             )
 
@@ -54,14 +52,28 @@ class CreateAdViewModel @Inject constructor(
                     _uiEvent.emit(CreateAdvertisementUiEvent.Error(result.message))
                 }
 
-                Resource.Loading -> {}
-
                 is Resource.Success -> {
                     _uiEvent.emit(CreateAdvertisementUiEvent.CreatedAdvertisement)
 
                     _uiState.update { it.copy(isLoading = false) }
                 }
+
+                else -> {
+                    // no-op
+                }
             }
+        }
+    }
+
+    fun updateTitle(title: String) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(title = title) }
+        }
+    }
+
+    fun updateDescription(description: String) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(description = description) }
         }
     }
 
@@ -82,6 +94,22 @@ class CreateAdViewModel @Inject constructor(
     fun updateCategory(category: AdvertisementCategory) {
         viewModelScope.launch {
             _uiState.update { it.copy(categoryId = AdvertisementCategory.getCategoryWithId(category)) }
+        }
+    }
+
+    fun updateLocationInformation(
+        latitude: String,
+        longitude: String,
+        address: String
+    ) {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    latitude = latitude,
+                    longitude = longitude,
+                    address = address
+                )
+            }
         }
     }
 }

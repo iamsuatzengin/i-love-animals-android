@@ -23,7 +23,6 @@
     <include app:graph="@navigation/advertisement_graph" />
     <include app:graph="@navigation/charity_score_graph" />
     <include app:graph="@navigation/profile_graph" />
-    <include app:graph="@navigation/map_graph" />
 
     <action
         android:id="@+id/to_advertisementGraph"
@@ -36,16 +35,6 @@
         app:destination="@+id/loginFragment"
         app:popUpTo="@id/advertisement_graph"
         app:popUpToInclusive="true" />
-
-    <fragment
-        android:id="@+id/createAdvertisementFragment"
-        android:name="com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementFragment"
-        android:label="fragment_create_advertisement"
-        tools:layout="@layout/fragment_create_advertisement" />
-
-    <action
-        android:id="@+id/to_createAdvertisement"
-        app:destination="@id/createAdvertisementFragment" />
 
     <fragment
         android:id="@+id/cameraFragment"

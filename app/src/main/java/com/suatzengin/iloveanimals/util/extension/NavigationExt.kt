@@ -31,7 +31,6 @@ enum class TopLevelDestination(
 ) {
     ADVERTISEMENT(R.id.advertisementListFragment),
     CHARITY_SCORE(R.id.charityScoreFragment),
-    MAP(R.id.mapFragment),
     PROFILE(R.id.profileFragment);
 
     companion object {
@@ -39,7 +38,6 @@ enum class TopLevelDestination(
         fun getTopLevelDestination(destinationId: Int) = when (destinationId) {
             R.id.advertisementListFragment -> ADVERTISEMENT
             R.id.charityScoreFragment -> CHARITY_SCORE
-            R.id.mapFragment -> MAP
             R.id.profileFragment -> PROFILE
             else -> ADVERTISEMENT
         }
