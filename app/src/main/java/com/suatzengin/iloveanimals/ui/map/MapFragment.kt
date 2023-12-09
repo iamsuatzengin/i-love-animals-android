@@ -3,16 +3,15 @@ package com.suatzengin.iloveanimals.ui.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,7 +23,6 @@ import com.google.maps.android.ktx.awaitMap
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentMapBinding
-import com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdViewModel
 import com.suatzengin.iloveanimals.util.extension.dpAsPixels
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -36,7 +34,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     private val viewModel by viewModels<MapViewModel>()
 
-    private val sharedViewModel by activityViewModels<CreateAdViewModel>()
+    private val args by navArgs<MapFragmentArgs>()
 
     private val myAddress by lazy { LocationToAddressConverter(requireContext(), lifecycleScope) }
 
@@ -101,12 +99,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                         updateLocationInformation(location)
                     }
                 }
-
-                launch {
-                    sharedViewModel.uiState.collect {
-                        Log.i("Shared", "State: $it")
-                    }
-                }
             }
         }
     }
@@ -118,15 +110,15 @@ class MapFragment : Fragment(R.layout.fragment_map) {
             binding.textField.editText?.setText(address)
 
             binding.btnSave.setOnClickListener {
-                sharedViewModel.updateLocationInformation(
-                    location.latitude.toString(),
-                    location.longitude.toString(),
-                    address
+                val state = args.advertisement.copy(
+                    longitude = location.latitude.toString(),
+                    latitude = location.longitude.toString(),
+                    address = address
                 )
 
-                findNavController().navigate(R.id.to_confirmAdvertisementFragment)
+                val action = MapFragmentDirections.toConfirmAdvertisementFragment(state)
+                findNavController().navigate(action)
             }
-
         }
     }
 

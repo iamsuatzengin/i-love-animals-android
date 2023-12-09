@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -64,11 +65,12 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             bottomSheet.show(childFragmentManager, BOTTOM_SHEET_TAG)
         }
 
-        btnCreate.setOnClickListener {
-            viewModel.updateTitle(etTitle.text.toString())
-            viewModel.updateDescription(etDescription.text.toString())
+        etTitle.addTextChangedListener {
+            viewModel.updateTitle(it.toString())
+        }
 
-            findNavController().navigate(R.id.to_adMapFragment)
+        etDescription.addTextChangedListener {
+            viewModel.updateDescription(it.toString())
         }
 
         getImagesFromCamera()
@@ -89,8 +91,9 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
-
                     imageAdapter.submitList(state.imageList)
+
+                    navigateToMap(advertisement = state)
                 }
             }
         }
@@ -122,6 +125,14 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             val category = AdvertisementCategory.getWithTitle(item.orEmpty())
 
             viewModel.updateCategory(category)
+        }
+    }
+
+    private fun navigateToMap(advertisement: CreateAdvertisementUiState) {
+        binding.btnCreate.setOnClickListener {
+            val action = CreateAdvertisementFragmentDirections.toAdMapFragment(advertisement)
+
+            findNavController().navigate(action)
         }
     }
 

@@ -1,19 +1,20 @@
 package com.suatzengin.iloveanimals.ui.confirmadvertisement
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.View
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.ui.LoadingDialog
 import com.suatzengin.iloveanimals.core.ui.snackbar.SnackbomType
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentConfirmAdvertisementBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
-import com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdViewModel
 import com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiEvent
 import com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiState
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ConfirmAdvertisementFragment : Fragment(R.layout.fragment_confirm_advertisement) {
     private val binding by viewBinding(FragmentConfirmAdvertisementBinding::bind)
-    private val sharedViewModel by activityViewModels<CreateAdViewModel>()
+    private val viewModel by viewModels<ConfirmAdViewModel>()
 
     private val loadingDialog: LoadingDialog by lazy {
         LoadingDialog(requireContext())
@@ -40,14 +41,20 @@ class ConfirmAdvertisementFragment : Fragment(R.layout.fragment_confirm_advertis
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    sharedViewModel.uiState.collectLatest { uiState ->
-                        initView(uiState)
-
+                    viewModel.loadingState.collectLatest { loadingState ->
+                        loadingDialog.showLoading(loadingState)
                     }
                 }
 
                 launch {
-                    sharedViewModel.uiEvent.collectLatest { uiEvent ->
+                    viewModel.uiState.collectLatest {
+                        initView(it)
+                        Log.i("Tag", "state: $it")
+                    }
+                }
+
+                launch {
+                    viewModel.uiEvent.collectLatest { uiEvent ->
                         handleEvent(uiEvent)
                     }
                 }
@@ -64,10 +71,8 @@ class ConfirmAdvertisementFragment : Fragment(R.layout.fragment_confirm_advertis
         tvAddress.text = uiState.address
 
         btnSave.setOnClickListener {
-            sharedViewModel.createAdvertisement()
+            viewModel.createAdvertisement()
         }
-
-        loadingDialog.showLoading(uiState.isLoading)
     }
 
     private fun handleEvent(uiEvent: CreateAdvertisementUiEvent) {
@@ -76,6 +81,9 @@ class ConfirmAdvertisementFragment : Fragment(R.layout.fragment_confirm_advertis
                 showSnackbar(
                     type = SnackbomType.SUCCESS,
                     text = "Başarılı bir şekilde eklendi!"
+                )
+                findNavController().popBackStack(
+                    R.id.advertisementListFragment, false
                 )
             }
 
@@ -87,5 +95,4 @@ class ConfirmAdvertisementFragment : Fragment(R.layout.fragment_confirm_advertis
             }
         }
     }
-
 }

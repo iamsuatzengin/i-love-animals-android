@@ -46,10 +46,17 @@
         <action
             android:id="@+id/to_confirmAdvertisementFragment"
             app:destination="@id/confirmAdvertisementFragment" />
+        <argument
+            android:name="advertisement"
+            app:argType="com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiState" />
     </fragment>
     <fragment
         android:id="@+id/confirmAdvertisementFragment"
         android:name="com.suatzengin.iloveanimals.ui.confirmadvertisement.ConfirmAdvertisementFragment"
         android:label="fragment_confirm_advertisement"
-        tools:layout="@layout/fragment_confirm_advertisement" />
+        tools:layout="@layout/fragment_confirm_advertisement" >
+        <argument
+            android:name="confirmAdvertisement"
+            app:argType="com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiState" />
+    </fragment>
 </navigation>
