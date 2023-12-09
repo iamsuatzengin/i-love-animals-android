@@ -113,7 +113,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                 val state = args.advertisement.copy(
                     longitude = location.latitude.toString(),
                     latitude = location.longitude.toString(),
-                    address = address
+                    address = binding.textField.editText?.text.toString()
                 )
 
                 val action = MapFragmentDirections.toConfirmAdvertisementFragment(state)

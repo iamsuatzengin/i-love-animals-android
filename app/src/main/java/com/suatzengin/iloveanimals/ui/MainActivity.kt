@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(state = Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
 
-                    if(state.visibilityWithAnim) {
+                    if (state.visibilityWithAnim) {
                         showView(fabAddAdvertisement, state.fabIsVisible)
 
                         fabAddAdvertisement.delayOnLifecycle(50) {

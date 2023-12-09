@@ -2,6 +2,7 @@ package com.suatzengin.iloveanimals.ui.profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -53,6 +54,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun initView(state: ProfileUiState) = with(binding) {
+        progressBar.isVisible = state.isLoading
+        clContainer.isVisible = state.isLoading.not()
+
         state.profileUiModel?.apply {
             tvFullName.text = fullName
             ivUserProfileImage.load(state.profileUiModel.profileImageUrl)

@@ -11,7 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -23,9 +24,9 @@ import com.suatzengin.iloveanimals.core.ui.snackbar.SnackbomType
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentCreateAdvertisementBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
+import com.suatzengin.iloveanimals.ui.camera.CameraFragment
 import com.suatzengin.iloveanimals.ui.createadvertisement.adapter.ImageAdapter
 import com.suatzengin.iloveanimals.ui.imageselection.ImageSelectionBottomSheet
-import com.suatzengin.iloveanimals.util.Constants.IMAGES_KEY
 import com.suatzengin.iloveanimals.util.Constants.MAX_IMAGES
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,7 @@ import kotlinx.coroutines.launch
 class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisement) {
     private val binding by viewBinding(FragmentCreateAdvertisementBinding::bind)
 
-    private val viewModel by activityViewModels<CreateAdViewModel>()
+    private val viewModel by viewModels<CreateAdViewModel>()
 
     private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
 
@@ -77,13 +78,14 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
     }
 
     private fun getImagesFromCamera() {
-        val images =
-            findNavController().currentBackStackEntry?.savedStateHandle?.get<Array<String>>(
-                IMAGES_KEY
-            )
+        setFragmentResultListener(
+            CameraFragment.IMAGE_LIST_REQUEST_KEY,
+        ) { requestKey, bundle ->
+            val images = bundle.getStringArray(CameraFragment.IMAGE_LIST_BUNDLE_KEY)
 
-        images?.let { list ->
-            viewModel.updateImageList(list.map { Uri.parse(it) })
+            images?.let { list ->
+                viewModel.updateImageList(list.map { Uri.parse(it) })
+            }
         }
     }
 

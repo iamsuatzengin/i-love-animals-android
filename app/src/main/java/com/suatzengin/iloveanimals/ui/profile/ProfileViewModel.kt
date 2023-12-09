@@ -8,6 +8,7 @@ import com.suatzengin.iloveanimals.domain.model.Resource
 import com.suatzengin.iloveanimals.domain.usecase.GetUserProfileUseCase
 import com.suatzengin.iloveanimals.util.jwtdecode.JwtDecoder
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -39,6 +40,7 @@ class ProfileViewModel @Inject constructor(
 
                     Resource.Loading -> {
                         _uiState.update { it.copy(isLoading = true) }
+                        delay(500)
                     }
 
                     is Resource.Success -> {

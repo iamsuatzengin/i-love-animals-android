@@ -57,7 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:lines="3" />
+                android:maxLines="5"
+                android:minLines="3" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
