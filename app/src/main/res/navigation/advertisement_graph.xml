@@ -13,6 +13,9 @@
         <action
             android:id="@+id/to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/to_advertisementDetailFragment"
+            app:destination="@id/advertisementDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -54,9 +57,18 @@
         android:id="@+id/confirmAdvertisementFragment"
         android:name="com.suatzengin.iloveanimals.ui.confirmadvertisement.ConfirmAdvertisementFragment"
         android:label="fragment_confirm_advertisement"
-        tools:layout="@layout/fragment_confirm_advertisement" >
+        tools:layout="@layout/fragment_confirm_advertisement">
         <argument
             android:name="confirmAdvertisement"
             app:argType="com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiState" />
+    </fragment>
+    <fragment
+        android:id="@+id/advertisementDetailFragment"
+        android:name="com.suatzengin.iloveanimals.ui.advertisementdetail.AdvertisementDetailFragment"
+        android:label="fragment_advertisement_detail"
+        tools:layout="@layout/fragment_advertisement_detail">
+        <argument
+            android:name="advertisementId"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -9,7 +9,7 @@ object NetworkConstants {
 
     // Advertisement
     const val ADVERTISEMENT_LIST = "/advertisement-list"
-    const val ADVERTISEMENT_DETAIL = "/advertisement/{id}"
+    const val ADVERTISEMENT_DETAIL = "/advertisement"
     const val CREATE_ADVERTISEMENT = "/add-advertisement"
 
     // User Advertisement

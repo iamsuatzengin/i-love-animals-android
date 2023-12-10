@@ -57,5 +57,6 @@
     <string name="button_text_continue">Devam</string>
     <string name="title_selected_address" tools:ignore="Typos">Seçilen Adres</string>
     <string name="title_confirm_advertisement">İlanı Onayla</string>
+    <string name="content_desc_images">İlan Resmi</string>
 
 </resources>

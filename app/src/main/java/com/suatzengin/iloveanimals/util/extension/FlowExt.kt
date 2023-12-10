@@ -1,6 +1,7 @@
 package com.suatzengin.iloveanimals.util.extension
 
 import com.suatzengin.iloveanimals.data.network.NetworkResult
+import com.suatzengin.iloveanimals.domain.mapper.Mapper
 import com.suatzengin.iloveanimals.domain.model.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -23,5 +24,13 @@ fun <T>NetworkResult<T>.mapOnSuccess() : Resource<T> {
         is NetworkResult.Error -> Resource.Error(this.error.toString())
         is NetworkResult.Exception -> Resource.Error(this.message)
         is NetworkResult.Success -> Resource.Success(this.data)
+    }
+}
+
+fun <T, R>NetworkResult<T>.mapOnSuccess(mapper: Mapper<T, R>) : Resource<R> {
+    return when (this) {
+        is NetworkResult.Error -> Resource.Error(this.error.toString())
+        is NetworkResult.Exception -> Resource.Error(this.message)
+        is NetworkResult.Success -> Resource.Success(mapper.map(this.data))
     }
 }

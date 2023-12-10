@@ -122,7 +122,10 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
 
     private val advertisementCallback = object : AdvertisementCallback {
         override fun onAdvertisementClick(id: String) {
-            Toast.makeText(context, "ID: $id", Toast.LENGTH_SHORT).show()
+            val action =
+                AdvertisementListFragmentDirections.toAdvertisementDetailFragment(advertisementId = id)
+
+            findNavController().navigate(action)
         }
     }
 
