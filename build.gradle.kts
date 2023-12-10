@@ -8,5 +8,6 @@ plugins {
     alias(libs.plugins.nav.safe.args) apply false
     alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.secret) apply false
 }
 true // Needed to make the Suppress annotation work for the plugins block

@@ -4,13 +4,14 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -23,13 +24,12 @@ import com.suatzengin.iloveanimals.core.ui.snackbar.SnackbomType
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentCreateAdvertisementBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
+import com.suatzengin.iloveanimals.ui.camera.CameraFragment
 import com.suatzengin.iloveanimals.ui.createadvertisement.adapter.ImageAdapter
 import com.suatzengin.iloveanimals.ui.imageselection.ImageSelectionBottomSheet
-import com.suatzengin.iloveanimals.util.Constants.IMAGES_KEY
 import com.suatzengin.iloveanimals.util.Constants.MAX_IMAGES
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -66,60 +66,37 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             bottomSheet.show(childFragmentManager, BOTTOM_SHEET_TAG)
         }
 
-        btnCreate.setOnClickListener {
-            viewModel.createAdvertisement(
-                etTitle.text.toString(),
-                etDescription.text.toString(),
-                etAddress.text.toString()
-            )
+        etTitle.addTextChangedListener {
+            viewModel.updateTitle(it.toString())
+        }
+
+        etDescription.addTextChangedListener {
+            viewModel.updateDescription(it.toString())
         }
 
         getImagesFromCamera()
     }
 
     private fun getImagesFromCamera() {
-        val images =
-            findNavController().currentBackStackEntry?.savedStateHandle?.get<Array<String>>(
-                IMAGES_KEY
-            )
+        setFragmentResultListener(
+            CameraFragment.IMAGE_LIST_REQUEST_KEY,
+        ) { requestKey, bundle ->
+            val images = bundle.getStringArray(CameraFragment.IMAGE_LIST_BUNDLE_KEY)
 
-        images?.let { list ->
-            viewModel.updateImageList(list.map { Uri.parse(it) })
+            images?.let { list ->
+                viewModel.updateImageList(list.map { Uri.parse(it) })
+            }
         }
     }
 
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.uiState.collect { state ->
+                viewModel.uiState.collect { state ->
+                    imageAdapter.submitList(state.imageList)
 
-                        imageAdapter.submitList(state.imageList)
-
-                        Log.i("CreateAdvertisement", "yükleniyor: ${state.isLoading}")
-                    }
+                    navigateToMap(advertisement = state)
                 }
-
-                launch {
-                    viewModel.uiEvent.collectLatest { event ->
-                        handleEvent(event)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handleEvent(event: CreateAdvertisementUiEvent) {
-        when (event) {
-            CreateAdvertisementUiEvent.CreatedAdvertisement -> {
-                findNavController().navigateUp()
-            }
-
-            is CreateAdvertisementUiEvent.Error -> {
-                showSnackbar(
-                    type = SnackbomType.ERROR,
-                    text = event.message
-                )
             }
         }
     }
@@ -150,6 +127,14 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
             val category = AdvertisementCategory.getWithTitle(item.orEmpty())
 
             viewModel.updateCategory(category)
+        }
+    }
+
+    private fun navigateToMap(advertisement: CreateAdvertisementUiState) {
+        binding.btnCreate.setOnClickListener {
+            val action = CreateAdvertisementFragmentDirections.toAdMapFragment(advertisement)
+
+            findNavController().navigate(action)
         }
     }
 

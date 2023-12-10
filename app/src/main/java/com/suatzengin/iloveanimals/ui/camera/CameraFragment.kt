@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.camera.core.CameraSelector
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +17,6 @@ import com.suatzengin.iloveanimals.core.CameraManager
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentCameraBinding
 import com.suatzengin.iloveanimals.ui.camera.adapter.CameraAdapter
-import com.suatzengin.iloveanimals.util.Constants.IMAGES_KEY
 import com.suatzengin.iloveanimals.util.Constants.MAX_IMAGES
 import kotlinx.coroutines.launch
 
@@ -108,11 +108,21 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     private fun navigateToCreateAdvertisement(imageUris: List<Uri>) {
         val list = imageUris.map { it.toString() }.toTypedArray()
 
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(IMAGES_KEY, list)
-        findNavController().popBackStack()
+        val bundle = Bundle().apply {
+            putStringArray(IMAGE_LIST_BUNDLE_KEY, list)
+        }
+
+        setFragmentResult(IMAGE_LIST_REQUEST_KEY, bundle)
+
+        findNavController().navigateUp()
     }
 
     private fun onImageDeleteClick(uri: Uri) {
         viewModel.deleteImage(uri)
+    }
+
+    companion object {
+        const val IMAGE_LIST_REQUEST_KEY = "imageListRequestKey"
+        const val IMAGE_LIST_BUNDLE_KEY = "imageListBundleKey"
     }
 }

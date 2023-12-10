@@ -11,11 +11,6 @@
         android:title="@string/text_charity_score" />
 
     <item
-        android:id="@+id/map_graph"
-        android:icon="@drawable/ic_location"
-        android:title="@string/text_map" />
-
-    <item
         android:id="@+id/profile_graph"
         android:icon="@drawable/ic_profile_circle_fill"
         android:title="@string/text_profile" />

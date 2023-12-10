@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.nav.safe.args)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.secret)
 }
 
 android {
@@ -41,6 +42,16 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+
+    secrets {
+        propertiesFileName = "secrets.properties"
+
+        defaultPropertiesFileName = "local.properties"
+
+        ignoreList.add("keyToIgnore")
+
+        ignoreList.add("sdk.*")
     }
 }
 
@@ -78,6 +89,13 @@ dependencies {
 
     // CameraX
     implementation(libs.bundles.cameraX)
+
+    // Google Maps SDK - Location
+    implementation(libs.googleMaps)
+    implementation(libs.play.services.location)
+
+    // Lottie animation
+    implementation(libs.lottie)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

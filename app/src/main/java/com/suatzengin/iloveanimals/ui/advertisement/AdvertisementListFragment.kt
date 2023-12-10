@@ -1,9 +1,11 @@
 package com.suatzengin.iloveanimals.ui.advertisement
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -42,6 +44,31 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
         layoutSwipeToRefresh.setOnRefreshListener {
             viewModel.getAdvertisementList(isRefreshing = true)
         }
+
+        locationPermission.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+    }
+
+    private val locationPermission = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+
+            }
+
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+            }
+
+            else -> {
+                // No location access granted.
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -78,7 +105,7 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
 
     private val topViewCallback = object : TopViewCallback {
         override fun onActionDoneClick(text: String) {
-            if(text.isBlank()) return
+            if (text.isBlank()) return
 
             val action = AdvertisementListFragmentDirections.toSearchFragment(text)
             findNavController().navigate(action)
@@ -103,7 +130,7 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
         override fun onCategoryClick(category: AdvertisementCategory) {
             viewModel.updateSelectedCategory(category)
 
-            when(category) {
+            when (category) {
                 AdvertisementCategory.ALL -> viewModel.getAdvertisementList()
                 else -> viewModel.getAdvertisementsByCategory(category)
             }

@@ -9,7 +9,7 @@
         android:id="@+id/advertisementListFragment"
         android:name="com.suatzengin.iloveanimals.ui.advertisement.AdvertisementListFragment"
         android:label="fragment_advertisement_list"
-        tools:layout="@layout/fragment_advertisement_list" >
+        tools:layout="@layout/fragment_advertisement_list">
         <action
             android:id="@+id/to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -18,9 +18,45 @@
         android:id="@+id/searchFragment"
         android:name="com.suatzengin.iloveanimals.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <argument
             android:name="key"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createAdvertisementFragment"
+        android:name="com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementFragment"
+        android:label="fragment_create_advertisement"
+        tools:layout="@layout/fragment_create_advertisement">
+
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="ila://host/createAd" />
+        <action
+            android:id="@+id/to_adMapFragment"
+            app:destination="@id/adMapFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/adMapFragment"
+        android:name="com.suatzengin.iloveanimals.ui.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/to_confirmAdvertisementFragment"
+            app:destination="@id/confirmAdvertisementFragment" />
+        <argument
+            android:name="advertisement"
+            app:argType="com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiState" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmAdvertisementFragment"
+        android:name="com.suatzengin.iloveanimals.ui.confirmadvertisement.ConfirmAdvertisementFragment"
+        android:label="fragment_confirm_advertisement"
+        tools:layout="@layout/fragment_confirm_advertisement" >
+        <argument
+            android:name="confirmAdvertisement"
+            app:argType="com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiState" />
     </fragment>
 </navigation>
