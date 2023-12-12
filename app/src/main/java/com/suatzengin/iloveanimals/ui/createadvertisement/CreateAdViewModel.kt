@@ -45,7 +45,7 @@ class CreateAdViewModel @Inject constructor() : ViewModel() {
 
     fun updateCategory(category: AdvertisementCategory) {
         viewModelScope.launch {
-            _uiState.update { it.copy(categoryId = AdvertisementCategory.getCategoryWithId(category)) }
+            _uiState.update { it.copy(categoryId = category.id) }
         }
     }
 }

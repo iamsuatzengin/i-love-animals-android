@@ -59,4 +59,15 @@
     <string name="title_confirm_advertisement">İlanı Onayla</string>
     <string name="content_desc_images">İlan Resmi</string>
 
+    <string name="text_advertisement_completed">Tamamlandı</string>
+    <string name="text_advertisement_not_completed">Bekliyor</string>
+    <string name="btn_text_help">Yardım Et</string>
+    <string name="btn_find_vet">Veteriner Bul</string>
+    <string name="text_button_edit">Düzenle</string>
+    <string name="text_button_delete">Sil</string>
+    <string name="title_comments">Yorumlar</string>
+    <string name="text_comments_empty_state">Henüz bir yorum yapılmadı.</string>
+    <string name="button_post_comment">Yorum gönderme butonu</string>
+    <string name="content_desc_button_show_comments">Yorumları göster butonu</string>
+    <string name="content_desc_location_icon">Konum ikonu</string>
 </resources>

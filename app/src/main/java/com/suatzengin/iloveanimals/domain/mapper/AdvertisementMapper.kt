@@ -13,7 +13,7 @@ class AdvertisementMapper @Inject constructor() : Mapper<AdvertisementApiModel, 
             creatorId = input.creatorId,
             title = input.title,
             description = input.description,
-            category = AdvertisementCategory.entries[input.category],
+            category = AdvertisementCategory.getCategoryWithId(input.category),
             images = input.images,
             location = Location(
                 longitude = input.location.longitude,

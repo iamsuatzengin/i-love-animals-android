@@ -8,7 +8,9 @@ enum class AdvertisementCategory(val id: Int, private val title: String) {
 
     companion object {
 
-        fun getCategoryWithId(category: AdvertisementCategory): Int = category.id
+        fun getCategoryWithId(id: Int): AdvertisementCategory {
+            return entries.find { it.id == id } ?: ALL
+        }
 
         fun getTitle(category: AdvertisementCategory): String = category.title
 

@@ -1,8 +1,10 @@
 package com.suatzengin.iloveanimals.di
 
+import com.suatzengin.iloveanimals.data.repository.AdCommentRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.AdvertisementRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.AuthRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.ProfileRepositoryImpl
+import com.suatzengin.iloveanimals.domain.repository.AdCommentRepository
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
 import com.suatzengin.iloveanimals.domain.repository.AuthRepository
 import com.suatzengin.iloveanimals.domain.repository.ProfileRepository
@@ -29,4 +31,9 @@ abstract class RepositoryModule {
     abstract fun bindProfileRepository(
         profileRepositoryImpl: ProfileRepositoryImpl
     ): ProfileRepository
+
+    @Binds
+    abstract fun bindAdvertisementCommentRepository(
+        adCommentRepositoryImpl: AdCommentRepositoryImpl
+    ): AdCommentRepository
 }

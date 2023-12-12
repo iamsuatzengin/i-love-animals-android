@@ -43,7 +43,7 @@ class AdvertisementService @Inject constructor(
         apiCallWithFlow<List<AdvertisementApiModel>> {
             client.get(ADVERTISEMENT_LIST) {
                 url {
-                    appendPathSegments("${AdvertisementCategory.getCategoryWithId(category)}")
+                    appendPathSegments("${category.id}")
                 }
             }
         }
