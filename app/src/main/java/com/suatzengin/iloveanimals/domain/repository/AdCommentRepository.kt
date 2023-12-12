@@ -13,4 +13,11 @@ interface AdCommentRepository {
         advertisementId: String,
         request: PostCommentRequest
     ): Resource<MessageResponse>
+
+    suspend fun deleteAdvertisementComment(commentId: String): Resource<MessageResponse>
+
+    suspend fun updateAdvertisementComment(
+        commentId: String,
+        request: PostCommentRequest
+    ): Resource<MessageResponse>
 }

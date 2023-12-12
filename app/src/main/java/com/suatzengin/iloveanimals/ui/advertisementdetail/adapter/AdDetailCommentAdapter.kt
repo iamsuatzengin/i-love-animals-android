@@ -11,14 +11,18 @@ import com.suatzengin.iloveanimals.data.model.advertisement.comment.isUserOwner
 import com.suatzengin.iloveanimals.databinding.ItemAdDetailCommentBinding
 
 class AdDetailCommentAdapter(
-    private val currentUserId: String
+    private val currentUserId: String,
+    private val onItemDeleteClick: (String) -> Unit
 ) :
     ListAdapter<AdCommentApiModel, AdDetailCommentViewHolder>(AdDetailCommentDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdDetailCommentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemAdDetailCommentBinding.inflate(layoutInflater, parent, false)
 
-        return AdDetailCommentViewHolder(binding)
+        return AdDetailCommentViewHolder(
+            binding = binding,
+            onItemDeleteClick = onItemDeleteClick
+        )
     }
 
     override fun onBindViewHolder(holder: AdDetailCommentViewHolder, position: Int) {
@@ -42,7 +46,8 @@ class AdDetailCommentDiffUtil : DiffUtil.ItemCallback<AdCommentApiModel>() {
 }
 
 class AdDetailCommentViewHolder(
-    private val binding: ItemAdDetailCommentBinding
+    private val binding: ItemAdDetailCommentBinding,
+    private val onItemDeleteClick: (String) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: AdCommentApiModel, currentUserId: String) {
@@ -50,5 +55,9 @@ class AdDetailCommentViewHolder(
 
         binding.tvEditComment.isVisible = item.isUserOwner(currentUserId)
         binding.tvDeleteComment.isVisible = item.isUserOwner(currentUserId)
+
+        binding.tvDeleteComment.setOnClickListener {
+            onItemDeleteClick(item.commentId.toString())
+        }
     }
 }

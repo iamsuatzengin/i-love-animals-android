@@ -12,6 +12,9 @@ object NetworkConstants {
     const val ADVERTISEMENT_DETAIL = "/advertisement"
     const val CREATE_ADVERTISEMENT = "/add-advertisement"
 
+    // Advertisement Comment
+    const val COMMENT = "/comment"
+
     // User Advertisement
     const val USER_ADVERTISEMENT = "/user-advertisement"
 

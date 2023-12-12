@@ -88,7 +88,7 @@ class AdDetailViewModel @Inject constructor(
         viewModelScope.launch {
             if (advertisementId == null) return@launch
 
-            if(comment.isEmpty()) {
+            if (comment.isEmpty()) {
                 sendEvent(AdDetailUiEvent.ShowMessage("Boş yorum gönderemezsiniz."))
                 return@launch
             }
@@ -105,6 +105,18 @@ class AdDetailViewModel @Inject constructor(
             }.onError { errorMessage ->
                 Log.i("PostCommentEvent - Error", "Error: $errorMessage")
 
+                sendEvent(AdDetailUiEvent.ShowMessage(message = errorMessage))
+            }
+        }
+    }
+
+    fun deleteAdvertisementComment(commentId: String) {
+        viewModelScope.launch {
+            commentRepository.deleteAdvertisementComment(
+                commentId = commentId
+            ).onSuccess {
+                getUpdatedComments()
+            }.onError { errorMessage ->
                 sendEvent(AdDetailUiEvent.ShowMessage(message = errorMessage))
             }
         }

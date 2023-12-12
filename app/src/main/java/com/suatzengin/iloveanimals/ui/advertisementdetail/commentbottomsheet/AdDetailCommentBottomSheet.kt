@@ -1,8 +1,7 @@
-package com.suatzengin.iloveanimals.ui.advertisementdetail.comment
+package com.suatzengin.iloveanimals.ui.advertisementdetail.commentbottomsheet
 
 import android.app.Dialog
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -30,6 +29,7 @@ import com.suatzengin.iloveanimals.ui.advertisementdetail.AdvertisementDetailFra
 import com.suatzengin.iloveanimals.ui.advertisementdetail.AdvertisementDetailFragment.Companion.COMMENTS_BUNDLE_KEY
 import com.suatzengin.iloveanimals.ui.advertisementdetail.adapter.AdDetailCommentAdapter
 import com.suatzengin.iloveanimals.util.extension.EMPTY_STRING
+import com.suatzengin.iloveanimals.util.extension.getParcelableList
 import com.suatzengin.iloveanimals.util.extension.showToast
 import com.suatzengin.iloveanimals.util.jwtdecode.JwtDecoder
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,7 +97,11 @@ class AdDetailCommentBottomSheet :
         val currentUserId = JwtDecoder.decode(ilaAuthHandler.accessToken).userId
 
         val recyclerView = binding.rvComments
-        adapter = AdDetailCommentAdapter(currentUserId = currentUserId)
+
+        adapter = AdDetailCommentAdapter(
+            currentUserId = currentUserId,
+            onItemDeleteClick = ::onCommentDeleteClick
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
@@ -115,14 +119,9 @@ class AdDetailCommentBottomSheet :
         setFragmentResultListener(
             AdvertisementDetailFragment.COMMENTS_REQUEST_KEY
         ) { _, bundle ->
-            val commentList =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    bundle.getParcelableArray(COMMENTS_BUNDLE_KEY, AdCommentApiModel::class.java)
-                } else {
-                    bundle.getParcelableArray(COMMENTS_BUNDLE_KEY) as? Array<AdCommentApiModel>
-                }
+            val commentList = bundle.getParcelableList<AdCommentApiModel>(COMMENTS_BUNDLE_KEY)
 
-            initComments(list = commentList?.toList().orEmpty())
+            initComments(list = commentList.toList())
         }
     }
 
@@ -157,6 +156,10 @@ class AdDetailCommentBottomSheet :
                 }
             }
         }
+    }
+
+    private fun onCommentDeleteClick(commentId: String) {
+        viewModel.deleteAdvertisementComment(commentId = commentId)
     }
 
     private fun clearInput() {

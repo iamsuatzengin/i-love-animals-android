@@ -31,4 +31,18 @@ class AdCommentRepositoryImpl @Inject constructor(
             request = request
         ).mapOnSuccess()
     }
+
+    override suspend fun deleteAdvertisementComment(commentId: String): Resource<MessageResponse> {
+        return service.deleteAdvertisementComment(commentId = commentId).mapOnSuccess()
+    }
+
+    override suspend fun updateAdvertisementComment(
+        commentId: String,
+        request: PostCommentRequest
+    ): Resource<MessageResponse> {
+        return service.updateAdvertisementComment(
+            commentId = commentId,
+            request = request
+        ).mapOnSuccess()
+    }
 }

@@ -19,7 +19,7 @@ import com.suatzengin.iloveanimals.data.model.advertisement.comment.AdCommentApi
 import com.suatzengin.iloveanimals.databinding.FragmentAdvertisementDetailBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
 import com.suatzengin.iloveanimals.ui.advertisementdetail.adapter.ImagesPagerAdapter
-import com.suatzengin.iloveanimals.ui.advertisementdetail.comment.AdDetailCommentBottomSheet
+import com.suatzengin.iloveanimals.ui.advertisementdetail.commentbottomsheet.AdDetailCommentBottomSheet
 import com.suatzengin.iloveanimals.util.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
