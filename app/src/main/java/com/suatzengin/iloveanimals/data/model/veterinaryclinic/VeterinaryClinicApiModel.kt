@@ -14,5 +14,6 @@ data class VeterinaryClinicApiModel(
     val openTimes: String,
     val closeTimes: String,
     val isAmbulanceAvailable: Boolean,
-    val images: List<String>
+    val images: List<String>,
+    val phoneNumber: String,
 )
