@@ -70,5 +70,13 @@
         <argument
             android:name="advertisementId"
             app:argType="string" />
+        <action
+            android:id="@+id/to_veterinaryClinicFragment"
+            app:destination="@id/veterinaryClinicFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/veterinaryClinicFragment"
+        android:name="com.suatzengin.iloveanimals.ui.veterinaryclinic.VeterinaryClinicFragment"
+        android:label="fragment_veterinary_clinic"
+        tools:layout="@layout/fragment_veterinary_clinic" />
 </navigation>
