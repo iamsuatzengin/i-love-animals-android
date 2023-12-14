@@ -66,10 +66,12 @@
             <TextView
                 android:id="@+id/tv_title"
                 style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16dp"
                 android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_4dp"
+                app:layout_constraintEnd_toStartOf="@id/tv_status"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guideline"
                 tools:text="Title" />
@@ -119,11 +121,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_8dp"
-                tools:text="14"
                 android:textColor="@color/color_title_text"
                 app:layout_constraintBottom_toBottomOf="@id/btn_comments"
                 app:layout_constraintEnd_toStartOf="@id/btn_comments"
-                app:layout_constraintTop_toTopOf="@id/btn_comments" />
+                app:layout_constraintTop_toTopOf="@id/btn_comments"
+                tools:text="14" />
 
             <ImageView
                 android:id="@+id/btn_comments"
@@ -162,11 +164,11 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
             <ImageView
-                android:contentDescription="@string/content_desc_location_icon"
                 android:id="@+id/iv_location_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16dp"
+                android:contentDescription="@string/content_desc_location_icon"
                 android:src="@drawable/ic_location"
                 app:layout_constraintBottom_toBottomOf="@id/tv_address"
                 app:layout_constraintStart_toStartOf="parent"
