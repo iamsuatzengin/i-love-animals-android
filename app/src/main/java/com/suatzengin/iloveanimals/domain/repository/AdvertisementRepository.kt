@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.Flow
 interface AdvertisementRepository {
     fun getAdvertisementList(): Flow<Resource<List<Advertisement>>>
 
+    suspend fun getAdvertisementDetail(id: String): Resource<Advertisement>
+
     fun searchAdvertisement(key: String): Flow<Resource<List<Advertisement>>>
 
     fun getAdvertisementsByCategory(category: AdvertisementCategory): Flow<Resource<List<Advertisement>>>

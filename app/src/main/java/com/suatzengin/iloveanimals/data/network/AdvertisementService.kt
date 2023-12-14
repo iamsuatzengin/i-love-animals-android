@@ -3,6 +3,7 @@ package com.suatzengin.iloveanimals.data.network
 import com.suatzengin.iloveanimals.data.model.MessageResponse
 import com.suatzengin.iloveanimals.data.model.advertisement.AdvertisementApiModel
 import com.suatzengin.iloveanimals.data.model.advertisement.CreateAdvertisementRequest
+import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_DETAIL
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_LIST
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.CREATE_ADVERTISEMENT
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.QUERY_KEY
@@ -42,7 +43,7 @@ class AdvertisementService @Inject constructor(
         apiCallWithFlow<List<AdvertisementApiModel>> {
             client.get(ADVERTISEMENT_LIST) {
                 url {
-                    appendPathSegments("${AdvertisementCategory.getCategoryWithId(category)}")
+                    appendPathSegments("${category.id}")
                 }
             }
         }
@@ -65,4 +66,12 @@ class AdvertisementService @Inject constructor(
                 setBody(requestBody)
             }
         }
+
+    suspend fun getAdvertisementDetail(id: String) = apiCall<AdvertisementApiModel> {
+        client.get(ADVERTISEMENT_DETAIL) {
+            url {
+                appendPathSegments(id)
+            }
+        }
+    }
 }

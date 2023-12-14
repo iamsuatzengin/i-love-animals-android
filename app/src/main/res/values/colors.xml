@@ -26,4 +26,6 @@
 
     <color name="color_delete_button">#F5475A</color>
     <color name="color_location_icon">#CFF1D8</color>
+
+    <color name="color_waiting">#CD747E</color>
 </resources>
