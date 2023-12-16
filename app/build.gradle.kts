@@ -68,19 +68,17 @@ dependencies {
     implementation(libs.constraintlayout)
 
     // Jetpack Compose
-    val composeBom = platform("androidx.compose:compose-bom:2023.10.01")
-    implementation(composeBom)
-
-    implementation("androidx.compose.material:material")
-    implementation("androidx.compose.foundation:foundation")
-    implementation("androidx.compose.ui:ui")
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.ui)
 
     // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation(libs.compose.ui.toolingPreview)
+    debugImplementation(libs.compose.ui.tooling)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.0")
+    implementation(libs.compose.viewModel)
+    implementation (libs.compose.lifecycle.runtime)
 
     // Jetpack Navigation
     implementation(libs.navigationFragmentKtx)
@@ -106,7 +104,7 @@ dependencies {
 
     // Coil - image loading library
     implementation(libs.coil)
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation(libs.coil.compose)
 
     // CameraX
     implementation(libs.bundles.cameraX)
@@ -118,7 +116,7 @@ dependencies {
     // Lottie animation
     implementation(libs.lottie)
 
-    androidTestImplementation(composeBom)
+    androidTestImplementation(platform(libs.firebase.bom))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

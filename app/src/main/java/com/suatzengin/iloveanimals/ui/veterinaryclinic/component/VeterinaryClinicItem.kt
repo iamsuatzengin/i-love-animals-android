@@ -44,6 +44,8 @@ fun VeterinaryClinicItem(
     doctor: String = "Prof Dr Suat F",
     times: String = "09:00 - 20:00",
     images: List<String> = emptyList(),
+    onDirectionButtonClick: () -> Unit,
+    onCallButtonClick: () -> Unit
 ) {
     var visibility by remember { mutableStateOf(false) }
 
@@ -103,7 +105,7 @@ fun VeterinaryClinicItem(
                 ClinicMoreInfo(
                     times = times,
                     doctor = doctor,
-                    onDirectionClick = {}
+                    onDirectionClick = onDirectionButtonClick
                 )
             }
         }
@@ -125,7 +127,7 @@ fun VeterinaryClinicItem(
             IlaButton(
                 modifier = Modifier.weight(1f),
                 backgroundColor = colorResource(id = R.color.color_error),
-                onClick = { }
+                onClick = onCallButtonClick
             ) {
                 Icon(
                     imageVector = Icons.Default.Phone, contentDescription = "",

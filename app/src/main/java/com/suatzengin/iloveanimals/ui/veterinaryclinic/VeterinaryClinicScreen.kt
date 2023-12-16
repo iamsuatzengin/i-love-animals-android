@@ -1,5 +1,6 @@
 package com.suatzengin.iloveanimals.ui.veterinaryclinic
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,12 +24,16 @@ import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.ui.veterinaryclinic.component.VeterinaryClinicItem
 
 @Composable
-fun VeterinaryClinicScreen(viewModel: VeterinaryClinicViewModel) {
+fun VeterinaryClinicScreen(
+    viewModel: VeterinaryClinicViewModel,
+    onNavigateBackClick: () -> Unit,
+    onDirectionButtonClick: (lat: String, long: String) -> Unit,
+    onCallButtonClick: (String) -> Unit
+) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         if (state.isLoading) {
             CircularProgressIndicator(
@@ -51,7 +56,9 @@ fun VeterinaryClinicScreen(viewModel: VeterinaryClinicViewModel) {
                         Icon(
                             painterResource(id = R.drawable.ic_back),
                             contentDescription = "",
-                            modifier = Modifier.padding(start = 8.dp)
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .clickable(onClick = onNavigateBackClick)
                         )
                     },
                     elevation = 0.dp
@@ -66,6 +73,12 @@ fun VeterinaryClinicScreen(viewModel: VeterinaryClinicViewModel) {
                     doctor = clinic.doctorName,
                     times = "${clinic.openTimes}pm - ${clinic.closeTimes}",
                     images = clinic.images,
+                    onDirectionButtonClick = {
+                        onDirectionButtonClick(clinic.address.latitude, clinic.address.longitude)
+                    },
+                    onCallButtonClick = {
+                        onCallButtonClick(clinic.phoneNumber)
+                    }
                 )
             }
         }
