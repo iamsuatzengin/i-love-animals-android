@@ -42,6 +42,11 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     secrets {
@@ -61,6 +66,19 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+
+    // Jetpack Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.ui)
+
+    // Android Studio Preview support
+    implementation(libs.compose.ui.toolingPreview)
+    debugImplementation(libs.compose.ui.tooling)
+
+    implementation(libs.compose.viewModel)
+    implementation (libs.compose.lifecycle.runtime)
 
     // Jetpack Navigation
     implementation(libs.navigationFragmentKtx)
@@ -86,6 +104,7 @@ dependencies {
 
     // Coil - image loading library
     implementation(libs.coil)
+    implementation(libs.coil.compose)
 
     // CameraX
     implementation(libs.bundles.cameraX)
@@ -97,6 +116,7 @@ dependencies {
     // Lottie animation
     implementation(libs.lottie)
 
+    androidTestImplementation(platform(libs.firebase.bom))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

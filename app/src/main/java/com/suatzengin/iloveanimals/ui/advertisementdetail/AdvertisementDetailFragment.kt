@@ -123,7 +123,7 @@ class AdvertisementDetailFragment : Fragment(R.layout.fragment_advertisement_det
         }
 
         btnFindVet.setOnClickListener {
-            showToast("Veteriner Bul")
+            findNavController().navigate(R.id.to_veterinaryClinicFragment)
         }
     }
 

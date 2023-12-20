@@ -4,10 +4,12 @@ import com.suatzengin.iloveanimals.data.repository.AdCommentRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.AdvertisementRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.AuthRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.ProfileRepositoryImpl
+import com.suatzengin.iloveanimals.data.repository.VeterinaryClinicRepositoryImpl
 import com.suatzengin.iloveanimals.domain.repository.AdCommentRepository
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
 import com.suatzengin.iloveanimals.domain.repository.AuthRepository
 import com.suatzengin.iloveanimals.domain.repository.ProfileRepository
+import com.suatzengin.iloveanimals.domain.repository.VeterinaryClinicRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -36,4 +38,9 @@ abstract class RepositoryModule {
     abstract fun bindAdvertisementCommentRepository(
         adCommentRepositoryImpl: AdCommentRepositoryImpl
     ): AdCommentRepository
+
+    @Binds
+    abstract fun bindVeterinaryClinicRepository(
+        veterinaryClinicRepositoryImpl: VeterinaryClinicRepositoryImpl
+    ): VeterinaryClinicRepository
 }

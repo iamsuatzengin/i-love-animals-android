@@ -24,4 +24,7 @@ object NetworkConstants {
     // Search
     const val SEARCH_ADVERTISEMENT = "/search"
     const val QUERY_KEY = "key"
+
+    // Veterinary Clinic
+    const val VETERINARY_CLINICS = "/clinics"
 }
