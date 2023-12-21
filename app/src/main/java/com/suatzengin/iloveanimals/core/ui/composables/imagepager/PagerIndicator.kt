@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals.core.ui.components.imagepager
+package com.suatzengin.iloveanimals.core.ui.composables.imagepager
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals.ui.veterinaryclinic.component
+package com.suatzengin.iloveanimals.ui.veterinaryclinic.composables
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -31,9 +31,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.suatzengin.iloveanimals.R
-import com.suatzengin.iloveanimals.core.ui.components.button.IlaButton
-import com.suatzengin.iloveanimals.core.ui.components.button.IlaOutlinedButton
-import com.suatzengin.iloveanimals.core.ui.components.imagepager.HorizontalImagePager
+import com.suatzengin.iloveanimals.core.ui.composables.button.IlaButton
+import com.suatzengin.iloveanimals.core.ui.composables.button.IlaOutlinedButton
+import com.suatzengin.iloveanimals.core.ui.composables.imagepager.HorizontalImagePager
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
