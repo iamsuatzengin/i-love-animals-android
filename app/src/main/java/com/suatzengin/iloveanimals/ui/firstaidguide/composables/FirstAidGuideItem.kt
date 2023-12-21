@@ -33,10 +33,10 @@ fun FirstAidGuideItem(
                 color = colorResource(id = R.color.color_light_gray),
                 RoundedCornerShape(10.dp)
             )
+            .clickable(onClick = onItemClick)
             .padding(16.dp)
             .wrapContentWidth()
-            .wrapContentHeight()
-            .clickable(onClick = onItemClick),
+            .wrapContentHeight(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
