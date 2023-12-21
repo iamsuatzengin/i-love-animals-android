@@ -1,9 +1,10 @@
-package com.suatzengin.iloveanimals.core.ui.components.button
+package com.suatzengin.iloveanimals.core.ui.composables.button
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -15,23 +16,27 @@ import androidx.compose.ui.unit.dp
 import com.suatzengin.iloveanimals.R
 
 @Composable
-fun IlaButton(
+fun IlaOutlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     cornerSize: Dp = 16.dp,
-    contentColor: Color = Color.White,
-    backgroundColor: Color = colorResource(id = R.color.color_primary),
+    borderWidth: Dp = 1.dp,
+    borderColor: Color = colorResource(id = R.color.color_primary),
+    contentColor: Color = colorResource(id = R.color.color_primary),
     content: @Composable RowScope.() -> Unit
 ) {
     CompositionLocalProvider(LocalRippleTheme provides ButtonRippleTheme) {
-        Button(
+        OutlinedButton(
             onClick = onClick,
             modifier = modifier,
-            shape = RoundedCornerShape(cornerSize),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = backgroundColor,
-                contentColor = contentColor
+            enabled = enabled,
+            border = BorderStroke(
+                width = borderWidth,
+                color = borderColor
             ),
+            shape = RoundedCornerShape(cornerSize),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = contentColor),
             content = content
         )
     }

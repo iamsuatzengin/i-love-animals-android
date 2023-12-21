@@ -125,7 +125,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         fabVet.setOnClickListener { }
-        fabGuide.setOnClickListener { }
+
+        fabGuide.setOnClickListener {
+            navController.navigate(R.id.to_firstAidGuideGraph)
+            viewModel.updateVisibility()
+        }
     }
 
     private fun windowInsetsListener(view: View) {

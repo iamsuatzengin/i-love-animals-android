@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals.core.ui.components.button
+package com.suatzengin.iloveanimals.core.ui.composables.button
 
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme

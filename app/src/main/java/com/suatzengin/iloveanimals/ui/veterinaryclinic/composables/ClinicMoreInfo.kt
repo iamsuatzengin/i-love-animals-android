@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals.ui.veterinaryclinic.component
+package com.suatzengin.iloveanimals.ui.veterinaryclinic.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.suatzengin.iloveanimals.R
-import com.suatzengin.iloveanimals.core.ui.components.button.IlaButton
+import com.suatzengin.iloveanimals.core.ui.composables.button.IlaButton
 
 @Composable
 fun ClinicMoreInfo(

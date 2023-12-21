@@ -45,4 +45,10 @@
     <action
         android:id="@+id/to_cameraFragment"
         app:destination="@id/cameraFragment" />
+
+    <include app:graph="@navigation/first_aid_guide_graph" />
+
+    <action
+        android:id="@+id/to_firstAidGuideGraph"
+        app:destination="@+id/first_aid_guide_graph" />
 </navigation>
