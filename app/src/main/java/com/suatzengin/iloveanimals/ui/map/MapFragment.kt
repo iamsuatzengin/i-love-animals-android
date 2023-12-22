@@ -67,7 +67,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
                 val latLng = LatLng(lastLocation.latitude, lastLocation.longitude)
 
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20F))
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM))
 
                 googleMap.setPaddingAsDp(view = binding.root)
 
@@ -81,13 +81,13 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                         googleMap.addMarker {
                             position(it)
                             title("Bu adresi seç.")
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 20f))
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, ZOOM))
                         }
                     } else {
                         googleMap.addMarker {
                             position(it)
                             title("Bu adresi seç.")
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 20f))
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, ZOOM))
                         }.also { viewModel.markerExists = true }
                     }
 
@@ -148,5 +148,9 @@ class MapFragment : Fragment(R.layout.fragment_map) {
             view.dpAsPixels(right),
             view.dpAsPixels(bottom),
         )
+    }
+
+    companion object {
+        const val ZOOM = 20f
     }
 }

@@ -30,6 +30,5 @@ class MarginItemDecoration(
             left = marginLeft
             right = marginRight
         }
-
     }
 }

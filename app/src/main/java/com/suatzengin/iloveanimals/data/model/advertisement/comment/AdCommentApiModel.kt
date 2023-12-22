@@ -16,7 +16,5 @@ data class AdCommentApiModel(
 fun AdCommentApiModel.isUserOwner(currentUserId: String): Boolean {
     if(userId == null) return false
 
-    if(userId != currentUserId) return false
-
-    return true
+    return userId == currentUserId
 }

@@ -12,6 +12,8 @@ import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 
+private const val PROGRESS_MULTIPLIER = 100.0
+
 class ImageStorage @Inject constructor(
     private val storage: FirebaseStorage,
     @Dispatcher(IlaDispatchers.IO) private val ioDispatcher: CoroutineDispatcher
@@ -30,7 +32,7 @@ class ImageStorage @Inject constructor(
                         val bytesTransferred = task.bytesTransferred
                         val totalByteCount = task.totalByteCount
 
-                        val progress = (100.0 * bytesTransferred) / totalByteCount
+                        val progress = (PROGRESS_MULTIPLIER * bytesTransferred) / totalByteCount
                         Log.d("TAG", "${it.lastPathSegment} - Upload is $progress% done")
                     }
                     .await()

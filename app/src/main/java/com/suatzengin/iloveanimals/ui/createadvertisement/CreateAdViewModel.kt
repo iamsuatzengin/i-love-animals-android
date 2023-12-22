@@ -39,7 +39,7 @@ class CreateAdViewModel @Inject constructor() : ViewModel() {
                 images.addAll(uiState.value.imageList)
             }
 
-            _uiState.update { it.copy(imageList = images.take(5)) }
+            _uiState.update { it.copy(imageList = images.take(MAX_IMAGE_COUNT)) }
         }
     }
 
@@ -47,5 +47,9 @@ class CreateAdViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             _uiState.update { it.copy(categoryId = category.id) }
         }
+    }
+
+    companion object {
+        const val MAX_IMAGE_COUNT = 5
     }
 }

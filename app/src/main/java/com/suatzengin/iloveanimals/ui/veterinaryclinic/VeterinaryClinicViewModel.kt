@@ -3,7 +3,6 @@ package com.suatzengin.iloveanimals.ui.veterinaryclinic
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.domain.model.Resource
-import com.suatzengin.iloveanimals.domain.model.veterinaryclinic.VeterinaryClinic
 import com.suatzengin.iloveanimals.domain.repository.VeterinaryClinicRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,8 +48,3 @@ class VeterinaryClinicViewModel @Inject constructor(
         }
     }
 }
-
-data class VeterinaryClinicUiState(
-    val clinics: List<VeterinaryClinic> = emptyList(),
-    val isLoading: Boolean = false,
-)

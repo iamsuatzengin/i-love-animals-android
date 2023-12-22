@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -8,6 +10,7 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.google.services)
     alias(libs.plugins.secret)
+    id("io.gitlab.arturbosch.detekt") version("1.23.4")
 }
 
 android {
@@ -57,6 +60,18 @@ android {
         ignoreList.add("keyToIgnore")
 
         ignoreList.add("sdk.*")
+    }
+}
+
+detekt {
+    toolVersion = "1.23.4"
+    config.setFrom(file("../config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+}
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        html.required.set(true)
     }
 }
 

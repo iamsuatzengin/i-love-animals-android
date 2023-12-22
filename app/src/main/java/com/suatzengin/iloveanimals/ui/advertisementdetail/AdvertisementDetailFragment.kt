@@ -113,8 +113,8 @@ class AdvertisementDetailFragment : Fragment(R.layout.fragment_advertisement_det
         if(isCompleted) {
             btnHelp.isEnabled = false
             btnFindVet.isEnabled = false
-            btnHelp.alpha = 0.5f
-            btnFindVet.alpha = 0.5f
+            btnHelp.alpha = ALPHA_VISIBILITY
+            btnFindVet.alpha = ALPHA_VISIBILITY
             return@with
         }
 
@@ -130,5 +130,7 @@ class AdvertisementDetailFragment : Fragment(R.layout.fragment_advertisement_det
     companion object {
         const val COMMENTS_REQUEST_KEY = "commentsRequestKey"
         const val COMMENTS_BUNDLE_KEY = "commentsBundleKey"
+
+        const val ALPHA_VISIBILITY = 0.5f
     }
 }

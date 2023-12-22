@@ -60,12 +60,6 @@ class LoginViewModel @Inject constructor(
     fun setPassword(password: String) {
         _uiState.update { it.copy(password = password) }
     }
-
-    fun clearUiState() {
-        viewModelScope.launch {
-            _uiState.emit(LoginUiState())
-        }
-    }
 }
 
 sealed class LoginUiEvent {

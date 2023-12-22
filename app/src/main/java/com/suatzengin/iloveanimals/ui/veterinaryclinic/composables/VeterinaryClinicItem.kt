@@ -41,7 +41,7 @@ fun VeterinaryClinicItem(
     clinic: String = "Clinic Name",
     address: String = "Selvilitepe Mah. Turgutlu/Manisa",
     isAmbulanceAvailable: Boolean = true,
-    doctor: String = "Prof Dr Suat F",
+    doctor: String = "Suat F",
     times: String = "09:00 - 20:00",
     images: List<String> = emptyList(),
     onDirectionButtonClick: () -> Unit,
@@ -63,16 +63,15 @@ fun VeterinaryClinicItem(
             .padding(horizontal = 16.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        if (images.isNotEmpty()) {
-            AnimatedVisibility(visible = visibility) {
-                HorizontalImagePager(
-                    modifier = Modifier
-                        .height(180.dp)
-                        .fillMaxWidth(),
-                    pagerState = pagerState,
-                    images = images
-                )
-            }
+
+        AnimatedVisibility(visible = images.isNotEmpty() && visibility) {
+            HorizontalImagePager(
+                modifier = Modifier
+                    .height(180.dp)
+                    .fillMaxWidth(),
+                pagerState = pagerState,
+                images = images
+            )
         }
 
         Text(text = clinic, fontWeight = FontWeight.SemiBold, fontSize = 15.sp)
@@ -92,52 +91,59 @@ fun VeterinaryClinicItem(
             Icon(
                 painter = painterResource(id = R.drawable.ic_ambulance_available),
                 contentDescription = "",
-
-                )
+            )
             Spacer(modifier = Modifier.width(8.dp))
             Text(text = text, color = colorResource(id = R.color.color_edit_text_stroke))
         }
 
         AnimatedVisibility(visible = visibility) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                ClinicMoreInfo(
-                    times = times,
-                    doctor = doctor,
-                    onDirectionClick = onDirectionButtonClick
-                )
-            }
+            ClinicMoreInfo(
+                times = times,
+                doctor = doctor,
+                onDirectionClick = onDirectionButtonClick
+            )
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ClinicItemCardBottom(
+            visibility = visibility,
+            onVisibilityChange = {
+                visibility = !visibility
+            },
+            onCallButtonClick = onCallButtonClick
+        )
+    }
+}
+
+@Composable
+fun ClinicItemCardBottom(
+    visibility: Boolean,
+    onVisibilityChange: () -> Unit,
+    onCallButtonClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        IlaOutlinedButton(
+            modifier = Modifier.weight(1f),
+            onClick = onVisibilityChange
         ) {
-            IlaOutlinedButton(
-                modifier = Modifier
-                    .weight(1f),
-                onClick = {
-                    visibility = !visibility
-                }
-            ) {
-                Text(text = if (visibility) "Detayı kapat" else "Detayı Gör")
-            }
+            Text(text = if (visibility) "Detayı kapat" else "Detayı Gör")
+        }
 
-            IlaButton(
-                modifier = Modifier.weight(1f),
-                backgroundColor = colorResource(id = R.color.color_error),
-                onClick = onCallButtonClick
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Phone, contentDescription = "",
-                    modifier = Modifier.size(18.dp)
-                )
+        IlaButton(
+            modifier = Modifier.weight(1f),
+            backgroundColor = colorResource(id = R.color.color_error),
+            onClick = onCallButtonClick
+        ) {
+            Icon(
+                imageVector = Icons.Default.Phone, contentDescription = "",
+                modifier = Modifier.size(18.dp)
+            )
 
-                Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
-                Text(text = "Ara")
-            }
+            Text(text = "Ara")
         }
     }
 }

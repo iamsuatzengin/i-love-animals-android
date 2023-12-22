@@ -87,11 +87,11 @@ class MainActivity : AppCompatActivity() {
                     if (state.visibilityWithAnim) {
                         showView(fabAddAdvertisement, state.fabIsVisible)
 
-                        fabAddAdvertisement.delayOnLifecycle(50) {
+                        fabAddAdvertisement.delayOnLifecycle(DELAY_ANIM_50) {
                             showView(fabVet, state.fabIsVisible)
                         }
 
-                        fabVet.delayOnLifecycle(100) {
+                        fabVet.delayOnLifecycle(DELAY_ANIM_100) {
                             showView(fabGuide, state.fabIsVisible)
                         }
                     } else {
@@ -142,5 +142,10 @@ class MainActivity : AppCompatActivity() {
 
             WindowInsetsCompat.CONSUMED
         }
+    }
+
+    companion object {
+        const val DELAY_ANIM_50 = 50L
+        const val DELAY_ANIM_100 = 100L
     }
 }

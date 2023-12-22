@@ -80,7 +80,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
     private fun getImagesFromCamera() {
         setFragmentResultListener(
             CameraFragment.IMAGE_LIST_REQUEST_KEY,
-        ) { requestKey, bundle ->
+        ) { _, bundle ->
             val images = bundle.getStringArray(CameraFragment.IMAGE_LIST_BUNDLE_KEY)
 
             images?.let { list ->
@@ -115,7 +115,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
         val arrayAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
-            AdvertisementCategory.entries.takeLast(3).map {
+            AdvertisementCategory.entries.takeLast(CATEGORY_COUNT).map {
                 AdvertisementCategory.getTitle(it)
             }
         )
@@ -225,5 +225,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
                     add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }
             }.toTypedArray()
+
+        const val CATEGORY_COUNT = 3
     }
 }
