@@ -33,7 +33,9 @@ fun VeterinaryClinicScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 48.dp)
     ) {
         if (state.isLoading) {
             CircularProgressIndicator(

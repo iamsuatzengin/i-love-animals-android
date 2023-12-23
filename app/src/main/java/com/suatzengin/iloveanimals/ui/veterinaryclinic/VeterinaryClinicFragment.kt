@@ -3,33 +3,44 @@ package com.suatzengin.iloveanimals.ui.veterinaryclinic
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.suatzengin.iloveanimals.R
-import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
-import com.suatzengin.iloveanimals.databinding.FragmentVeterinaryClinicBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VeterinaryClinicFragment : Fragment(R.layout.fragment_veterinary_clinic) {
-    private val binding by viewBinding(FragmentVeterinaryClinicBinding::bind)
-
+class VeterinaryClinicFragment : Fragment() {
     private val viewModel by viewModels<VeterinaryClinicViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
 
-        binding.composeView.setContent {
-            VeterinaryClinicScreen(
-                viewModel = viewModel,
-                onNavigateBackClick = {
-                    findNavController().navigateUp()
-                },
-                onDirectionButtonClick = ::navigateToDirection,
-                onCallButtonClick = ::navigateToActionDial
+            setViewCompositionStrategy(
+                ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
             )
+
+            setContent {
+                MaterialTheme {
+                    VeterinaryClinicScreen(
+                        viewModel = viewModel,
+                        onNavigateBackClick = {
+                            findNavController().navigateUp()
+                        },
+                        onDirectionButtonClick = ::navigateToDirection,
+                        onCallButtonClick = ::navigateToActionDial
+                    )
+                }
+            }
         }
     }
 

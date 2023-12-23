@@ -1,4 +1,4 @@
-package com.suatzengin.iloveanimals.ui.firstaidguide
+package com.suatzengin.iloveanimals.ui.firstaidguide.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable

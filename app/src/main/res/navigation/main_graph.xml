@@ -48,6 +48,15 @@
 
     <include app:graph="@navigation/first_aid_guide_graph" />
 
+    <fragment
+        android:id="@+id/veterinaryClinicFragment"
+        android:name="com.suatzengin.iloveanimals.ui.veterinaryclinic.VeterinaryClinicFragment"
+        android:label="fragment_veterinary_clinic" />
+
+    <action
+        android:id="@+id/to_veterinaryClinicFragment"
+        app:destination="@id/veterinaryClinicFragment" />
+
     <action
         android:id="@+id/to_firstAidGuideGraph"
         app:destination="@+id/first_aid_guide_graph" />

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/charity_score_graph"
     app:startDestination="@id/charityScoreFragment">
 
     <fragment
         android:id="@+id/charityScoreFragment"
         android:name="com.suatzengin.iloveanimals.ui.charityscore.CharityScoreFragment"
-        android:label="fragment_charity_score"
-        tools:layout="@layout/fragment_charity_score" />
+        android:label="fragment_charity_score" />
 </navigation>
