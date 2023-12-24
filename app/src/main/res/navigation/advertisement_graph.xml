@@ -70,5 +70,7 @@
         <argument
             android:name="advertisementId"
             app:argType="string" />
+
+        <deepLink app:uri="ila://host/advertisementDetail/{advertisementId}" />
     </fragment>
 </navigation>

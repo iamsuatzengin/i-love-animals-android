@@ -17,7 +17,9 @@ import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentProfileBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
 import com.suatzengin.iloveanimals.ui.adapter.AdvertisementListAdapter
+import com.suatzengin.iloveanimals.util.extension.navigateDeepLink
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -36,8 +38,20 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    initView(state)
+                launch {
+                    viewModel.uiState.collect { state ->
+                        initView(state)
+                    }
+                }
+
+                launch {
+                    viewModel.uiEvent.collectLatest { event ->
+                        when (event) {
+                            ProfileUiEvent.Logout -> {
+                                findNavController().navigate(R.id.to_loginFragment)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -72,10 +86,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                 findNavController().navigate(action)
             }
+
+            btnLogout.setOnClickListener {
+                viewModel.userLogout()
+            }
         }
     }
 
     private fun onAdvertisementPostedClick(advertisement: Advertisement) {
-        // no-op for now
+        findNavController().navigateDeepLink(
+            deeplink = "ila://host/advertisementDetail/${advertisement.id}"
+        )
     }
 }

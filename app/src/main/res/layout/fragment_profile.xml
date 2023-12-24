@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     tools:context=".ui.profile.ProfileFragment">
 
     <FrameLayout
@@ -139,10 +138,10 @@
                 android:id="@+id/tv_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
                 android:text="@string/text_see_all"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_email" />
+                app:layout_constraintTop_toTopOf="@id/tv_ads_label"
+                app:layout_constraintBottom_toBottomOf="@id/tv_ads_label"/>
 
             <TextView
                 android:id="@+id/tv_ads_label"
@@ -158,12 +157,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_advertisement_posted"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_ads_label" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
-
 </androidx.core.widget.NestedScrollView>

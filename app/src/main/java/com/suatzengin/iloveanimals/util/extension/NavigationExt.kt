@@ -1,6 +1,8 @@
 package com.suatzengin.iloveanimals.util.extension
 
+import androidx.core.net.toUri
 import androidx.navigation.NavController
+import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -46,4 +48,12 @@ enum class TopLevelDestination(
 
 fun isTopDestination(destinationId: Int) = TopLevelDestination.entries.any {
     it.destinationId == destinationId
+}
+
+fun NavController.navigateDeepLink(deeplink: String) {
+    val request = NavDeepLinkRequest.Builder
+        .fromUri(deeplink.toUri())
+        .build()
+
+    navigate(request)
 }
