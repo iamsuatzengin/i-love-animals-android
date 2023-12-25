@@ -27,4 +27,7 @@ object NetworkConstants {
 
     // Veterinary Clinic
     const val VETERINARY_CLINICS = "/clinics"
+
+    // Charity Score
+    const val CHARITY_SCORE = "/charity-score"
 }

@@ -8,7 +8,9 @@ import com.suatzengin.iloveanimals.domain.model.Resource
 import com.suatzengin.iloveanimals.domain.usecase.GetUserProfileUseCase
 import com.suatzengin.iloveanimals.util.jwtdecode.JwtDecoder
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,6 +24,9 @@ class ProfileViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(ProfileUiState())
     val uiState = _uiState.asStateFlow()
+
+    private val _uiEvent = MutableSharedFlow<ProfileUiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
 
     init {
         getUserProfile()
@@ -49,5 +54,13 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
-}
 
+    fun userLogout() {
+        viewModelScope.launch {
+            runCatching {
+                authHandler.logout()
+                _uiEvent.emit(ProfileUiEvent.Logout)
+            }
+        }
+    }
+}

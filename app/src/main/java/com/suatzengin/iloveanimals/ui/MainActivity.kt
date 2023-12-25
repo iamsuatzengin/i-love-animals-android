@@ -124,7 +124,10 @@ class MainActivity : AppCompatActivity() {
             viewModel.updateVisibility()
         }
 
-        fabVet.setOnClickListener { }
+        fabVet.setOnClickListener {
+            navController.navigate(R.id.to_veterinaryClinicFragment)
+            viewModel.updateVisibility()
+        }
 
         fabGuide.setOnClickListener {
             navController.navigate(R.id.to_firstAidGuideGraph)

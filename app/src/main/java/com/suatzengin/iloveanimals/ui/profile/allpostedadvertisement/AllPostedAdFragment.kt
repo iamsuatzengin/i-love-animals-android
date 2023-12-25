@@ -12,6 +12,7 @@ import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentAllPostedAdBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.Advertisement
 import com.suatzengin.iloveanimals.ui.adapter.AdvertisementListAdapter
+import com.suatzengin.iloveanimals.util.extension.navigateDeepLink
 
 class AllPostedAdFragment : Fragment(R.layout.fragment_all_posted_ad) {
     private val binding by viewBinding(FragmentAllPostedAdBinding::bind)
@@ -50,6 +51,8 @@ class AllPostedAdFragment : Fragment(R.layout.fragment_all_posted_ad) {
     }
 
     private fun onAdvertisementClick(advertisement: Advertisement) {
-        // no-op for now
+        findNavController().navigateDeepLink(
+            deeplink = "ila://host/advertisementDetail/${advertisement.id}"
+        )
     }
 }

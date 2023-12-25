@@ -1,27 +1,38 @@
 package com.suatzengin.iloveanimals.ui.firstaidguide
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.suatzengin.iloveanimals.R
-import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
-import com.suatzengin.iloveanimals.databinding.FragmentFirstAidGuidesBinding
 import com.suatzengin.iloveanimals.ui.firstaidguide.model.FirstAidUiModel
 
-class FirstAidGuidesFragment : Fragment(R.layout.fragment_first_aid_guides) {
-    private val binding by viewBinding(FragmentFirstAidGuidesBinding::bind)
+class FirstAidGuidesFragment : Fragment() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.composeView.setContent {
-            FirstAidGuidesScreen(
-                onNavigateBackClick = {
-                    findNavController().navigateUp()
-                },
-                onItemClick = ::navigateToDetail
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(
+                ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
             )
+
+            setContent {
+                MaterialTheme {
+                    FirstAidGuidesScreen(
+                        onNavigateBackClick = {
+                            findNavController().navigateUp()
+                        },
+                        onItemClick = ::navigateToDetail
+                    )
+                }
+            }
         }
     }
 

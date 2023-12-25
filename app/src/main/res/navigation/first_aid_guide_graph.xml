@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/first_aid_guide_graph"
     app:startDestination="@id/firstAidGuidesFragment">
 
     <fragment
         android:id="@+id/firstAidGuidesFragment"
         android:name="com.suatzengin.iloveanimals.ui.firstaidguide.FirstAidGuidesFragment"
-        android:label="fragment_first_aid_guides"
-        tools:layout="@layout/fragment_first_aid_guides" >
+        android:label="fragment_first_aid_guides">
         <action
             android:id="@+id/to_firstAidGuideDetailFragment"
             app:destination="@id/firstAidGuideDetailFragment" />
@@ -17,8 +15,7 @@
     <fragment
         android:id="@+id/firstAidGuideDetailFragment"
         android:name="com.suatzengin.iloveanimals.ui.firstaidguide.detail.FirstAidGuideDetailFragment"
-        android:label="fragment_first_aid_guide_detail"
-        tools:layout="@layout/fragment_first_aid_guide_detail" >
+        android:label="fragment_first_aid_guide_detail">
         <argument
             android:name="firstAidUiModel"
             app:argType="com.suatzengin.iloveanimals.ui.firstaidguide.model.FirstAidUiModel" />
