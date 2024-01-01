@@ -13,6 +13,7 @@ data class AdvertisementUiState(
     val selectedCategory: AdvertisementCategory = AdvertisementCategory.ALL,
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
+    val postalCode: String = "",
 ) {
     val recyclerItems: List<RecyclerItem>
         get() = fillRecyclerItemList()

@@ -38,8 +38,17 @@ class AdvertisementRepositoryImpl @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    override fun getAdvertisementsByCategory(category: AdvertisementCategory): Flow<Resource<List<Advertisement>>> {
-        return service.getAdvertisementsByCategory(category).mapOnSuccess { list ->
+    override fun getAdvertisementsByPostalCode(postalCode: String): Flow<Resource<List<Advertisement>>> {
+        return service.getAdvertisementsByPostalCode(postalCode = postalCode).mapOnSuccess { list ->
+            mapper.map(input = list)
+        }.flowOn(ioDispatcher)
+    }
+
+    override fun getAdvertisementsByCategory(
+        category: AdvertisementCategory,
+        postalCode: String
+    ): Flow<Resource<List<Advertisement>>> {
+        return service.getAdvertisementsByCategory(category, postalCode).mapOnSuccess { list ->
             mapper.map(input = list)
         }.flowOn(ioDispatcher)
     }

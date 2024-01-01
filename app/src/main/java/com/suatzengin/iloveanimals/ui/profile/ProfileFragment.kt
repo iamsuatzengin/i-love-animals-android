@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.suatzengin.iloveanimals.R
@@ -48,7 +49,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     viewModel.uiEvent.collectLatest { event ->
                         when (event) {
                             ProfileUiEvent.Logout -> {
-                                findNavController().navigate(R.id.to_loginFragment)
+                                navigateToLoginWhenLogout()
                             }
                         }
                     }
@@ -91,6 +92,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 viewModel.userLogout()
             }
         }
+    }
+
+    private fun navigateToLoginWhenLogout() {
+        val startDestination = findNavController().graph.startDestinationId
+        findNavController().navigate(
+            resId = R.id.to_loginFragment,
+            args = null,
+            navOptions = navOptions {
+                popUpTo(startDestination) {
+                    inclusive = true
+                }
+            }
+        )
     }
 
     private fun onAdvertisementPostedClick(advertisement: Advertisement) {

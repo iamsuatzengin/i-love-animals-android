@@ -1,8 +1,10 @@
 package com.suatzengin.iloveanimals.ui.veterinaryclinic
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.suatzengin.iloveanimals.R
@@ -42,6 +46,28 @@ fun VeterinaryClinicScreen(
                 modifier = Modifier.align(Alignment.Center),
                 color = colorResource(id = R.color.color_primary)
             )
+        }
+
+        if (!state.isLoading && state.clinics.isEmpty()) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(horizontal = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.vec_no_result_vet),
+                    contentDescription = ""
+                )
+
+                Text(
+                    text = "Yakınlarında herhangi bir veteriner klinik bulunamadı!",
+                    color = Color.Black, fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            }
+
         }
 
         LazyColumn(

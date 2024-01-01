@@ -28,6 +28,7 @@ class CreateAdvertisementUseCase @Inject constructor(
         latitude: String,
         address: String,
         images: List<Uri>,
+        postalCode: String
     ) = withContext(ioDispatcher) {
 
         runCatching {
@@ -40,7 +41,8 @@ class CreateAdvertisementUseCase @Inject constructor(
                 images = uploadedImages.await(),
                 longitude = longitude,
                 latitude = latitude,
-                address = address
+                address = address,
+                postalCode = postalCode
             )
 
             advertisementRepository.createAdvertisement(request)

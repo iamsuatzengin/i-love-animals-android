@@ -5,6 +5,8 @@ import com.suatzengin.iloveanimals.data.model.advertisement.AdvertisementApiMode
 import com.suatzengin.iloveanimals.data.model.advertisement.CreateAdvertisementRequest
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_DETAIL
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_LIST
+import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_LIST_FILTER
+import com.suatzengin.iloveanimals.data.network.NetworkConstants.ADVERTISEMENT_LIST_POSTAL_CODE
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.CREATE_ADVERTISEMENT
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.QUERY_KEY
 import com.suatzengin.iloveanimals.data.network.NetworkConstants.SEARCH_ADVERTISEMENT
@@ -39,11 +41,20 @@ class AdvertisementService @Inject constructor(
             }
         }
 
-    fun getAdvertisementsByCategory(category: AdvertisementCategory) =
+    fun getAdvertisementsByPostalCode(postalCode: String) = apiCallWithFlow<List<AdvertisementApiModel>> {
+        client.get(ADVERTISEMENT_LIST_POSTAL_CODE) {
+            url {
+                appendPathSegments(postalCode)
+            }
+        }
+    }
+
+    fun getAdvertisementsByCategory(category: AdvertisementCategory, postalCode: String = "") =
         apiCallWithFlow<List<AdvertisementApiModel>> {
-            client.get(ADVERTISEMENT_LIST) {
+            client.get(ADVERTISEMENT_LIST_FILTER) {
                 url {
-                    appendPathSegments("${category.id}")
+                    parameters.append("category", "${category.id}")
+                    parameters.append("postalCode", postalCode)
                 }
             }
         }

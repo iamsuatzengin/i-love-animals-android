@@ -5,5 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class LocationApiModel(
     val longitude: String,
-    val latitude: String
+    val latitude: String,
+    val postalCode: String
 )

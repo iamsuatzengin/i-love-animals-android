@@ -15,7 +15,9 @@ interface AdvertisementRepository {
 
     fun searchAdvertisement(key: String): Flow<Resource<List<Advertisement>>>
 
-    fun getAdvertisementsByCategory(category: AdvertisementCategory): Flow<Resource<List<Advertisement>>>
+    fun getAdvertisementsByPostalCode(postalCode: String): Flow<Resource<List<Advertisement>>>
+
+    fun getAdvertisementsByCategory(category: AdvertisementCategory, postalCode: String): Flow<Resource<List<Advertisement>>>
 
     fun getUserAdvertisement(userId: String): Flow<List<AdvertisementApiModel>>
 

@@ -48,7 +48,8 @@ class ConfirmAdViewModel @Inject constructor(
                 longitude = uiState.value.longitude,
                 latitude = uiState.value.latitude,
                 address = uiState.value.address,
-                images = imageUris
+                images = imageUris,
+                postalCode = uiState.value.postalCode
             )
 
             when (result) {
@@ -65,9 +66,7 @@ class ConfirmAdViewModel @Inject constructor(
                     _loadingState.update { false }
                 }
 
-                else -> {
-                    // no-op
-                }
+                else -> Unit
             }
         }
     }

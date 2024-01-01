@@ -12,8 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -24,9 +22,9 @@ import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentMapBinding
 import com.suatzengin.iloveanimals.util.extension.dpAsPixels
+import com.suatzengin.iloveanimals.util.extension.getCurrentLocation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 @AndroidEntryPoint
 class MapFragment : Fragment(R.layout.fragment_map) {
@@ -38,8 +36,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     private val myAddress by lazy { LocationToAddressConverter(requireContext(), lifecycleScope) }
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,24 +44,17 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     private fun initGoogleMaps() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 val googleMap = mapFragment.awaitMap()
 
-                val lastLocation = if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    return@repeatOnLifecycle
-                } else fusedLocationClient.lastLocation.await()
+                val lastLocation = requireContext().getCurrentLocation()
 
-                val latLng = LatLng(lastLocation.latitude, lastLocation.longitude)
+                val latLng = LatLng(
+                    lastLocation?.latitude ?: 0.0,
+                    lastLocation?.longitude ?: 0.0
+                )
 
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM))
 
@@ -73,7 +62,9 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
                 isMyLocationEnabled(googleMap)
 
-                myAddress.getFromLocation(latLng)
+                myAddress.getFromLocation(latLng) { location ->
+                    updateLocationInformation(location)
+                }
 
                 googleMap.setOnMapLongClickListener {
                     if (viewModel.markerExists) {
@@ -91,11 +82,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                         }.also { viewModel.markerExists = true }
                     }
 
-                    myAddress.getFromLocation(LatLng(it.latitude, it.longitude))
-                }
-
-                launch {
-                    myAddress.state.collect { location ->
+                    myAddress.getFromLocation(LatLng(it.latitude, it.longitude)) { location ->
                         updateLocationInformation(location)
                     }
                 }
@@ -113,7 +100,8 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                 val state = args.advertisement.copy(
                     longitude = location.latitude.toString(),
                     latitude = location.longitude.toString(),
-                    address = binding.textField.editText?.text.toString()
+                    address = binding.textField.editText?.text.toString(),
+                    postalCode = location.postalCode.orEmpty()
                 )
 
                 val action = MapFragmentDirections.toConfirmAdvertisementFragment(state)
