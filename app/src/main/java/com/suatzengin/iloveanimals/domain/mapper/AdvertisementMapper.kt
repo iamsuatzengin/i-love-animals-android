@@ -18,7 +18,8 @@ class AdvertisementMapper @Inject constructor() : Mapper<AdvertisementApiModel, 
             location = Location(
                 longitude = input.location.longitude,
                 latitude = input.location.latitude,
-                address = input.address
+                address = input.address,
+                postalCode = input.location.postalCode
             ),
             isCompleted = input.isCompleted,
             createdAt = input.createdAt

@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.suatzengin.iloveanimals.R
+import com.suatzengin.iloveanimals.ui.veterinaryclinic.composables.ClinicsEmptyState
 import com.suatzengin.iloveanimals.ui.veterinaryclinic.composables.VeterinaryClinicItem
 
 @Composable
@@ -42,6 +43,10 @@ fun VeterinaryClinicScreen(
                 modifier = Modifier.align(Alignment.Center),
                 color = colorResource(id = R.color.color_primary)
             )
+        }
+
+        if (!state.isLoading && state.clinics.isEmpty()) {
+            ClinicsEmptyState(modifier = Modifier.align(Alignment.Center))
         }
 
         LazyColumn(

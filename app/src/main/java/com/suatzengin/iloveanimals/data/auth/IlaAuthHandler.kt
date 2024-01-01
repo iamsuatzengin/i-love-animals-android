@@ -45,7 +45,7 @@ class IlaAuthHandler @Inject constructor(
     }
 
     companion object {
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+        val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
             name = "auth_handler"
         )
 

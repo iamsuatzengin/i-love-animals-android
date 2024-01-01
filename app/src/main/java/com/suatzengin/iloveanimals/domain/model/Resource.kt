@@ -21,3 +21,11 @@ fun <T> Resource<T>.onError(action: (String) -> Unit): Resource<T> {
 
     return this
 }
+
+fun <T> Resource<T>.onLoading(action: () -> Unit): Resource<T> {
+    if(this is Resource.Loading) {
+        action()
+    }
+
+    return this
+}

@@ -45,9 +45,10 @@ class VeterinaryClinicFragment : Fragment() {
     }
 
     private fun navigateToDirection(latitude: String, longitude: String) {
-        val intent = Uri.parse("google.navigation:q=$latitude,$longitude").let {  uri ->
-            Intent(Intent.ACTION_VIEW, uri)
-        }
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("google.navigation:q=$latitude,$longitude")
+        )
 
         startActivity(intent)
     }

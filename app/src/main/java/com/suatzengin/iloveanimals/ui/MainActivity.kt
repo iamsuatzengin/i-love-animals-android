@@ -1,15 +1,21 @@
 package com.suatzengin.iloveanimals.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -50,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initView()
+
+        checkNotificationPermission()
     }
 
     /**
@@ -99,7 +107,6 @@ class MainActivity : AppCompatActivity() {
                         fabVet.isVisible = state.fabIsVisible
                         fabGuide.isVisible = state.fabIsVisible
                     }
-
                 }
             }
         }
@@ -146,6 +153,24 @@ class MainActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
     }
+
+    private fun checkNotificationPermission() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if(!isNotificationPermissionGranted()) {
+                activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private val activityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ){}
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun isNotificationPermissionGranted() = ActivityCompat.checkSelfPermission(
+        this,
+        Manifest.permission.POST_NOTIFICATIONS
+    ) == PackageManager.PERMISSION_GRANTED
 
     companion object {
         const val DELAY_ANIM_50 = 50L

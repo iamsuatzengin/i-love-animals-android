@@ -2,7 +2,6 @@ package com.suatzengin.iloveanimals.ui.advertisementdetail
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -41,8 +40,6 @@ class AdvertisementDetailFragment : Fragment(R.layout.fragment_advertisement_det
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { uiState ->
-                    Log.i("Data", "Veri geldi: ${uiState.advertisement}")
-
                     initView(uiState)
                 }
             }

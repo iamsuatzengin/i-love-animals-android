@@ -13,4 +13,5 @@ data class CreateAdvertisementUiState(
     val longitude: String = "",
     val latitude: String = "",
     val address: String = "",
+    val postalCode: String = ""
 ): Parcelable
