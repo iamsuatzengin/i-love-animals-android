@@ -24,6 +24,7 @@ swiperefreshlayout = "1.2.0-alpha01"
 secret = "2.0.1"
 compose-bom = "2023.10.01"
 compose-lifecylce = "2.6.2"
+chucker = "4.0.0"
 
 [libraries]
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
@@ -93,6 +94,9 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 # Compose Lifecycle - ViewModel
 compose-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-lifecylce" }
 compose-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "compose-lifecylce" }
+
+# Chucker
+chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

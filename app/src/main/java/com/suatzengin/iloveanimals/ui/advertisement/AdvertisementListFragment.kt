@@ -74,7 +74,7 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
     override fun onStart() {
         super.onStart()
 
-        checkLocation()
+        getAdvertisementsByLocation()
     }
 
     private fun setupRecyclerView() {
@@ -131,7 +131,7 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
         }
     }
 
-    private fun checkLocation() {
+    private fun getAdvertisementsByLocation() {
         when {
             locationManagerUtil.isGpsEnabled() && isPermissionsGranted() -> {
                 getCurrentLocation()

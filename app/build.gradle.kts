@@ -131,6 +131,9 @@ dependencies {
     // Lottie animation
     implementation(libs.lottie)
 
+    // Chucker
+    implementation(libs.chucker)
+
     androidTestImplementation(platform(libs.firebase.bom))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
