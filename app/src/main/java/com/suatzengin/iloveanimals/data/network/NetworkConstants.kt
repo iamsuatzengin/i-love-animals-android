@@ -32,4 +32,7 @@ object NetworkConstants {
 
     // Charity Score
     const val CHARITY_SCORE = "/charity-score"
+
+    // Complete Advertisement
+    const val COMPLETE_ADVERTISEMENT = "/complete-advertisement"
 }

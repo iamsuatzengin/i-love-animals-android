@@ -72,5 +72,20 @@
             app:argType="string" />
 
         <deepLink app:uri="ila://host/advertisementDetail/{advertisementId}" />
+        <action
+            android:id="@+id/to_helpAnimalFragment"
+            app:destination="@id/helpAnimalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpAnimalFragment"
+        android:name="com.suatzengin.iloveanimals.ui.helpanimals.HelpAnimalFragment"
+        android:label="fragment_help_animal"
+        tools:layout="@layout/fragment_help_animal">
+        <argument
+            android:name="advertisementId"
+            app:argType="string" />
+        <argument
+            android:name="adCreatorId"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -70,4 +70,13 @@
     <string name="button_post_comment">Yorum gönderme butonu</string>
     <string name="content_desc_button_show_comments">Yorumları göster butonu</string>
     <string name="content_desc_location_icon">Konum ikonu</string>
+
+    <string name="text_add_photo">Fotoğraf Ekle</string>
+    <string name="text_helping_approved">Onaylandı</string>
+    <string name="text_helping_denied">Reddedildi</string>
+    <string name="btn_text_check">Kontrol Et</string>
+    <string name="btn_text_complete">Tamamla</string>
+    <string name="text_answer">Cevap</string>
+    <string name="text_click_for_upload_image">Resim yüklemek için tıklayınız</string>
+
 </resources>

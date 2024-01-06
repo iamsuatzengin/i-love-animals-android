@@ -46,6 +46,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -133,6 +134,8 @@ dependencies {
 
     // Chucker
     implementation(libs.chucker)
+
+    implementation("com.google.ai.client.generativeai:generativeai:0.1.1")
 
     androidTestImplementation(platform(libs.firebase.bom))
     testImplementation(libs.junit)

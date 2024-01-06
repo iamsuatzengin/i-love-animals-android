@@ -4,12 +4,14 @@ import com.suatzengin.iloveanimals.data.repository.AdCommentRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.AdvertisementRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.AuthRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.CharityScoreRepositoryImpl
+import com.suatzengin.iloveanimals.data.repository.CompleteAdRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.ProfileRepositoryImpl
 import com.suatzengin.iloveanimals.data.repository.VeterinaryClinicRepositoryImpl
 import com.suatzengin.iloveanimals.domain.repository.AdCommentRepository
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
 import com.suatzengin.iloveanimals.domain.repository.AuthRepository
 import com.suatzengin.iloveanimals.domain.repository.CharityScoreRepository
+import com.suatzengin.iloveanimals.domain.repository.CompleteAdRepository
 import com.suatzengin.iloveanimals.domain.repository.ProfileRepository
 import com.suatzengin.iloveanimals.domain.repository.VeterinaryClinicRepository
 import dagger.Binds
@@ -50,4 +52,9 @@ abstract class RepositoryModule {
     abstract fun bindCharityScoreRepository(
         charityScoreRepositoryImpl: CharityScoreRepositoryImpl
     ): CharityScoreRepository
+
+    @Binds
+    abstract fun bindCompleteAdRepository(
+        completeAdRepositoryImpl: CompleteAdRepositoryImpl
+    ): CompleteAdRepository
 }

@@ -21,7 +21,7 @@
         <item name="strokeColor">@color/color_primary</item>
         <item name="cornerFamily">rounded</item>
         <item name="android:textAllCaps">false</item>
-        <item name="cornerRadius">@dimen/radius_24dp</item>
+        <item name="cornerRadius">@dimen/radius_16dp</item>
     </style>
 
     <style name="App.EditText.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
