@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId = "com.suatzengin.iloveanimals"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -136,6 +136,7 @@ dependencies {
     implementation(libs.chucker)
 
     implementation("com.google.ai.client.generativeai:generativeai:0.1.1")
+    implementation(libs.firebase.messaging)
 
     androidTestImplementation(platform(libs.firebase.bom))
     testImplementation(libs.junit)

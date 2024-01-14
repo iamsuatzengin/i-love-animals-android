@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
 import com.suatzengin.iloveanimals.data.network.NetworkResult
 import com.suatzengin.iloveanimals.domain.repository.AuthRepository
+import com.suatzengin.iloveanimals.domain.usecase.CreatePushNotifDeviceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repository: AuthRepository,
-    private val authHandler: IlaAuthHandler
+    private val authHandler: IlaAuthHandler,
+    private val createPushNotifDeviceUseCase: CreatePushNotifDeviceUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -38,6 +40,8 @@ class LoginViewModel @Inject constructor(
                 repository.login(email = uiState.value.email, password = uiState.value.password)) {
                 is NetworkResult.Success -> {
                     authHandler.saveJWT(token = response.data.token.orEmpty())
+
+                    createPushNotifDeviceUseCase()
 
                     _uiEvent.emit(LoginUiEvent.NavigateToHome(response.data.token.orEmpty()))
                 }
