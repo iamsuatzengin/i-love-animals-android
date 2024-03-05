@@ -14,6 +14,7 @@ data class AdvertisementUiState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val postalCode: String = "",
+    val emptyState: Boolean = false,
 ) {
     val recyclerItems: List<RecyclerItem>
         get() = fillRecyclerItemList()

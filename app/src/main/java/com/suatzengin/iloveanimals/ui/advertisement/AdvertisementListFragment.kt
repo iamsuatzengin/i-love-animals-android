@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.ui.LoadingDialog
 import com.suatzengin.iloveanimals.core.ui.MarginItemDecoration
+import com.suatzengin.iloveanimals.core.ui.snackbar.SnackbomType
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentAdvertisementListBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
@@ -31,7 +33,9 @@ import com.suatzengin.iloveanimals.ui.advertisement.callback.TopViewCallback
 import com.suatzengin.iloveanimals.ui.map.LocationToAddressConverter
 import com.suatzengin.iloveanimals.util.LocationManagerUtil
 import com.suatzengin.iloveanimals.util.extension.getCurrentLocation
+import com.suatzengin.iloveanimals.util.extension.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -59,6 +63,7 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getAdvertisementsByLocation()
         setupRecyclerView()
         collectData()
         initView()
@@ -66,15 +71,8 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
 
     private fun initView() = with(binding) {
         layoutSwipeToRefresh.setOnRefreshListener {
-
             viewModel.getAdvertisementsAllOrOnlyNearby(isRefreshing = true)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        getAdvertisementsByLocation()
     }
 
     private fun setupRecyclerView() {
@@ -97,18 +95,30 @@ class AdvertisementListFragment : Fragment(R.layout.fragment_advertisement_list)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                viewModel.uiState.collect { state ->
-                    if (state.advertisementList.isEmpty()) {
-                        Log.i("network - fragment", "Liste boş")
+                launch {
+                    viewModel.uiState.collect { state ->
+                        binding.emptyState.isVisible = state.emptyState
+
+                        adapter?.submitList(state.recyclerItems)
+
+                        binding.layoutSwipeToRefresh.isRefreshing = state.isRefreshing
+
+                        loadingDialog.showLoading(state.isLoading)
                     }
-
-                    adapter?.submitList(state.recyclerItems)
-
-                    binding.layoutSwipeToRefresh.isRefreshing = state.isRefreshing
-
-                    loadingDialog.showLoading(state.isLoading)
                 }
 
+                launch {
+                    viewModel.uiEvent.collectLatest { event ->
+                        when (event) {
+                            AdvertisementUiEvent.ShowErrorMessage -> {
+                                showSnackbar(
+                                    SnackbomType.ERROR,
+                                    text = "An error occurred!"
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }

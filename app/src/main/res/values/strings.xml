@@ -78,5 +78,9 @@
     <string name="btn_text_complete">Tamamla</string>
     <string name="text_answer">Cevap</string>
     <string name="text_click_for_upload_image">Resim yüklemek için tıklayınız</string>
-
+    <string name="text_search_not_found">Herhangi bir sonuç bulunamadı!</string>
+    <string name="text_try_again_to_look_for_new_ads">Başka ilanlar aramak istiyorsan tekrar dene!</string>
+    <string name="content_desc_no_result_image">Sonuç yok</string>
+    <string name="text_no_advertisements_found">İlan bulunamadı!</string>
+    <string name="text_no_advertisement_found_near">Bulunduğun konuma yakin bir ilan bulunamadı.</string>
 </resources>
