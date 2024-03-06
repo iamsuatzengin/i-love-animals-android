@@ -1,6 +1,5 @@
 package com.suatzengin.iloveanimals.ui.auth.login
 
-import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
@@ -36,14 +35,16 @@ class LoginViewModel @Inject constructor(
                 return@launch
             }
 
-            when (val response =
-                repository.login(email = uiState.value.email, password = uiState.value.password)) {
+            when (
+                val response =
+                    repository.login(email = uiState.value.email, password = uiState.value.password)
+            ) {
                 is NetworkResult.Success -> {
                     authHandler.saveJWT(token = response.data.token.orEmpty())
 
                     createPushNotifDeviceUseCase()
 
-                    _uiEvent.emit(LoginUiEvent.NavigateToHome(response.data.token.orEmpty()))
+                    _uiEvent.emit(LoginUiEvent.NavigateToHome)
                 }
 
                 is NetworkResult.Error -> {
@@ -64,18 +65,4 @@ class LoginViewModel @Inject constructor(
     fun setPassword(password: String) {
         _uiState.update { it.copy(password = password) }
     }
-}
-
-sealed class LoginUiEvent {
-    data class NavigateToHome(val token: String) : LoginUiEvent()
-    data class Error(val message: String) : LoginUiEvent()
-}
-
-data class LoginUiState(
-    val email: String = "",
-    val password: String = "",
-) {
-    val isEmailValid: Boolean =
-        email.isNotBlank() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
-
 }

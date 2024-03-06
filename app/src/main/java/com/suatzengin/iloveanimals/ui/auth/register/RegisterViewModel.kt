@@ -73,21 +73,3 @@ class RegisterViewModel @Inject constructor(
         viewModelScope.launch { _uiState.update { it.copy(phoneNumber = phoneNumber) } }
     }
 }
-
-data class RegisterUiState(
-    val fullName: String = "",
-    val email: String = "",
-    val password: String = "",
-    val confirmPassword: String = "",
-    val phoneNumber: String = "",
-) {
-    val isPasswordConfirmed = password.isNotBlank()
-            && confirmPassword.isNotBlank()
-            && password == confirmPassword
-}
-
-sealed interface RegisterUiEvent {
-    class Error(val message: String): RegisterUiEvent
-    class PasswordNotConfirmed(val message: String): RegisterUiEvent
-    data object NavigateToLogin: RegisterUiEvent
-}

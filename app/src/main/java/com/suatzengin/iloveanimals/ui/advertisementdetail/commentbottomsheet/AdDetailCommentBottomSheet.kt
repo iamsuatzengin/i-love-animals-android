@@ -27,7 +27,7 @@ import com.suatzengin.iloveanimals.ui.advertisementdetail.AdDetailUiEvent
 import com.suatzengin.iloveanimals.ui.advertisementdetail.AdDetailViewModel
 import com.suatzengin.iloveanimals.ui.advertisementdetail.AdvertisementDetailFragment
 import com.suatzengin.iloveanimals.ui.advertisementdetail.AdvertisementDetailFragment.Companion.COMMENTS_BUNDLE_KEY
-import com.suatzengin.iloveanimals.ui.advertisementdetail.adapter.AdDetailCommentAdapter
+import com.suatzengin.iloveanimals.ui.advertisementdetail.adapter.comment.AdDetailCommentAdapter
 import com.suatzengin.iloveanimals.util.extension.EMPTY_STRING
 import com.suatzengin.iloveanimals.util.extension.getParcelableList
 import com.suatzengin.iloveanimals.util.extension.showToast

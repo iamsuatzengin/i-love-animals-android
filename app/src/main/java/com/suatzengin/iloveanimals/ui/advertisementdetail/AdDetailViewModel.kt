@@ -1,11 +1,9 @@
 package com.suatzengin.iloveanimals.ui.advertisementdetail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.data.model.advertisement.comment.PostCommentRequest
-import com.suatzengin.iloveanimals.domain.model.Resource
 import com.suatzengin.iloveanimals.domain.model.onError
 import com.suatzengin.iloveanimals.domain.model.onSuccess
 import com.suatzengin.iloveanimals.domain.repository.AdCommentRepository
@@ -52,24 +50,18 @@ class AdDetailViewModel @Inject constructor(
                 commentRepository.getAdvertisementComments(advertisementId = advertisementId)
             }
 
-            when (val resource = advertisementDetailDeferred.await()) {
-                is Resource.Error -> {
-                    sendEvent(AdDetailUiEvent.ShowMessage(resource.message))
-                }
+            val resource = advertisementDetailDeferred.await()
 
-                is Resource.Success -> {
-                    _uiState.update { state ->
-                        state.copy(
-                            isLoading = false,
-                            advertisement = resource.data,
-                            comments = commentsDeferred.await()
-                        )
-                    }
+            resource.onSuccess { advertisement ->
+                _uiState.update { state ->
+                    state.copy(
+                        isLoading = false,
+                        advertisement = advertisement,
+                        comments = commentsDeferred.await()
+                    )
                 }
-
-                Resource.Loading -> {
-                    // no-op
-                }
+            }.onError { message ->
+                _uiEvent.emit(AdDetailUiEvent.ShowMessage(message))
             }
         }
     }
@@ -89,7 +81,7 @@ class AdDetailViewModel @Inject constructor(
             if (advertisementId == null) return@launch
 
             if (comment.isEmpty()) {
-                sendEvent(AdDetailUiEvent.ShowMessage("Boş yorum gönderemezsiniz."))
+                _uiEvent.emit(AdDetailUiEvent.ShowMessage("Boş yorum gönderemezsiniz."))
                 return@launch
             }
 
@@ -97,15 +89,11 @@ class AdDetailViewModel @Inject constructor(
                 advertisementId,
                 PostCommentRequest(comment)
             ).onSuccess {
-                Log.i("PostCommentEvent", "Response: $it")
-
                 getUpdatedComments()
 
-                sendEvent(AdDetailUiEvent.Success)
+                _uiEvent.emit(AdDetailUiEvent.Success)
             }.onError { errorMessage ->
-                Log.i("PostCommentEvent - Error", "Error: $errorMessage")
-
-                sendEvent(AdDetailUiEvent.ShowMessage(message = errorMessage))
+                _uiEvent.emit(AdDetailUiEvent.ShowMessage(message = errorMessage))
             }
         }
     }
@@ -117,14 +105,8 @@ class AdDetailViewModel @Inject constructor(
             ).onSuccess {
                 getUpdatedComments()
             }.onError { errorMessage ->
-                sendEvent(AdDetailUiEvent.ShowMessage(message = errorMessage))
+                _uiEvent.emit(AdDetailUiEvent.ShowMessage(message = errorMessage))
             }
-        }
-    }
-
-    private fun sendEvent(uiEvent: AdDetailUiEvent) {
-        viewModelScope.launch {
-            _uiEvent.emit(uiEvent)
         }
     }
 
