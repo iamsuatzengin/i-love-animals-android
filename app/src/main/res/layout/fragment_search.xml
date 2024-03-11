@@ -37,14 +37,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_no_result" />
+            android:src="@drawable/ic_no_result"
+            android:contentDescription="@string/content_desc_no_result_image"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="-48dp"
-            android:text="Herhangi bir sonuç bulunamadı!"
+            android:text="@string/text_search_not_found"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_18sp" />
 
@@ -52,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Başka ilanlar aramak istiyorsan tekrar dene!"
+            android:text="@string/text_try_again_to_look_for_new_ads"
             android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

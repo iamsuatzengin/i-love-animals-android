@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.CameraManager
+import com.suatzengin.iloveanimals.core.cameraManager
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.databinding.FragmentCameraBinding
 import com.suatzengin.iloveanimals.ui.camera.adapter.CameraAdapter
@@ -29,10 +30,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     private val adapter by lazy { CameraAdapter(::onImageDeleteClick) }
 
     private val cameraManager: CameraManager by lazy {
-        CameraManager(
-            requireContext(),
-            viewLifecycleOwner
-        )
+        cameraManager()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

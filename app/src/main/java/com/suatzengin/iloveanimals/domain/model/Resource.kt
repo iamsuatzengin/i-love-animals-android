@@ -6,7 +6,7 @@ sealed interface Resource<out T> {
     data class Error(val message: String) : Resource<Nothing>
 }
 
-fun <T> Resource<T>.onSuccess(action: (T?) -> Unit): Resource<T> {
+inline fun <T> Resource<T>.onSuccess(action: (T?) -> Unit): Resource<T> {
     if (this is Resource.Success) {
         action(data)
     }
@@ -14,7 +14,7 @@ fun <T> Resource<T>.onSuccess(action: (T?) -> Unit): Resource<T> {
     return this
 }
 
-fun <T> Resource<T>.onError(action: (String) -> Unit): Resource<T> {
+inline fun <T> Resource<T>.onError(action: (String) -> Unit): Resource<T> {
     if (this is Resource.Error) {
         action(message)
     }
@@ -22,7 +22,7 @@ fun <T> Resource<T>.onError(action: (String) -> Unit): Resource<T> {
     return this
 }
 
-fun <T> Resource<T>.onLoading(action: () -> Unit): Resource<T> {
+inline fun <T> Resource<T>.onLoading(action: () -> Unit): Resource<T> {
     if(this is Resource.Loading) {
         action()
     }

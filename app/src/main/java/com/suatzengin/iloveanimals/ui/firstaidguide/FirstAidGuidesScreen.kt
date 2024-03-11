@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.ui.firstaidguide.composables.FirstAidGuideItem
@@ -33,7 +34,7 @@ fun FirstAidGuidesScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "İlk Yardım Rehberi")
+                    Text(text = stringResource(R.string.text_first_aid_guide_title))
                 },
                 backgroundColor = Color.White,
                 navigationIcon = {

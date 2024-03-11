@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,7 +86,11 @@ fun VeterinaryClinicItem(
             Text(text = address, color = colorResource(id = R.color.color_edit_text_stroke))
         }
 
-        val text = if (isAmbulanceAvailable) "Ambulans mevcut" else "Ambulans mevcut değil"
+        val text = if (isAmbulanceAvailable) {
+            stringResource(R.string.text_ambulance_available)
+        } else {
+            stringResource(R.string.text_no_ambulance_available)
+        }
 
         Row {
             Icon(
@@ -143,7 +148,7 @@ fun ClinicItemCardBottom(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Text(text = "Ara")
+            Text(text = stringResource(R.string.btn_text_call))
         }
     }
 }

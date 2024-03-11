@@ -12,40 +12,37 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.ui.veterinaryclinic.composables.ClinicsEmptyState
 import com.suatzengin.iloveanimals.ui.veterinaryclinic.composables.VeterinaryClinicItem
 
 @Composable
 fun VeterinaryClinicScreen(
-    viewModel: VeterinaryClinicViewModel,
+    uiState: VeterinaryClinicUiState,
     onNavigateBackClick: () -> Unit,
     onDirectionButtonClick: (lat: String, long: String) -> Unit,
     onCallButtonClick: (String) -> Unit
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 48.dp)
     ) {
-        if (state.isLoading) {
+        if (uiState.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center),
                 color = colorResource(id = R.color.color_primary)
             )
         }
 
-        if (!state.isLoading && state.clinics.isEmpty()) {
+        if (!uiState.isLoading && uiState.clinics.isEmpty()) {
             ClinicsEmptyState(modifier = Modifier.align(Alignment.Center))
         }
 
@@ -72,7 +69,7 @@ fun VeterinaryClinicScreen(
                 )
             }
 
-            items(state.clinics) { clinic ->
+            items(uiState.clinics) { clinic ->
                 VeterinaryClinicItem(
                     clinic = clinic.clinicName,
                     address = clinic.address.address,

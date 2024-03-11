@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.suatzengin.iloveanimals.databinding.ItemImageListBinding
 
 class ImageAdapter : ListAdapter<Uri, ImageViewHolder>(ImageDiffUtil()) {
@@ -26,12 +27,12 @@ class ImageViewHolder(
     private val binding: ItemImageListBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Uri) {
-        binding.ivAdImage.setImageURI(item)
+        binding.ivAdImage.load(item)
     }
 
 }
 
-class ImageDiffUtil: DiffUtil.ItemCallback<Uri>() {
+class ImageDiffUtil : DiffUtil.ItemCallback<Uri>() {
     override fun areItemsTheSame(oldItem: Uri, newItem: Uri): Boolean = oldItem == newItem
 
     override fun areContentsTheSame(oldItem: Uri, newItem: Uri): Boolean = oldItem == newItem

@@ -1,10 +1,10 @@
 package com.suatzengin.iloveanimals.ui.confirmadvertisement
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.suatzengin.iloveanimals.domain.model.Resource
+import com.suatzengin.iloveanimals.domain.model.onError
+import com.suatzengin.iloveanimals.domain.model.onSuccess
 import com.suatzengin.iloveanimals.domain.usecase.CreateAdvertisementUseCase
 import com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiEvent
 import com.suatzengin.iloveanimals.ui.createadvertisement.CreateAdvertisementUiState
@@ -52,21 +52,13 @@ class ConfirmAdViewModel @Inject constructor(
                 postalCode = uiState.value.postalCode
             )
 
-            when (result) {
-                is Resource.Error -> {
-                    Log.i("CreateAdvertisement", "Error: ${result.message}")
+            result.onSuccess {
+                _uiEvent.emit(CreateAdvertisementUiEvent.CreatedAdvertisement)
 
-                    _loadingState.update { false }
-                    _uiEvent.emit(CreateAdvertisementUiEvent.Error(result.message))
-                }
-
-                is Resource.Success -> {
-                    _uiEvent.emit(CreateAdvertisementUiEvent.CreatedAdvertisement)
-
-                    _loadingState.update { false }
-                }
-
-                else -> Unit
+                _loadingState.update { false }
+            }.onError { message ->
+                _loadingState.update { false }
+                _uiEvent.emit(CreateAdvertisementUiEvent.Error(message))
             }
         }
     }

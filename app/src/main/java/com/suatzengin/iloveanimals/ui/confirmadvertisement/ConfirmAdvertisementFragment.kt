@@ -80,7 +80,7 @@ class ConfirmAdvertisementFragment : Fragment(R.layout.fragment_confirm_advertis
             CreateAdvertisementUiEvent.CreatedAdvertisement -> {
                 showSnackbar(
                     type = SnackbomType.SUCCESS,
-                    text = "Başarılı bir şekilde eklendi!"
+                    text = getString(R.string.text_successfully_added)
                 )
                 findNavController().popBackStack(
                     R.id.advertisementListFragment, false

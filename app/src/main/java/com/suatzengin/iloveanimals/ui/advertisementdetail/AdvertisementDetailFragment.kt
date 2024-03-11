@@ -17,9 +17,8 @@ import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
 import com.suatzengin.iloveanimals.data.model.advertisement.comment.AdCommentApiModel
 import com.suatzengin.iloveanimals.databinding.FragmentAdvertisementDetailBinding
 import com.suatzengin.iloveanimals.domain.model.advertisement.AdvertisementCategory
-import com.suatzengin.iloveanimals.ui.advertisementdetail.adapter.ImagesPagerAdapter
+import com.suatzengin.iloveanimals.ui.advertisementdetail.adapter.pager.ImagesPagerAdapter
 import com.suatzengin.iloveanimals.ui.advertisementdetail.commentbottomsheet.AdDetailCommentBottomSheet
-import com.suatzengin.iloveanimals.util.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -69,6 +68,15 @@ class AdvertisementDetailFragment : Fragment(R.layout.fragment_advertisement_det
             buttonClicks(advertisement.isCompleted)
 
             tvCommentCount.text = uiState.comments.size.toString()
+
+            btnHelp.setOnClickListener {
+                val action = AdvertisementDetailFragmentDirections.toHelpAnimalFragment(
+                    advertisementId = advertisement.id,
+                    adCreatorId = advertisement.creatorId
+                )
+
+                findNavController().navigate(action)
+            }
         }
     }
 
@@ -113,10 +121,6 @@ class AdvertisementDetailFragment : Fragment(R.layout.fragment_advertisement_det
             btnHelp.alpha = ALPHA_VISIBILITY
             btnFindVet.alpha = ALPHA_VISIBILITY
             return@with
-        }
-
-        btnHelp.setOnClickListener {
-            showToast("Yardım et")
         }
 
         btnFindVet.setOnClickListener {

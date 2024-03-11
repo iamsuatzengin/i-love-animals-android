@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,7 +43,7 @@ fun CharityScoreHeader(
 
         Text(
             modifier = Modifier,
-            text = "Sıralaman:\n#${currentUserRank} $currentUserFullName",
+            text = stringResource(R.string.text_your_rank, currentUserRank, currentUserFullName),
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.subtitle1,
             fontSize = 18.sp

@@ -3,7 +3,9 @@ package com.suatzengin.iloveanimals.ui.search
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.suatzengin.iloveanimals.domain.model.Resource
+import com.suatzengin.iloveanimals.domain.model.onError
+import com.suatzengin.iloveanimals.domain.model.onLoading
+import com.suatzengin.iloveanimals.domain.model.onSuccess
 import com.suatzengin.iloveanimals.domain.repository.AdvertisementRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,18 +32,12 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             key?.let { searchKey ->
                 repository.searchAdvertisement(searchKey).collect { result ->
-                    when (result) {
-                        is Resource.Error -> {
-                            _uiState.update { it.copy(message = result.message) }
-                        }
-
-                        Resource.Loading -> {
-                            _uiState.update { it.copy(isLoading = true) }
-                        }
-
-                        is Resource.Success -> {
-                            _uiState.update { it.copy(list = result.data.orEmpty()) }
-                        }
+                    result.onSuccess { advertisements ->
+                        _uiState.update { it.copy(list = advertisements.orEmpty()) }
+                    }.onError { message ->
+                        _uiState.update { it.copy(message = message) }
+                    }.onLoading {
+                        _uiState.update { it.copy(isLoading = true) }
                     }
                 }
             }

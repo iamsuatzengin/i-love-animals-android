@@ -64,6 +64,7 @@ dataStore = { module = "androidx.datastore:datastore-preferences", version.ref =
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-storage = { module = "com.google.firebase:firebase-storage" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 
 # Google Maps SDK
 googleMaps = { module = "com.google.maps.android:maps-ktx", version.ref = "googleMaps" }

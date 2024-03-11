@@ -1,6 +1,5 @@
 package com.suatzengin.iloveanimals.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
@@ -47,7 +46,6 @@ class ProfileViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
-                        Log.i("Profile", "Profile : ${result.data}")
                         _uiState.update { it.copy(profileUiModel = result.data, isLoading = false) }
                     }
                 }
@@ -59,6 +57,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching {
                 authHandler.logout()
+
                 _uiEvent.emit(ProfileUiEvent.Logout)
             }
         }

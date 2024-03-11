@@ -12,21 +12,16 @@ import androidx.navigation.fragment.findNavController
 import com.suatzengin.iloveanimals.R
 import com.suatzengin.iloveanimals.core.ui.snackbar.SnackbomType
 import com.suatzengin.iloveanimals.core.viewbinding.viewBinding
-import com.suatzengin.iloveanimals.data.auth.IlaAuthHandler
 import com.suatzengin.iloveanimals.databinding.FragmentLoginBinding
 import com.suatzengin.iloveanimals.util.extension.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
-
-    @Inject
-    lateinit var authHandler: IlaAuthHandler
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,7 +47,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
@@ -63,7 +57,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         }
 
                         is LoginUiEvent.NavigateToHome -> {
-                            authHandler.saveJWT(event.token)
                             findNavController().navigate(R.id.to_advertisementGraph)
                         }
                     }

@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
-
     private val binding by viewBinding(FragmentSearchBinding::bind)
+
     private val viewModel by viewModels<SearchViewModel>()
 
     private val args by navArgs<SearchFragmentArgs>()

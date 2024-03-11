@@ -1,9 +1,8 @@
-package com.suatzengin.iloveanimals.ui.advertisementdetail.adapter
+package com.suatzengin.iloveanimals.ui.advertisementdetail.adapter.pager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.suatzengin.iloveanimals.databinding.ItemViewPagerImageBinding
 
 class ImagesPagerAdapter(
@@ -24,14 +23,4 @@ class ImagesPagerAdapter(
     }
 
     override fun getItemCount(): Int = imageUrls.size
-}
-
-class ImagesPagerViewHolder(
-    private val binding: ItemViewPagerImageBinding
-): RecyclerView.ViewHolder(binding.root) {
-    fun bind(imageUrl: String) {
-        binding.ivAdImage.load(imageUrl) {
-            crossfade(true)
-        }
-    }
 }

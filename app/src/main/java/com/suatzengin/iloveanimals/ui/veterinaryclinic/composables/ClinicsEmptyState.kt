@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -31,7 +32,7 @@ fun ClinicsEmptyState(
         )
 
         Text(
-            text = "Yakınlarında herhangi bir veteriner klinik bulunamadı!",
+            text = stringResource(R.string.text_nearby_vet_clinic_not_found),
             color = Color.Black, fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )

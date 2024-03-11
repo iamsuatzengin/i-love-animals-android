@@ -17,7 +17,10 @@ interface AdvertisementRepository {
 
     fun getAdvertisementsByPostalCode(postalCode: String): Flow<Resource<List<Advertisement>>>
 
-    fun getAdvertisementsByCategory(category: AdvertisementCategory, postalCode: String): Flow<Resource<List<Advertisement>>>
+    fun getAdvertisementsByCategory(
+        category: AdvertisementCategory,
+        postalCode: String
+    ): Flow<Resource<List<Advertisement>>>
 
     fun getUserAdvertisement(userId: String): Flow<List<AdvertisementApiModel>>
 
