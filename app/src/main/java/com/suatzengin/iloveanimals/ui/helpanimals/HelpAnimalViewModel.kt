@@ -9,7 +9,7 @@ import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
 import com.suatzengin.iloveanimals.BuildConfig
 import com.suatzengin.iloveanimals.data.model.advertisement.CompleteAdvertisementRequest
-import com.suatzengin.iloveanimals.domain.model.Resource
+import com.suatzengin.iloveanimals.domain.model.onSuccess
 import com.suatzengin.iloveanimals.domain.repository.CompleteAdRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,6 +19,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+const val GEMINI_MODEL_NAME = "gemini-pro-vision"
 
 @HiltViewModel
 class HelpAnimalViewModel @Inject constructor(
@@ -32,7 +34,7 @@ class HelpAnimalViewModel @Inject constructor(
     val uiEvent = _uiEvent.asSharedFlow()
 
     private val generativeModel = GenerativeModel(
-        modelName = "gemini-pro-vision",
+        modelName = GEMINI_MODEL_NAME,
         apiKey = BuildConfig.GEMINI_API_KEY
     )
 
@@ -79,18 +81,10 @@ class HelpAnimalViewModel @Inject constructor(
                 creatorId = advertisementCreatorId
             )
 
-            when (
-                val response = completeAdRepository.completeAdvertisement(requestBody = requestBody)
-            ) {
-                is Resource.Error -> {
-                    Log.e("Complete", "error: ${response.message}")
-                }
+            val response = completeAdRepository.completeAdvertisement(requestBody = requestBody)
 
-                Resource.Loading -> Unit
-
-                is Resource.Success -> {
-                    _uiEvent.emit(HelpAnimalUiEvent.CompletedAndNavigateAdList(response.data?.message.orEmpty()))
-                }
+            response.onSuccess { messageResponse ->
+                _uiEvent.emit(HelpAnimalUiEvent.CompletedAndNavigateAdList(messageResponse?.message.orEmpty()))
             }
         }
     }

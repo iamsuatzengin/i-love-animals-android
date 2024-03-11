@@ -173,7 +173,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
         }
 
         if (!permissionGranted) {
-            showSnackbar(type = SnackbomType.ERROR, text = "İzin reddedildi!")
+            showSnackbar(type = SnackbomType.ERROR, text = getString(R.string.text_permission_denied))
         } else {
             navigateToCameraFragment()
         }
@@ -191,7 +191,7 @@ class CreateAdvertisementFragment : Fragment(R.layout.fragment_create_advertisem
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
         } else {
-            showSnackbar(type = SnackbomType.ERROR, text = "İzin reddedildi!")
+            showSnackbar(type = SnackbomType.ERROR, text = getString(R.string.text_permission_denied))
         }
     }
 

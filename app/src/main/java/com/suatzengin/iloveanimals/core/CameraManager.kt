@@ -13,6 +13,7 @@ import androidx.camera.core.Preview
 import androidx.camera.core.Preview.SurfaceProvider
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -100,3 +101,8 @@ class CameraManager(
         }
     }
 }
+
+fun Fragment.cameraManager() = CameraManager(
+    context = requireContext(),
+    lifecycleOwner = viewLifecycleOwner
+)

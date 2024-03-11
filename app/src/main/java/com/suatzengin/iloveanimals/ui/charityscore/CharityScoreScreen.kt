@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.suatzengin.iloveanimals.R
@@ -28,7 +29,7 @@ fun CharityScoreScreen(viewModel: CharityScoreViewModel) {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Yardımseverlik Tablosu")
+                    Text(text = stringResource(R.string.text_charity_score_table))
                 },
                 backgroundColor = Color.White,
                 elevation = 0.dp

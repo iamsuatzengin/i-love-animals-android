@@ -199,7 +199,10 @@ class HelpAnimalFragment : Fragment(R.layout.fragment_help_animal) {
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
         } else {
-            showSnackbar(type = SnackbomType.ERROR, text = "İzin reddedildi!")
+            showSnackbar(
+                type = SnackbomType.ERROR,
+                text = getString(R.string.text_permission_denied)
+            )
         }
     }
 
@@ -214,7 +217,10 @@ class HelpAnimalFragment : Fragment(R.layout.fragment_help_animal) {
         }
 
         if (!permissionGranted) {
-            showSnackbar(type = SnackbomType.ERROR, text = "İzin reddedildi!")
+            showSnackbar(
+                type = SnackbomType.ERROR,
+                text = getString(R.string.text_permission_denied)
+            )
         } else {
             navigateToCameraFragment()
         }

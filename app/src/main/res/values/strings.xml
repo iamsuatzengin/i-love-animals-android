@@ -83,4 +83,15 @@
     <string name="content_desc_no_result_image">Sonuç yok</string>
     <string name="text_no_advertisements_found">İlan bulunamadı!</string>
     <string name="text_no_advertisement_found_near">Bulunduğun konuma yakin bir ilan bulunamadı.</string>
+    <string name="text_charity_score_table">Yardımseverlik Tablosu</string>
+    <string name="text_your_rank">Sıralaman:\n#%1$s %2$s</string>
+    <string name="text_successfully_added">Başarılı bir şekilde eklendi!</string>
+    <string name="text_permission_denied">İzin reddedildi!</string>
+    <string name="text_first_aid_guide_title">İlk Yardım Rehberi</string>
+    <string name="text_what_should_i_do">Ne yapabilirim?</string>
+    <string name="text_directions">Yol tarifi</string>
+    <string name="text_nearby_vet_clinic_not_found">Yakınlarında herhangi bir veteriner klinik bulunamadı!</string>
+    <string name="text_ambulance_available">Ambulans mevcut</string>
+    <string name="text_no_ambulance_available">Ambulans mevcut değil</string>
+    <string name="btn_text_call">Ara</string>
 </resources>

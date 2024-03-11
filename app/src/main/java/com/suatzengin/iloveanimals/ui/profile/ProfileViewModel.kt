@@ -57,6 +57,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching {
                 authHandler.logout()
+
                 _uiEvent.emit(ProfileUiEvent.Logout)
             }
         }
