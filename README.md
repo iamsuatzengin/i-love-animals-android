@@ -1,6 +1,11 @@
 # I Love Animals
 The I Love Animals Android Mobile Application has made it easier and faster to reach and help more stray animals. Users who register in the system can easily find stray animals in need of help near their location and provide health, food support, and adoption services. Additionally, screens have been developed to inform users about First Aid support, which is as important for animals as it is for us. And the application also includes many other features.
 
+## Table of contents
+1. [Screenshots](#screenshots)
+2. [Tech Stack](#tech-stacks)
+3. [Architecture](#architecture)
+
 ## Screenshots
 <h4>Login/Register Screens</h4>
 <p>
@@ -51,7 +56,7 @@ The I Love Animals Android Mobile Application has made it easier and faster to r
   <img src="screenshots/profile.jpg" width = "240" height = "456" />
 </p>
 
-## 🛠 Tech Stacks
+## Tech Stacks
 * [Kotlin](https://kotlinlang.org/)
 * View based and used [Jetpack Compose](https://developer.android.com/jetpack/compose) on some new screens for UI.
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) UI related data holder and lifecycle aware.
@@ -71,3 +76,9 @@ The I Love Animals Android Mobile Application has made it easier and faster to r
 * [Firebase](https://firebase.google.com/docs/cloud-messaging?hl=tr) Push Notification and Storage for user loaded images.
 * [Gemini API](https://ai.google.dev/) AI Model to analyze images and confirm helping animals.
 * [Chucker](https://github.com/ChuckerTeam/chucker) an HTTP inspector for Android.
+
+## Architecture
+* Clean Architecture
+* MVVM
+* Repository Pattern
+<img src="screenshots/arch.png" width = "50%" height = "50%" />
