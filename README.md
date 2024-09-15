@@ -1,6 +1,8 @@
 # I Love Animals
 The I Love Animals Android Mobile Application has made it easier and faster to reach and help more stray animals. Users who register in the system can easily find stray animals in need of help near their location and provide health, food support, and adoption services. Additionally, screens have been developed to inform users about First Aid support, which is as important for animals as it is for us. And the application also includes many other features.
 
+> _You can also check <a href="https://github.com/iamsuatzengin/i-love-animals-api">Server side with Ktor Server</a>._
+
 ## Table of contents
 1. [Screenshots](#screenshots)
 2. [Tech Stack](#tech-stacks)
